@@ -63,6 +63,7 @@ Los niveles y personajes estarán conformados por cubos con detalles metálicos 
 El juego tendrá música electrónica 8 bit siendo una para la pantalla de inicio, un tema diferencial para cada batalla contra los jefes y para el último jefe se combinarán las canciones de todos los jefes, cambiando a la de un jefe distintivo cuando el mismo se vaya a transformar. En los niveles se escucharán sonidos correspondientes a las acciones que se desempeñen en el fondo de los mismos. 
 
 
+
 ## 2. Gameplay
 
 ### 2.1. Objetivos

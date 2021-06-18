@@ -1,15 +1,14 @@
 # Charge Cube
 
 
-# Documento de Concepto
+### Documento de Concepto
 
 
-## Versión 1.0.0
-## 17/06/2021
-## Damián Edgardo Cañete
+### Versión 1.0.0
+### 17/06/2021
+### Damián Edgardo Cañete
 
 ---
-
 ## 1. Visión General
 
 ### 1.1. Un Renglón

@@ -35,7 +35,7 @@ Cada nivel presenta un jefe final con una habilidad única.
 
 **1.3.2. Lucha con Él Jefe**
 
-Al finalizar el último nivel se peleará con el último jefe sin necesidad de repetir las peleas con todos los otros.
+Al finalizar el último nivel se peleará con el último jefe que, además de su habilidad, utilizará la de los otros jefes a su favor.
 
 
 ### 1.4. Background

@@ -6,6 +6,7 @@ const GRAVITY = 16
 const JUMP_HEIGHT = 384
 onready var movement = Vector2.ZERO
 
+export(float, 0.01, 10) var JUMP_DIVIDER = 3
 var can_dash : bool
 var dash : bool
 var jumping : bool
@@ -33,7 +34,7 @@ func get_axis() -> Vector2:
 
 
 func dash_ctrl():
-	if can_dash and Input.is_action_just_pressed("dash"):
+	if can_dash and (get_axis().x or get_axis().y) and Input.is_action_just_pressed("dash"):
 		dash_movement = get_axis()
 		dash_movement.y *= -1
 		dash = true
@@ -51,7 +52,12 @@ func jump_ctrl():
 			jumping = false
 			coyoteTime = false
 	else:
-		if not jumping:
+		$Sparks.emitting = false
+		
+		if jumping:
+			if movement.y < 0 and Input.is_action_just_released("jump"):
+				movement.y /= JUMP_DIVIDER
+		else:
 			if not coyoteTime:
 				$Timers/CoyoteTime.start()
 				coyoteTime = true
@@ -59,8 +65,6 @@ func jump_ctrl():
 			if not $Timers/CoyoteTime.is_stopped() and Input.is_action_just_pressed("jump"):
 				movement.y -= JUMP_HEIGHT
 				jumping = true
-		
-		$Sparks.emitting = false
 
 
 func movement_ctrl():
@@ -71,8 +75,9 @@ func movement_ctrl():
 			movement.x = get_axis().x * SPEED
 			movement.y += GRAVITY
 			
-			if get_axis().x and not is_on_wall():
+			if get_axis().x and is_on_floor() and not is_on_wall():
 				$Sparks.emitting = true
+				
 				if get_axis().x > 0:
 					$Sparks.position.x = 6
 				else:

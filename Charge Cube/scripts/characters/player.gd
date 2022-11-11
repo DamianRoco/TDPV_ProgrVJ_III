@@ -15,7 +15,7 @@ var coyoteTime : bool
 var dash_movement : Vector2
 
 onready var can_dash : bool = true
-onready var movement = Vector2.ZERO
+onready var movement : Vector2 = Vector2.ZERO
 
 
 func _ready():
@@ -109,7 +109,7 @@ func rebound_ctrl():
 		if $RayCasts.get_child(i).enabled and $RayCasts.get_child(i).is_colliding():
 			var body = $RayCasts.get_child(i).get_collider()
 			
-			if body and body is TileMap and body.is_in_group("Wall"):
+			if body and body is TileMap and body.is_in_group("wall"):
 				$Timers/Dash.stop()
 				$Timers/Dash.emit_signal("timeout")
 				$Timers/Rebound.start()
@@ -162,3 +162,27 @@ func _on_Dash_timeout():
 
 func _on_CanDash_timeout():
 	can_dash = true
+
+
+func _on_EntityDetector_body_entered(body):
+	match dash:
+		true:
+			if body and body is KinematicBody2D and body.is_in_group("enemy"):
+				body.damage_ctrl(1)
+				can_dash = true
+				
+				if $RayCasts/Horizontal.enabled:
+					if $RayCasts/Horizontal.cast_to.x < 0:
+						movement.x += REBOUND_FORCE
+					else:
+						movement.x -= REBOUND_FORCE
+				
+				if $RayCasts/Vertical.enabled:
+					if $RayCasts/Vertical.cast_to.y < 0:
+						movement.y += REBOUND_FORCE
+					else:
+						movement.y -= REBOUND_FORCE
+				
+				$Timers/Dash.stop()
+				$Timers/Dash.emit_signal("timeout")
+				$Timers/Rebound.start()

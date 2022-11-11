@@ -1,8 +1,8 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://art/textures/Player.png" type="Texture" id=1]
 [ext_resource path="res://art/textures/Visor.png" type="Texture" id=2]
-[ext_resource path="res://scripts/Player.gd" type="Script" id=3]
+[ext_resource path="res://scripts/characters/player.gd" type="Script" id=3]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -205,9 +205,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=42]
-radius = 7.51539
-height = 0.0
+[sub_resource type="CircleShape2D" id=42]
+radius = 7.52312
+
+[sub_resource type="CircleShape2D" id=43]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -273,5 +274,13 @@ collision_mask = 16
 [node name="Vertical" type="RayCast2D" parent="RayCasts"]
 cast_to = Vector2( 0, 10 )
 collision_mask = 16
+
+[node name="EntityDetector" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetector"]
+shape = SubResource( 43 )
 [connection signal="timeout" from="Timers/CanDash" to="." method="_on_CanDash_timeout"]
 [connection signal="timeout" from="Timers/Dash" to="." method="_on_Dash_timeout"]
+[connection signal="body_entered" from="EntityDetector" to="." method="_on_EntityDetector_body_entered"]

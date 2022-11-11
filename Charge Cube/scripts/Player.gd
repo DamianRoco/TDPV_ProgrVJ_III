@@ -1,29 +1,37 @@
 extends KinematicBody2D
 
-const SPEED = 128
+const CAST_LENGTH = 15
 const FLOOR = Vector2.UP
 const GRAVITY = 16
 const JUMP_HEIGHT = 384
-onready var movement = Vector2.ZERO
+const REBOUND_FORCE = 200
+const SPEED = 128
 
-export(float, 0.01, 10) var JUMP_DIVIDER = 3
-var can_dash : bool
+export(float, 0.01, 10) var jump_divider = 3
+
 var dash : bool
 var jumping : bool
 var coyoteTime : bool
 var dash_movement : Vector2
 
+onready var can_dash : bool = true
+onready var movement = Vector2.ZERO
+
 
 func _ready():
-	can_dash = true
 	$Visor.play("Start")
+	
+	###########
+	get_tree().set_debug_collisions_hint(true)
+	###########
 
 
 func _process(_delta):
+	visor_animation()
 	dash_ctrl()
+	rebound_ctrl()
 	jump_ctrl()
 	movement_ctrl()
-	visor_animation()
 
 
 func get_axis() -> Vector2:
@@ -41,6 +49,10 @@ func dash_ctrl():
 		can_dash = false
 		$Dash.emitting = true
 		$Timers/Dash.start()
+		if dash_movement.x != 0:
+			$RayCasts/Horizontal.enabled = true
+		if dash_movement.y != 0:
+			$RayCasts/Vertical.enabled = true
 
 
 func jump_ctrl():
@@ -56,7 +68,7 @@ func jump_ctrl():
 		
 		if jumping:
 			if movement.y < 0 and Input.is_action_just_released("jump"):
-				movement.y /= JUMP_DIVIDER
+				movement.y /= jump_divider
 		else:
 			if not coyoteTime:
 				$Timers/CoyoteTime.start()
@@ -72,8 +84,9 @@ func movement_ctrl():
 		true:
 			movement = move_and_slide(dash_movement * SPEED * 3, FLOOR)
 		false:
-			movement.x = get_axis().x * SPEED
-			movement.y += GRAVITY
+			if $Timers/Rebound.is_stopped():
+				movement.x = get_axis().x * SPEED
+				movement.y += GRAVITY
 			
 			if get_axis().x and is_on_floor() and not is_on_wall():
 				$Sparks.emitting = true
@@ -88,17 +101,52 @@ func movement_ctrl():
 			movement = move_and_slide(movement, FLOOR)
 
 
+func rebound_ctrl():
+	if not dash:
+		return
+	
+	for i in 2:
+		if $RayCasts.get_child(i).enabled and $RayCasts.get_child(i).is_colliding():
+			var body = $RayCasts.get_child(i).get_collider()
+			
+			if body and body is TileMap and body.is_in_group("Wall"):
+				$Timers/Dash.stop()
+				$Timers/Dash.emit_signal("timeout")
+				$Timers/Rebound.start()
+				
+				var tile_pos = body.world_to_map($RayCasts.get_child(i).get_collision_point() - $RayCasts.get_child(i).get_collision_normal())
+#				var tile_id = bodyH.get_cellv(tile_pos)
+				body.set_cellv(tile_pos, -1)
+				
+				if i == 0:
+					if $RayCasts.get_child(i).cast_to.x < 0:
+						movement.x += REBOUND_FORCE
+					else:
+						movement.x -= REBOUND_FORCE
+				elif $RayCasts.get_child(i).cast_to.y < 0:
+					movement.y += REBOUND_FORCE
+				else:
+					movement.y -= REBOUND_FORCE
+
+
 func visor_animation():
+	if dash:
+		return
+	
 	if get_axis().x && get_axis().y:
 		$Visor.scale.x = int(get_axis().x)
 		$Visor.scale.y = int(get_axis().y)
 		$Visor.play("Diagonal")
+		$RayCasts/Horizontal.cast_to.x = CAST_LENGTH * int(get_axis().x)
+		$RayCasts/Vertical.cast_to.y = CAST_LENGTH * int(-get_axis().y)
 	elif get_axis().x:
 		$Visor.scale.x = int(get_axis().x)
 		$Visor.play("Right")
+		$RayCasts/Horizontal.cast_to.x = CAST_LENGTH * int(get_axis().x)
 	elif get_axis().y:
 		$Visor.scale.y = int(get_axis().y)
 		$Visor.play("Up")
+		$RayCasts/Vertical.cast_to.y = CAST_LENGTH * int(-get_axis().y)
 	else:
 		$Visor.play("Idle")
 
@@ -108,6 +156,8 @@ func _on_Dash_timeout():
 	dash = false
 	$Dash.emitting = false
 	$Timers/CanDash.start()
+	$RayCasts/Horizontal.enabled = false
+	$RayCasts/Vertical.enabled = false
 
 
 func _on_CanDash_timeout():

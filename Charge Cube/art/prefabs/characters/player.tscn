@@ -1,8 +1,11 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://art/textures/Player.png" type="Texture" id=1]
 [ext_resource path="res://art/textures/Visor.png" type="Texture" id=2]
 [ext_resource path="res://scripts/characters/player.gd" type="Script" id=3]
+[ext_resource path="res://art/prefabs/raycast.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/characters/dash_raycasts.gd" type="Script" id=5]
+[ext_resource path="res://art/prefabs/characters/visor.gd" type="Script" id=6]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -33,75 +36,75 @@ region = Rect2( 39, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
-region = Rect2( 13, 0, 13, 7 )
+region = Rect2( 26, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
-region = Rect2( 52, 0, 13, 7 )
+region = Rect2( 65, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 65, 0, 13, 7 )
+region = Rect2( 0, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 7, 13, 7 )
+region = Rect2( 13, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
-region = Rect2( 13, 7, 13, 7 )
+region = Rect2( 26, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 2 )
-region = Rect2( 26, 7, 13, 7 )
+region = Rect2( 39, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
-region = Rect2( 39, 7, 13, 7 )
+region = Rect2( 13, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
-region = Rect2( 52, 7, 13, 7 )
+region = Rect2( 52, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
-region = Rect2( 65, 7, 13, 7 )
+region = Rect2( 65, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 14, 13, 7 )
+region = Rect2( 0, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
-region = Rect2( 13, 14, 13, 7 )
+region = Rect2( 13, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
-region = Rect2( 26, 14, 13, 7 )
+region = Rect2( 26, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 13, 7 )
+region = Rect2( 39, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
-region = Rect2( 65, 0, 13, 7 )
+region = Rect2( 52, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 7, 13, 7 )
+region = Rect2( 65, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
-region = Rect2( 13, 7, 13, 7 )
+region = Rect2( 0, 14, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 2 )
-region = Rect2( 26, 7, 13, 7 )
+region = Rect2( 13, 14, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 2 )
-region = Rect2( 39, 7, 13, 7 )
+region = Rect2( 26, 14, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
@@ -129,39 +132,39 @@ region = Rect2( 39, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 2 )
-region = Rect2( 26, 0, 13, 7 )
+region = Rect2( 0, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 2 )
-region = Rect2( 65, 0, 13, 7 )
+region = Rect2( 39, 14, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 7, 13, 7 )
+region = Rect2( 52, 14, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 2 )
-region = Rect2( 13, 7, 13, 7 )
+region = Rect2( 65, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 2 )
-region = Rect2( 26, 7, 13, 7 )
+region = Rect2( 0, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 2 )
-region = Rect2( 39, 7, 13, 7 )
+region = Rect2( 13, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 2 )
-region = Rect2( 39, 0, 13, 7 )
+region = Rect2( 26, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 2 )
-region = Rect2( 39, 14, 13, 7 )
+region = Rect2( 39, 7, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 2 )
-region = Rect2( 52, 14, 13, 7 )
+region = Rect2( 39, 0, 13, 7 )
 
 [sub_resource type="AtlasTexture" id=40]
 atlas = ExtResource( 2 )
@@ -171,32 +174,32 @@ region = Rect2( 65, 14, 13, 7 )
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": false,
+"name": "Right",
+"speed": 32.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": false,
 "name": "Up",
 "speed": 32.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": false,
 "name": "Start",
 "speed": 32.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
 "loop": false,
 "name": "Idle",
 "speed": 32.0
 }, {
-"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
-"loop": false,
-"name": "Right",
-"speed": 32.0
-}, {
-"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
-"loop": false,
-"name": "Diagonal",
-"speed": 32.0
-}, {
-"frames": [ SubResource( 38 ), SubResource( 39 ) ],
+"frames": [ SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "Hurt",
+"speed": 32.0
+}, {
+"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"loop": false,
+"name": "Diagonal",
 "speed": 32.0
 }, {
 "frames": [ SubResource( 40 ) ],
@@ -208,9 +211,18 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=42]
 radius = 7.52312
 
-[sub_resource type="CircleShape2D" id=43]
+[sub_resource type="RectangleShape2D" id=43]
+extents = Vector2( 9, 6 )
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=44]
+extents = Vector2( 6, 9 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"character",
+"player",
+]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource( 3 )
 
 [node name="Dash" type="Particles2D" parent="."]
@@ -229,6 +241,7 @@ position = Vector2( 0, -3 )
 frames = SubResource( 41 )
 animation = "Right"
 offset = Vector2( -0.5, -0.5 )
+script = ExtResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 42 )
@@ -266,21 +279,52 @@ wait_time = 0.15
 one_shot = true
 
 [node name="RayCasts" type="Node2D" parent="."]
+script = ExtResource( 5 )
 
-[node name="Horizontal" type="RayCast2D" parent="RayCasts"]
-cast_to = Vector2( 10, 0 )
-collision_mask = 16
+[node name="Horizontals" type="Position2D" parent="RayCasts"]
+visible = false
 
-[node name="Vertical" type="RayCast2D" parent="RayCasts"]
-cast_to = Vector2( 0, 10 )
-collision_mask = 16
+[node name="RayCast1" parent="RayCasts/Horizontals" instance=ExtResource( 4 )]
+rotation = -0.436332
+enabled = false
+collision_mask = 5
 
-[node name="EntityDetector" type="Area2D" parent="."]
+[node name="RayCast2" parent="RayCasts/Horizontals" instance=ExtResource( 4 )]
+rotation = 0.436332
+enabled = false
+collision_mask = 5
+
+[node name="Verticals" type="Position2D" parent="RayCasts"]
+visible = false
+
+[node name="RayCast1" parent="RayCasts/Verticals" instance=ExtResource( 4 )]
+rotation = 1.13446
+enabled = false
+collision_mask = 5
+
+[node name="RayCast2" parent="RayCasts/Verticals" instance=ExtResource( 4 )]
+rotation = 2.00713
+enabled = false
+collision_mask = 5
+
+[node name="HorizontalDetector" type="Area2D" parent="."]
+gravity = 0.0
+monitoring = false
 collision_layer = 2
-collision_mask = 2
+collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HorizontalDetector"]
 shape = SubResource( 43 )
+
+[node name="VerticalDetector" type="Area2D" parent="."]
+gravity = 0.0
+monitoring = false
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VerticalDetector"]
+shape = SubResource( 44 )
 [connection signal="timeout" from="Timers/CanDash" to="." method="_on_CanDash_timeout"]
 [connection signal="timeout" from="Timers/Dash" to="." method="_on_Dash_timeout"]
-[connection signal="body_entered" from="EntityDetector" to="." method="_on_EntityDetector_body_entered"]
+[connection signal="body_entered" from="HorizontalDetector" to="RayCasts" method="_on_HorizontalDetector_body_entered"]
+[connection signal="body_entered" from="VerticalDetector" to="RayCasts" method="_on_VerticalDetector_body_entered"]

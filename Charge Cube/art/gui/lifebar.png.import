@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/block3.png-a928d749357808ac07ea197729a4205c.stex"
+path="res://.import/lifebar.png-78a65870f8fc43b778ae16b5cf3a6acc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/textures/block3.png"
-dest_files=[ "res://.import/block3.png-a928d749357808ac07ea197729a4205c.stex" ]
+source_file="res://art/gui/lifebar.png"
+dest_files=[ "res://.import/lifebar.png-78a65870f8fc43b778ae16b5cf3a6acc.stex" ]
 
 [params]
 

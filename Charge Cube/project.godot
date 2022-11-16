@@ -19,6 +19,10 @@ config/name="Charge Cube"
 run/main_scene="res://scenes/level.tscn"
 config/icon="res://art/textures/icon.png"
 
+[autoload]
+
+Global="*res://scripts/global.gd"
+
 [display]
 
 window/size/width=384

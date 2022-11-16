@@ -8,6 +8,7 @@ const REBOUND_FORCE = 200
 const SPEED = 128
 
 export var damage = 1
+export var health : int = 100
 export(float, 0.01, 10) var jump_divider = 3
 
 var dash : bool
@@ -16,13 +17,14 @@ var coyoteTime : bool
 var dash_movement : Vector2
 
 onready var can_dash : bool = true
+onready var immunity : bool = false
 onready var movement : Vector2 = Vector2.ZERO
 
 
 #func _ready():
 #	###########
 #	get_tree().set_debug_collisions_hint(true)
-#	###########
+	###########
 
 
 func _process(_delta):
@@ -55,6 +57,16 @@ func dash_ctrl():
 		$RayCasts.set_rays_visible(true)
 		$Timers/Dash.start()
 		$Timers/Rebound.stop()
+
+
+func damage_ctrl(damage_received : int):
+	if not immunity and not dash:
+		if health > 0:
+			health -= damage_received
+			if health <= 0:
+				health = 0
+			immunity = true
+			$AnimationPlayer.play("hit")
 
 
 func jump_ctrl():
@@ -127,3 +139,9 @@ func _on_Dash_timeout():
 
 func _on_CanDash_timeout():
 	can_dash = true
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"hit":
+			immunity = false

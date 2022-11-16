@@ -58,7 +58,7 @@ func detect_body():
 						tiles.append(body)
 					else:
 						enemy_collision = true
-						body.damage_ctrl(get_parent().damage)
+						body.damage_ctrl(get_parent().damage, orientation)
 					
 					if i == 0:
 						collided_direction.x = -orientation.x

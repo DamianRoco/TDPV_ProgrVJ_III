@@ -17,20 +17,19 @@ var coyoteTime : bool
 var dash_movement : Vector2
 
 onready var can_dash : bool = true
+onready var caught : bool = false
+onready var charging : bool = true
 onready var immunity : bool = false
 onready var movement : Vector2 = Vector2.ZERO
 
 
-#func _ready():
-#	###########
-#	get_tree().set_debug_collisions_hint(true)
-	###########
-
-
 func _process(_delta):
-	dash_ctrl()
-	jump_ctrl()
-	movement_ctrl()
+	match charging:
+		false:
+			dash_ctrl()
+			if not caught:
+				jump_ctrl()
+			movement_ctrl()
 
 
 func get_axis() -> Vector2:
@@ -101,21 +100,22 @@ func movement_ctrl():
 			$RayCasts.set_orientation(get_axis())
 			$Visor.visor_animation(get_axis())
 			
-			if $Timers/Rebound.is_stopped():
-				movement.x = get_axis().x * SPEED
-				movement.y += GRAVITY
-			
-			if get_axis().x and is_on_floor() and not is_on_wall():
-				$Sparks.emitting = true
+			if not caught:
+				if $Timers/Rebound.is_stopped():
+					movement.x = get_axis().x * SPEED
+					movement.y += GRAVITY
 				
-				if get_axis().x > 0:
-					$Sparks.position.x = 6
+				if get_axis().x and is_on_floor() and not is_on_wall():
+					$Sparks.emitting = true
+					
+					if get_axis().x > 0:
+						$Sparks.position.x = 6
+					else:
+						$Sparks.position.x = -6
 				else:
-					$Sparks.position.x = -6
-			else:
-				$Sparks.emitting = false
-			
-			movement = move_and_slide(movement, FLOOR)
+					$Sparks.emitting = false
+				
+				movement = move_and_slide(movement, FLOOR)
 
 
 func dash_rebound(axis):
@@ -145,3 +145,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"hit":
 			immunity = false
+
+
+func _on_Visor_animation_finished():
+	charging = false

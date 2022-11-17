@@ -3,11 +3,10 @@
 [ext_resource path="res://art/gui/gui.gd" type="Script" id=1]
 [ext_resource path="res://art/gui/lifeprogress.png" type="Texture" id=2]
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/lifebar.png-78a65870f8fc43b778ae16b5cf3a6acc.stex"
 
-[sub_resource type="Animation" id=1]
-resource_name = "fade_in"
+[sub_resource type="Animation" id=2]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/ColorRect:color")
@@ -34,8 +33,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "fade_out"
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/ColorRect:color")
@@ -72,7 +70,7 @@ margin_top = 6.0
 margin_right = 180.0
 margin_bottom = 40.0
 value = 100.0
-texture_under = SubResource( 3 )
+texture_under = SubResource( 1 )
 texture_progress = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -89,14 +87,14 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 384.0
 margin_bottom = 216.0
-color = Color( 1, 0, 0, 1 )
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_in = SubResource( 1 )
-anims/fade_out = SubResource( 2 )
+anims/fade_in = SubResource( 2 )
+anims/fade_out = SubResource( 3 )
 [connection signal="value_changed" from="TextureProgress" to="." method="_on_TextureProgress_value_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

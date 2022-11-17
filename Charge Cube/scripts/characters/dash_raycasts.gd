@@ -56,9 +56,11 @@ func detect_body():
 				if body:
 					if body is Dictionary:
 						tiles.append(body)
-					else:
+					elif body.is_in_group("enemy"):
 						enemy_collision = true
 						body.damage_ctrl(get_parent().damage, orientation)
+					elif body.is_in_group("mobile_claw"):
+						body.break_claw()
 					
 					if i == 0:
 						collided_direction.x = -orientation.x

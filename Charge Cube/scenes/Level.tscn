@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://art/prefabs/camera.tscn" type="PackedScene" id=2]
@@ -7,8 +7,12 @@
 [ext_resource path="res://art/prefabs/checkpoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/level.gd" type="Script" id=6]
 [ext_resource path="res://art/gui/gui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://art/prefabs/mobile_claw.tscn" type="PackedScene" id=8]
 
 [node name="Level" type="Node2D"]
+
+[node name="LevelLoader" type="Node2D" parent="."]
+pause_mode = 2
 script = ExtResource( 6 )
 
 [node name="Terrain" type="TileMap" parent="." groups=[
@@ -26,11 +30,29 @@ tile_data = PoolIntArray( -327683, 0, 0, -327682, 0, 0, -327681, 0, 0, -393216, 
 [node name="Checkpoint" parent="." instance=ExtResource( 5 )]
 position = Vector2( 231.5, 183 )
 
+[node name="MobileClaw" parent="." instance=ExtResource( 8 )]
+position = Vector2( 151.374, 155.299 )
+speed = 1
+hide_lines = false
+movement_points = [ Vector2( 0, -10 ) ]
+
+[node name="MobileClaw2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 407.062, 135.254 )
+speed = 2
+hide_lines = false
+movement_points = [ Vector2( 0, -10 ), Vector2( 10, -10 ), Vector2( 10, 0 ) ]
+
+[node name="MobileClaw3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 230.664, 119.218 )
+speed = 3
+hide_lines = false
+movement_points = [ Vector2( 10, 0 ), Vector2( 10, -3 ), Vector2( 0, -3 ), Vector2( 0, -6 ), Vector2( 10, -6 ), Vector2( 10, -9 ), Vector2( 0, -9 ) ]
+
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 310.87, 84.4139 )
+position = Vector2( 312.204, 73.0958 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 401.618, 149.604 )
+position = Vector2( 392, 184 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 78.8135, 20.2933 )

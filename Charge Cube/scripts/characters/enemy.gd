@@ -4,7 +4,7 @@ const FLOOR = Vector2.UP
 const GRAVITY = 16
 
 export var damage = 1
-export(int, 1, 10) var health : int = 5
+export var health : int = 5
 export var MAX_SPEED = 64
 export var MIN_SPEED = 32
 
@@ -12,6 +12,7 @@ var speed : int
 
 onready var direction : int = 1
 onready var can_move : bool = true
+onready var caught : bool = false
 onready var rebound : bool = false
 onready var grounded : bool = true
 onready var movement = Vector2.ZERO
@@ -19,13 +20,14 @@ onready var movement = Vector2.ZERO
 
 func _ready():
 	$AnimationPlayer.play("walk")
-	$RaycastTimer.start()
+	$GroundTimer.start()
 
 
 func _process(_delta):
 	attack_ctrl()
 	patrol_ctrl()
-	movement_ctrl()
+	if not caught:
+		movement_ctrl()
 
 
 func attack_ctrl():
@@ -34,6 +36,12 @@ func attack_ctrl():
 			not $RayCast/Attack.get_collider().dash):
 			can_move = false
 			$AnimationPlayer.play("attack")
+
+
+func flip():
+	direction *= -1
+	$Sprite.scale.x *= -1
+	$RayCast.scale.x *= -1
 
 
 func patrol_ctrl():
@@ -48,17 +56,10 @@ func patrol_ctrl():
 
 func movement_ctrl():
 	if can_move:
-		if direction == 1:
-			$Sprite.flip_h = true
-		else:
-			$Sprite.flip_h = false
-		
 		if is_on_wall():
-			direction *= -1
-			$RayCast.scale.x *= -1
-			$Sprite/Sprite2.scale.x *= -1
-		elif $RaycastTimer.is_stopped():
-			$RaycastTimer.start()
+			flip()
+		elif $GroundTimer.is_stopped():
+			$GroundTimer.start()
 			
 			$RayCast/Ground.force_raycast_update()
 			if $RayCast/Ground.is_colliding():
@@ -67,9 +68,7 @@ func movement_ctrl():
 				if grounded:
 					grounded = false
 				else:
-					direction *= -1
-					$RayCast.scale.x *= -1
-					$Sprite/Sprite2.scale.x *= -1
+					flip()
 		
 		movement.x = speed * direction
 		movement.y += GRAVITY
@@ -93,9 +92,7 @@ func rebound_ctrl(axis : Vector2):
 	movement.x += MAX_SPEED * axis.x
 	movement.y += MAX_SPEED * -axis.y
 	if axis.x == direction:
-		direction *= -1
-		$RayCast.scale.x *= -1
-		$Sprite/Sprite2.scale.x *= -1
+		flip()
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

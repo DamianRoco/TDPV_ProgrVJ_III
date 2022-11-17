@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/characters/enemy.gd" type="Script" id=1]
 [ext_resource path="res://art/textures/Player.png" type="Texture" id=2]
@@ -82,8 +82,10 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=5]
 radius = 7.5
 
-[node name="Enemy" type="KinematicBody2D" groups=[
-"character",
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 7.5, 3.75 )
+
+[node name="EnemyModel" type="KinematicBody2D" groups=[
 "enemy",
 ]]
 collision_layer = 4
@@ -105,10 +107,14 @@ anims/dead_hit = SubResource( 2 )
 anims/hit = SubResource( 3 )
 anims/walk = SubResource( 4 )
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="CircleCollision" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
 
-[node name="RaycastTimer" type="Timer" parent="."]
+[node name="BoxCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3.75 )
+shape = SubResource( 6 )
+
+[node name="GroundTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
 
@@ -116,16 +122,16 @@ one_shot = true
 
 [node name="Attack" type="RayCast2D" parent="RayCast"]
 enabled = true
-cast_to = Vector2( 12, 0 )
+cast_to = Vector2( 16, 0 )
 collision_mask = 2
 
 [node name="Ground" type="RayCast2D" parent="RayCast"]
 position = Vector2( 10, 0 )
-cast_to = Vector2( 0, 15 )
+cast_to = Vector2( 0, 16 )
 
 [node name="Patrol" type="RayCast2D" parent="RayCast"]
 enabled = true
 cast_to = Vector2( 128, 0 )
-collision_mask = 2
+collision_mask = 7
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

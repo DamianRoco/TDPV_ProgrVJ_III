@@ -30,6 +30,10 @@ func _process(_delta):
 			if not caught:
 				jump_ctrl()
 			movement_ctrl()
+			for i in get_slide_count():
+				var collider = get_slide_collision(i).collider
+				if collider is TileMap and collider.is_in_group("electricity"):
+					damage_ctrl(100, true)
 
 
 func get_axis() -> Vector2:
@@ -58,11 +62,11 @@ func dash_ctrl():
 		$Timers/Rebound.stop()
 
 
-func damage_ctrl(damage_received : int):
-	if not immunity and not dash:
+func damage_ctrl(damage_received : int, electrical_damage : bool = false):
+	if not immunity and not dash or electrical_damage:
 		if health > 0:
 			health -= damage_received
-			if health <= 0:
+			if health < 0:
 				health = 0
 			immunity = true
 			$AnimationPlayer.play("hit")
@@ -116,6 +120,8 @@ func movement_ctrl():
 					$Sparks.emitting = false
 				
 				movement = move_and_slide(movement, FLOOR)
+			else:
+				$Sparks.emitting = false
 
 
 func dash_rebound(axis):

@@ -28,6 +28,10 @@ func _process(_delta):
 	patrol_ctrl()
 	if not caught:
 		movement_ctrl()
+	for i in get_slide_count():
+				var collider = get_slide_collision(i).collider
+				if collider is TileMap and collider.is_in_group("electricity"):
+					damage_ctrl(100)
 
 
 func attack_ctrl():
@@ -64,6 +68,8 @@ func movement_ctrl():
 			$RayCast/Ground.force_raycast_update()
 			if $RayCast/Ground.is_colliding():
 				grounded = true
+				if $RayCast/Ground.get_collider().is_in_group("electricity"):
+					flip()
 			else:
 				if grounded:
 					grounded = false
@@ -78,8 +84,8 @@ func movement_ctrl():
 		movement = move_and_slide(movement, FLOOR)
 
 
-func damage_ctrl(damage_received : int, axis : Vector2):
-	if health > 0:
+func damage_ctrl(damage_received : int, axis : Vector2 = Vector2.ZERO):
+	if health - damage_received > 0:
 		health -= damage_received
 		$AnimationPlayer.play("hit")
 		rebound_ctrl(axis)

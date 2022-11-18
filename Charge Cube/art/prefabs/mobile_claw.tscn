@@ -1,183 +1,117 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/mobile_claw.gd" type="Script" id=1]
 [ext_resource path="res://art/textures/mobile_claw.png" type="Texture" id=2]
 
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 32, 21 )
+[sub_resource type="Animation" id=3]
+resource_name = "broken"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Claw:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hand:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
 
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 21, 32, 21 )
+[sub_resource type="Animation" id=1]
+resource_name = "close"
+step = 0.0909091
+tracks/0/type = "value"
+tracks/0/path = NodePath("Claw:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Claw:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 10 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hand:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.545455 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 4 ]
+}
 
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 42, 32, 21 )
+[sub_resource type="Animation" id=4]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Claw:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Claw:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.999999, 1 ),
+"update": 0,
+"values": [ 10, 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hand:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 4, 4, 0 ]
+}
 
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 63, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 84, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 84, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=47]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 63, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 42, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 21, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 32, 21 )
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 84, 32, 21 )
-
-[sub_resource type="SpriteFrames" id=14]
-animations = [ {
-"frames": [ SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ) ],
-"loop": false,
-"name": "Close",
-"speed": 32.0
-}, {
-"frames": [ SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
-"loop": false,
-"name": "Open",
-"speed": 32.0
-}, {
-"frames": [ SubResource( 51 ) ],
-"loop": false,
-"name": "Broken",
-"speed": 5.0
-} ]
-
-[sub_resource type="StreamTexture" id=15]
-load_path = "res://.import/mobile_claw.png-1d8dba9a63a6ff9162c57faa9be67cb0.stex"
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = SubResource( 15 )
-region = Rect2( 0, 0, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = SubResource( 15 )
-region = Rect2( 0, 7, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = SubResource( 15 )
-region = Rect2( 0, 14, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = SubResource( 15 )
-region = Rect2( 0, 21, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 28, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = SubResource( 15 )
-region = Rect2( 0, 35, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = SubResource( 15 )
-region = Rect2( 0, 42, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = SubResource( 15 )
-region = Rect2( 0, 49, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = SubResource( 15 )
-region = Rect2( 0, 56, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = SubResource( 15 )
-region = Rect2( 0, 63, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = SubResource( 15 )
-region = Rect2( 0, 70, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = SubResource( 15 )
-region = Rect2( 0, 77, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = SubResource( 15 )
-region = Rect2( 0, 77, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = SubResource( 15 )
-region = Rect2( 0, 70, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = SubResource( 15 )
-region = Rect2( 0, 63, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = SubResource( 15 )
-region = Rect2( 0, 56, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = SubResource( 15 )
-region = Rect2( 0, 49, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = SubResource( 15 )
-region = Rect2( 0, 42, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = SubResource( 15 )
-region = Rect2( 0, 35, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 28, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = SubResource( 15 )
-region = Rect2( 0, 21, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = SubResource( 15 )
-region = Rect2( 0, 14, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = SubResource( 15 )
-region = Rect2( 0, 7, 32, 7 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = SubResource( 15 )
-region = Rect2( 0, 0, 32, 7 )
-
-[sub_resource type="SpriteFrames" id=40]
-animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
-"loop": false,
-"name": "Close",
-"speed": 32.0
-}, {
-"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
-"loop": false,
-"name": "Open",
-"speed": 32.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 8 )
 
 [node name="MobileClaw" type="Area2D" groups=[
 "mobile_claw",
@@ -186,18 +120,27 @@ collision_layer = 8
 collision_mask = 6
 script = ExtResource( 1 )
 
-[node name="Body" type="AnimatedSprite" parent="."]
-frames = SubResource( 14 )
-animation = "Close"
+[node name="Hand" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+vframes = 5
+region_enabled = true
+region_rect = Rect2( 28, 0, 28, 80 )
 
-[node name="Claw" type="AnimatedSprite" parent="."]
-visible = false
+[node name="Claw" type="Sprite" parent="."]
+position = Vector2( 0, 0.5 )
 z_index = 1
-frames = SubResource( 40 )
-animation = "Close"
+texture = ExtResource( 2 )
+vframes = 11
+region_enabled = true
+region_rect = Rect2( 0, 0, 28, 77 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/broken = SubResource( 3 )
+anims/close = SubResource( 1 )
+anims/open = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CPUParticles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -224,4 +167,4 @@ __meta__ = {
 "_editor_description_": ""
 }
 [connection signal="body_entered" from="." to="." method="_on_MobileClaw_body_entered"]
-[connection signal="animation_finished" from="Claw" to="." method="_on_Claw_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

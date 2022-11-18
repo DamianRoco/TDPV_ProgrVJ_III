@@ -3,13 +3,14 @@ extends Area2D
 
 export var speed = 10
 export(bool) var hide_lines = true
+export(bool) var kill_trapped_body : bool = true
 export(Array, Vector2) var movement_points
 
 var trapped_body
 
 onready var current_point : int = 0
 onready var broken : bool = false
-onready var closing : bool = false
+onready var closed : bool = false
 
 
 func _ready():
@@ -30,7 +31,7 @@ func _process(_delta):
 				break_claw()
 			else:
 				trapped_body.global_position = global_position
-		elif not broken:
+		elif closed and not broken:
 			free_body()
 
 
@@ -52,18 +53,13 @@ func break_claw():
 			trapped_body.caught = false
 			trapped_body = null
 		broken = true
-		$Body.play("Broken")
-		$Claw.visible = false
+		$AnimationPlayer.play("broken")
 		$CPUParticles.emitting = true
 
 
 func free_body():
-	if trapped_body:
-		trapped_body.queue_free()
-		trapped_body = null
-	closing = false
-	$Body.play("Open")
-	$Claw.play("Open")
+	trapped_body = null
+	$AnimationPlayer.play("open")
 
 
 func movement_ctrl():
@@ -71,21 +67,24 @@ func movement_ctrl():
 	if global_position.is_equal_approx(movement_points[current_point]):
 		if current_point == movement_points.size() - 1:
 				current_point = 0
+				if kill_trapped_body and is_instance_valid(trapped_body):
+					trapped_body.damage_ctrl(100)
+					free_body()
 		else:
 			current_point += 1
 
 
 func _on_MobileClaw_body_entered(body):
 	if not broken and not trapped_body:
-		if body.is_in_group("player") or body.is_in_group("enemy"):
+		if (body.is_in_group("player") or body.is_in_group("enemy")) and not body.caught:
 			body.caught = true
 			trapped_body = body
-			closing = true
-			$Body.play("Close")
-			$Claw.play("Close")
-			$Claw.visible = true
+			$AnimationPlayer.play("close")
 
 
-func _on_Claw_animation_finished():
-	if not closing:
-		$Claw.visible = false
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"close":
+			closed = true
+		"open":
+			closed = false

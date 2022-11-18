@@ -61,6 +61,8 @@ func detect_body():
 						body.damage_ctrl(get_parent().damage, orientation)
 					elif body.is_in_group("mobile_claw"):
 						body.break_claw()
+					elif body.is_in_group("electricity"):
+						get_parent().damage_ctrl(100, true)
 					
 					if i == 0:
 						collided_direction.x = -orientation.x

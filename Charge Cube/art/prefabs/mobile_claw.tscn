@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/mobile_claw.gd" type="Script" id=1]
 [ext_resource path="res://art/textures/mobile_claw.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "broken"
 length = 0.1
 tracks/0/type = "value"
@@ -31,8 +31,7 @@ tracks/1/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "close"
+[sub_resource type="Animation" id=2]
 step = 0.0909091
 tracks/0/type = "value"
 tracks/0/path = NodePath("Claw:visible")
@@ -71,7 +70,7 @@ tracks/2/keys = {
 "values": [ 0, 4 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "open"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Claw:visible")
@@ -110,7 +109,7 @@ tracks/2/keys = {
 "values": [ 4, 4, 0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
 
 [node name="MobileClaw" type="Area2D" groups=[
@@ -135,12 +134,13 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 28, 77 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/broken = SubResource( 3 )
-anims/close = SubResource( 1 )
-anims/open = SubResource( 4 )
+playback_speed = 4.0
+anims/broken = SubResource( 1 )
+anims/close = SubResource( 2 )
+anims/open = SubResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="CPUParticles" type="CPUParticles2D" parent="."]
 emitting = false

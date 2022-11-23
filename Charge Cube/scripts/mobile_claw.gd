@@ -68,7 +68,7 @@ func movement_ctrl():
 		if current_point == movement_points.size() - 1:
 				current_point = 0
 				if kill_trapped_body and is_instance_valid(trapped_body):
-					trapped_body.damage_ctrl(100)
+					trapped_body.damage_ctrl(trapped_body.health)
 					free_body()
 		else:
 			current_point += 1

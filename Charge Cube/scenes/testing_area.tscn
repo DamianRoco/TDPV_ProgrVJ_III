@@ -36,7 +36,6 @@ position = Vector2( 568, 184 )
 position = Vector2( 152, 312 )
 speed = 1
 hide_lines = false
-kill_trapped_body = false
 movement_points = [ Vector2( 0, -20 ) ]
 
 [node name="MobileClaw2" parent="Claws" instance=ExtResource( 7 )]
@@ -61,25 +60,25 @@ kill_trapped_body = false
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Enemy" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 392, 184 )
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 312.204, 73.0958 )
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 78.8135, 20.2933 )
-damage = 0
+[node name="Enemy1" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 80, 16 )
+damage = 20
 health = 100
 
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 248, 152 )
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 312, 80 )
+
 [node name="Enemy4" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 479.96, -0.943874 )
+position = Vector2( 400, 176 )
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 568, 120 )
+position = Vector2( 480, -8 )
 
 [node name="Enemy6" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 248, 152 )
+position = Vector2( 568, 152 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 184, 120 )

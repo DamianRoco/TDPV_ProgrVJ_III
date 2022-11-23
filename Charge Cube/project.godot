@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Charge Cube"
-run/main_scene="res://scenes/testing_area.tscn"
+run/main_scene="res://scenes/enemy_test.tscn"
 config/icon="res://art/textures/icon.png"
 
 [autoload]

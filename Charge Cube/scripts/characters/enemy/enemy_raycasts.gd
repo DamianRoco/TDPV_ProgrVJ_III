@@ -1,29 +1,22 @@
 extends Position2D
 
+var animation_player
+var parent setget set_parent
+
 onready var grounded : bool = true
-onready var animation_player = get_parent().get_node("AnimationPlayer")
-onready var parent = get_parent()
 
 
-func _ready():
-	$GroundTimer.start()
+func set_parent(new_parent):
+	parent = new_parent
+	animation_player = parent.get_node("AnimationPlayer")
 
 
 func attack_ctrl():
-	if $Attack.is_colliding():
+	if animation_player.current_animation != "attack" and $Attack.is_colliding():
 		var collider = $Attack.get_collider()
 		if collider.is_in_group("player") and not collider.dash:
+			animation_player.attacking = true
 			animation_player.play("attack")
-
-
-func change_animation(animation : String):
-	match animation:
-		"idle":
-			if animation_player.current_animation == "walk":
-				animation_player.play("idle")
-		"walk":
-			if animation_player.current_animation == "idle":
-				animation_player.play("walk")
 
 
 func check_tiles(front = false):
@@ -35,9 +28,9 @@ func check_tiles(front = false):
 		if front:
 			check_tiles()
 		else:
-			change_animation("idle")
+			animation_player.change_animation("idle")
 	else:
-		change_animation("walk")
+		animation_player.change_animation("walk")
 		if not front:
 			parent.flip()
 
@@ -59,21 +52,20 @@ func ground_ctrl():
 				if $GroundBehind.is_colliding():
 					check_tiles()
 				else:
-					change_animation("idle")
-		
+					animation_player.change_animation("idle")
 
 
 func patrol_ctrl():
 	if $Patrol.is_colliding():
 		if $Patrol.get_collider().is_in_group("player"):
-			parent.speed = parent.MAX_SPEED
+			parent.speed = parent.max_speed
 		else:
-			parent.speed = parent.MIN_SPEED
+			parent.speed = parent.min_speed
 	else:
-		parent.speed = parent.MIN_SPEED
+		parent.speed = parent.min_speed
 	
 	match parent.speed:
-		parent.MAX_SPEED:
+		parent.max_speed:
 			animation_player.set_speed_scale(2)
-		parent.MIN_SPEED:
+		parent.min_speed:
 			animation_player.set_speed_scale(1)

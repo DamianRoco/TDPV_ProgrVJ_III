@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://art/prefabs/characters/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art/prefabs/characters/enemy/basic/key_enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art/prefabs/characters/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://art/prefabs/camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://art/prefabs/terrain.tscn" type="PackedScene" id=4]
@@ -9,6 +9,8 @@
 [ext_resource path="res://art/prefabs/mobile_claw.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/prefabs/level_loader.tscn" type="PackedScene" id=8]
 [ext_resource path="res://art/prefabs/electricity.tscn" type="PackedScene" id=9]
+
+
 
 [node name="Level" type="Node2D"]
 
@@ -34,36 +36,34 @@ position = Vector2( 568, 184 )
 
 [node name="MobileClaw" parent="Claws" instance=ExtResource( 7 )]
 position = Vector2( 152, 312 )
-speed = 1
 hide_lines = false
 movement_points = [ Vector2( 0, -20 ) ]
 
-[node name="MobileClaw2" parent="Claws" instance=ExtResource( 7 )]
-position = Vector2( 408, 136 )
-speed = 2
+[node name="MobileClaw5" parent="Claws" instance=ExtResource( 7 )]
+position = Vector2( 184, 168 )
 hide_lines = false
 kill_trapped_body = false
-movement_points = [ Vector2( 0, -10 ), Vector2( 10, -10 ), Vector2( 10, 0 ) ]
+movement_points = [ Vector2( 0, -10 ) ]
+
+[node name="MobileClaw2" parent="Claws" instance=ExtResource( 7 )]
+position = Vector2( 408, 136 )
+hide_lines = false
+kill_trapped_body = false
 
 [node name="MobileClaw3" parent="Claws" instance=ExtResource( 7 )]
 position = Vector2( 232, 120 )
-speed = 4
 hide_lines = false
 kill_trapped_body = false
-movement_points = [ Vector2( 10, 0 ), Vector2( 10, -3 ), Vector2( 0, -3 ), Vector2( 0, -6 ), Vector2( 10, -6 ), Vector2( 10, -9 ), Vector2( 0, -9 ), Vector2( 0, -6 ), Vector2( 10, -6 ), Vector2( 10, -3 ), Vector2( 0, -3 ) ]
 
 [node name="MobileClaw4" parent="Claws" instance=ExtResource( 7 )]
 position = Vector2( 248, 152 )
-speed = 3
 hide_lines = false
 kill_trapped_body = false
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 80, 16 )
-damage = 20
-health = 100
+position = Vector2( 80, 24 )
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 248, 152 )
@@ -80,8 +80,20 @@ position = Vector2( 480, -8 )
 [node name="Enemy6" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 568, 152 )
 
+[node name="EnemyModel" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 80, 40 )
+
+[node name="EnemyModel2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 80, 8 )
+
+[node name="EnemyModel3" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 80, -8 )
+
+[node name="EnemyModel4" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 184, 168 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 184, 120 )
+position = Vector2( 216, 184 )
 
 [node name="OuterLimits" parent="." instance=ExtResource( 9 )]
 z_index = 1

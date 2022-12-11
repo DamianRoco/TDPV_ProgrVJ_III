@@ -7,8 +7,8 @@ const JUMP_HEIGHT = 384
 const REBOUND_FORCE = 200
 const SPEED = 128
 
-export var damage = 1
-export var health : int = 100
+export(int) var damage = 1
+export(int) var health = 100
 export(float, 0.01, 10) var jump_divider = 3
 
 var dash : bool

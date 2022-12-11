@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprite sheet.png-adafabd29d7c62edcb3e4f3f2ae6db47.stex"
+path="res://.import/rivet.png-dc8fd0d7118a8d91ebbc5251e930feff.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/textures/sprite sheet.png"
-dest_files=[ "res://.import/sprite sheet.png-adafabd29d7c62edcb3e4f3f2ae6db47.stex" ]
+source_file="res://art/textures/rivet.png"
+dest_files=[ "res://.import/rivet.png-dc8fd0d7118a8d91ebbc5251e930feff.stex" ]
 
 [params]
 

@@ -1,9 +1,9 @@
 tool
 extends Area2D
 
-export var speed = 10
+export(int) var speed = 10
 export(bool) var hide_lines = true
-export(bool) var kill_trapped_body : bool = true
+export(bool) var kill_trapped_body = true
 export(Array, Vector2) var movement_points
 
 var trapped_body

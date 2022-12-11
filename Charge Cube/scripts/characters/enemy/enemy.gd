@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-const FLOOR = Vector2.UP
 const GRAVITY = 16
+const FLOOR = Vector2.UP
 
-export var damage = 1
-export var health : int = 5
-export var MAX_SPEED = 64
-export var MIN_SPEED = 32
+export(int) var damage = 1
+export(int) var health = 5
+export(int) var max_speed = 64
+export(int) var min_speed = 32
 
 var speed : int
 
@@ -16,7 +16,10 @@ onready var movement = Vector2.ZERO
 
 
 func _ready():
-	$AnimationPlayer.play("idle")
+	var this = $"."
+	$AnimationPlayer.parent = this
+	$Hand.damage = damage
+	$RayCast.parent = this
 
 
 func _process(_delta):
@@ -40,6 +43,7 @@ func _process(_delta):
 func flip():
 	direction *= -1
 	$Sprites.scale.x *= -1
+	$Hand.scale.x *= -1
 	$RayCast.scale.x *= -1
 
 
@@ -63,26 +67,7 @@ func damage_ctrl(damage_received : int, axis : Vector2 = Vector2.ZERO):
 
 
 func rebound_ctrl(axis : Vector2):
-	movement.x += MAX_SPEED * axis.x
-	movement.y += MAX_SPEED * -axis.y
+	movement.x += max_speed * axis.x
+	movement.y += max_speed * -axis.y
 	if axis.x == direction:
 		flip()
-
-
-func _on_AnimationPlayer_animation_started(anim_name):
-	match anim_name:
-		"attack":
-			movement.x = 0
-			$RayCast/Attack.get_collider().damage_ctrl(damage)
-		"idle":
-			movement.x = 0
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	match anim_name:
-		"attack":
-			$AnimationPlayer.play("idle")
-		"dead_hit":
-			queue_free()
-		"hit":
-			$AnimationPlayer.play("idle")

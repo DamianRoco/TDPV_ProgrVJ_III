@@ -6,26 +6,36 @@ const GRAVITY = 16
 const JUMP_HEIGHT = 384
 const REBOUND_FORCE = 200
 const SPEED = 128
+const DASH_DURATION = 0.2
 
 export(int) var damage = 1
 export(int) var health = 100
 export(float, 0.01, 10) var jump_divider = 3
 
-var dash : bool
 var jumping : bool
 var coyoteTime : bool
 var dash_movement : Vector2
+var move_direction : Vector2
 
-onready var can_dash : bool = true
 onready var caught : bool = false
 onready var charging : bool = true
 onready var immunity : bool = false
 onready var movement : Vector2 = Vector2.ZERO
+onready var dash = $Dash
+onready var sprites = $Sprites
+
+
+func _physics_process(delta):
+	if not is_on_floor() and not caught:
+		sprites.rotation_degrees += delta * movement.x * (4 if dash.is_dashing() else 2)
+	else:
+		sprites.rotation_degrees = round(round(sprites.rotation_degrees / 90) * 90)
 
 
 func _process(_delta):
 	match charging:
 		false:
+			move_direction = get_move_direction()
 			dash_ctrl()
 			if not caught:
 				jump_ctrl()
@@ -36,34 +46,33 @@ func _process(_delta):
 					damage_ctrl(100, true)
 
 
-func get_axis() -> Vector2:
-	var axis = Vector2.ZERO
-	axis.x = int(Input.is_action_pressed(("ui_right"))) - int(Input.is_action_pressed(("ui_left")))
-	axis.y = int(Input.is_action_pressed(("ui_up"))) - int(Input.is_action_pressed(("ui_down")))
-	return axis
+func get_move_direction() -> Vector2:
+	return Vector2(
+		int(Input.is_action_pressed(("ui_right"))) - int(Input.is_action_pressed(("ui_left"))),
+		int(Input.is_action_pressed(("ui_up"))) - int(Input.is_action_pressed(("ui_down")))
+	)
 
 
 func dash_ctrl():
-	if can_dash and (get_axis().x or get_axis().y) and Input.is_action_just_pressed("dash"):
-		dash_movement = get_axis()
-		dash_movement.y *= -1
+	if not dash.is_dashing() and dash.can_dash and (move_direction.x or move_direction.y) and Input.is_action_just_pressed("dash"):
+		dash.start_dash(sprites, DASH_DURATION)
 		
-		dash = true
-		can_dash = false
+		dash_movement = move_direction
+		dash_movement.y *= -1
 		
 		if dash_movement.x:
 			$HorizontalDetector.set_deferred("monitoring", true)
 		if dash_movement.y:
 			$VerticalDetector.set_deferred("monitoring", true)
 		
-		$Dash.emitting = true
+		$RayCasts.set_orientation(move_direction)
 		$RayCasts.set_rays_visible(true)
-		$Timers/Dash.start()
-		$Timers/Rebound.stop()
+	elif not dash.is_dashing():
+		$RayCasts.set_rays_visible(false)
 
 
 func damage_ctrl(damage_received : int, electrical_damage : bool = false):
-	if not immunity and not dash or electrical_damage:
+	if not immunity and not dash.is_dashing() or electrical_damage:
 		if health > 0:
 			health -= damage_received
 			if health < 0:
@@ -97,22 +106,22 @@ func jump_ctrl():
 
 
 func movement_ctrl():
-	match dash:
+	match dash.is_dashing():
 		true:
-			movement = move_and_slide(dash_movement * SPEED * 3, FLOOR)
+			var speed = dash_movement * SPEED * 3
+			movement = move_and_slide(speed, FLOOR) / 2
 		false:
-			$RayCasts.set_orientation(get_axis())
-			$Visor.visor_animation(get_axis())
+			$Sprites/Visor.visor_animation(move_direction, sprites)
 			
 			if not caught:
 				if $Timers/Rebound.is_stopped():
-					movement.x = get_axis().x * SPEED
+					movement.x = move_direction.x * SPEED
 					movement.y += GRAVITY
 				
-				if get_axis().x and is_on_floor() and not is_on_wall():
+				if move_direction.x and is_on_floor() and not is_on_wall():
 					$Sparks.emitting = true
 					
-					if get_axis().x > 0:
+					if move_direction.x > 0:
 						$Sparks.position.x = 6
 					else:
 						$Sparks.position.x = -6
@@ -125,26 +134,11 @@ func movement_ctrl():
 
 
 func dash_rebound(axis):
-	$Timers/Dash.stop()
-	$Timers/Dash.emit_signal("timeout")
+	dash.end_dash()
 	$Timers/Rebound.start()
 	
 	movement.x += REBOUND_FORCE * axis.x
 	movement.y += REBOUND_FORCE * axis.y
-
-
-func _on_Dash_timeout():
-	movement.y /= 2
-	dash = false
-	$Dash.emitting = false
-	$HorizontalDetector.set_deferred("monitoring", false)
-	$VerticalDetector.set_deferred("monitoring", false)
-	$RayCasts.set_rays_visible(false)
-	$Timers/CanDash.start()
-
-
-func _on_CanDash_timeout():
-	can_dash = true
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

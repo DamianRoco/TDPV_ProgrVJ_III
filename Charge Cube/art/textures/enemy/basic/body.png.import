@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hammer.png-015b604d312d74f00086c7e2c05a375e.stex"
+path="res://.import/body.png-5223226be2307029472f6411b35d9c34.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/textures/hammer.png"
-dest_files=[ "res://.import/hammer.png-015b604d312d74f00086c7e2c05a375e.stex" ]
+source_file="res://art/textures/enemy/basic/body.png"
+dest_files=[ "res://.import/body.png-5223226be2307029472f6411b35d9c34.stex" ]
 
 [params]
 

@@ -63,6 +63,8 @@ func detect_body():
 						body.break_claw()
 					elif body.is_in_group("electricity"):
 						get_parent().damage_ctrl(100, true)
+					else:
+						return
 					
 					if i == 0:
 						collided_direction.x = -orientation.x
@@ -76,8 +78,9 @@ func detect_body():
 		
 		if enemy_collision:
 			# Rehabilita el dash.
-			get_parent().can_dash = true
-			get_parent().get_node("Timers/CanDash").stop()
+			get_parent().get_node("Dash").end_dash()
+#			get_parent().can_dash = true
+#			get_parent().get_node("Timers/CanDash").stop()
 
 
 func _on_HorizontalDetector_body_entered(_body):

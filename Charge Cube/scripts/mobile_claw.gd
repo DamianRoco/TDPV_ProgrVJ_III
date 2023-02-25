@@ -1,7 +1,7 @@
 tool
 extends Area2D
 
-export(int) var speed = 10
+export(float) var speed = 10
 export(bool) var hide_lines = true
 export(bool) var kill_trapped_body = true
 export(Array, Vector2) var movement_points
@@ -27,7 +27,7 @@ func _process(_delta):
 	else:
 		movement_ctrl()
 		if is_instance_valid(trapped_body):
-			if trapped_body.is_in_group("player") and trapped_body.dash:
+			if trapped_body.is_in_group("player") and trapped_body.dash.is_dashing():
 				break_claw()
 			else:
 				trapped_body.global_position = global_position

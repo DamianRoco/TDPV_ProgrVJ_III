@@ -14,7 +14,7 @@ func set_parent(new_parent):
 func attack_ctrl():
 	if animation_player.current_animation != "attack" and $Attack.is_colliding():
 		var collider = $Attack.get_collider()
-		if collider.is_in_group("player") and not collider.dash:
+		if collider.is_in_group("player") and not collider.dash.is_dashing():
 			animation_player.attacking = true
 			animation_player.play("attack")
 

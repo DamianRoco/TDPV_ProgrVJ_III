@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player.png-0fb4d0af361f70fac8842092de7d633e.stex"
+path="res://.import/hammer_rear_hand.png-2ec5d9369e65b99a0dea25e5793b207d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/textures/player.png"
-dest_files=[ "res://.import/player.png-0fb4d0af361f70fac8842092de7d633e.stex" ]
+source_file="res://art/textures/enemy/basic/hammer_rear_hand.png"
+dest_files=[ "res://.import/hammer_rear_hand.png-2ec5d9369e65b99a0dea25e5793b207d.stex" ]
 
 [params]
 

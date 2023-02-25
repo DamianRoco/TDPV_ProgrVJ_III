@@ -30,7 +30,7 @@ func _process(_delta):
 				$RayCast.ground_ctrl()
 	
 	if caught:
-		$RayCast.change_animation("idle")
+		$AnimationPlayer.change_animation("idle")
 	else:
 		movement_ctrl()
 	

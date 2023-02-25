@@ -1,15 +1,23 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/characters/enemy/enemy.gd" type="Script" id=1]
-[ext_resource path="res://art/textures/basic_enemy.png" type="Texture" id=2]
+[ext_resource path="res://art/textures/enemy/basic/body.png" type="Texture" id=2]
 [ext_resource path="res://scripts/characters/enemy/damage_zone.gd" type="Script" id=3]
 [ext_resource path="res://scripts/characters/enemy/enemy_raycasts.gd" type="Script" id=4]
 [ext_resource path="res://scripts/characters/enemy/enemy_animation.gd" type="Script" id=5]
-[ext_resource path="res://art/textures/hammer2.png" type="Texture" id=6]
-[ext_resource path="res://art/textures/hammer.png" type="Texture" id=7]
+[ext_resource path="res://art/textures/enemy/basic/hammer_rear_hand.png" type="Texture" id=6]
+[ext_resource path="res://art/textures/enemy/basic/hammer_front_hand.png" type="Texture" id=7]
+[ext_resource path="res://art/textures/enemy/basic/legs.png" type="Texture" id=8]
+[ext_resource path="res://dash/flash.shader" type="Shader" id=9]
 
-[sub_resource type="Animation" id=9]
-length = 0.5
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 9 )
+shader_param/flash_modifier = 0.0
+shader_param/flash_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="Animation" id=2]
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimationPlayer:playback_speed")
 tracks/0/interp = 1
@@ -32,7 +40,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -4, 1.5 ) ]
+"values": [ Vector2( -4.5, 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprites/Legs:frame")
@@ -92,7 +100,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -4.5, 1 ) ]
+"values": [ Vector2( -4, -2 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Sprites/FrontHand:frame")
@@ -107,31 +115,43 @@ tracks/7/keys = {
 "values": [ 0, 5 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Hand/Collision:position")
+tracks/8/path = NodePath("HeadCollision:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -3, 3 ), Vector2( -3, -1 ), Vector2( 4.5, -8.5 ), Vector2( -7.5, -6 ), Vector2( -13, -1 ) ]
+"values": [ Vector2( 0, -2.5 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Hand/Collision:shape:extents")
+tracks/9/path = NodePath("Hand/Collision:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 2.5, 4 ), Vector2( 4, 2.5 ), Vector2( 4, 4 ), Vector2( 2.5, 4 ) ]
+"values": [ Vector2( -3, 3 ), Vector2( -3, -1 ), Vector2( 4.5, -8.5 ), Vector2( -7.5, -6 ), Vector2( -13, -1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Hand/Collision:shape:extents")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 4 ), Vector2( 2.5, 4 ), Vector2( 4, 2.5 ), Vector2( 4, 4 ), Vector2( 2.5, 4 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimationPlayer:playback_speed")
@@ -155,7 +175,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4, 1.5 ), Vector2( -4, 1.5 ), Vector2( -4, 5.5 ) ]
+"values": [ Vector2( -4.5, 2 ), Vector2( -4.5, 2 ), Vector2( -4.5, 5 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprites/RearHand:frame")
@@ -227,7 +247,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4.5, 1 ), Vector2( -4.5, 1 ), Vector2( -4.5, 5 ) ]
+"values": [ Vector2( -4, -2 ), Vector2( -4, -2 ), Vector2( -4, 1 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("Sprites/FrontHand:frame")
@@ -251,10 +271,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -6.25 ), Vector2( 0, -1.25 ) ]
+"values": [ Vector2( 0, -2.5 ), Vector2( 0, 2.5 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=4]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimationPlayer:playback_speed")
@@ -278,7 +298,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -4, 1.5 ) ]
+"values": [ Vector2( -4.5, 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprites/RearHand:frame")
@@ -293,19 +313,19 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprites/RearHand:modulate")
+tracks/3/path = NodePath("Sprites/Legs:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Color( 1, 0.27451, 0.27451, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ 4 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Sprites/Legs:frame")
+tracks/4/path = NodePath("Sprites/Body:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -313,23 +333,23 @@ tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
+"update": 0,
+"values": [ Vector2( 0, -2.5 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprites/Legs:modulate")
+tracks/5/path = NodePath("Sprites/Body:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Color( 1, 0.27451, 0.27451, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ 1, 2, 1, 2, 0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Sprites/Body:position")
+tracks/6/path = NodePath("Sprites/FrontHand:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -338,70 +358,46 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -2.5 ) ]
+"values": [ Vector2( -4, -2 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Sprites/Body:frame")
+tracks/7/path = NodePath("Sprites/FrontHand:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 1, 2, 0 ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("Sprites/Body:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Color( 1, 0.27451, 0.27451, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("Sprites/FrontHand:position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -4.5, 1 ) ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("Sprites/FrontHand:frame")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("Sprites/FrontHand:modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Color( 1, 0.27451, 0.27451, 1 ), Color( 1, 1, 1, 1 ) ]
+tracks/8/type = "value"
+tracks/8/path = NodePath("HeadCollision:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -2.5 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprites:material:shader_param/flash_modifier")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=5]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimationPlayer:playback_speed")
@@ -425,7 +421,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4, 1.5 ), Vector2( -4, 1.5 ), Vector2( -4, 2.5 ), Vector2( -4, 1.5 ) ]
+"values": [ Vector2( -4.5, 2 ), Vector2( -4.5, 2 ), Vector2( -4.5, 3 ), Vector2( -4.5, 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprites/RearHand:frame")
@@ -485,7 +481,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4.5, 1 ), Vector2( -4.5, 1 ), Vector2( -4.5, 2 ), Vector2( -4.5, 1 ) ]
+"values": [ Vector2( -4, -2 ), Vector2( -4, -2 ), Vector2( -4, -1 ), Vector2( -4, -2 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Sprites/FrontHand:frame")
@@ -509,11 +505,10 @@ tracks/8/keys = {
 "times": PoolRealArray( 0, 0.2, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -6.25 ), Vector2( 0, -5.25 ), Vector2( 0, -6.25 ) ]
+"values": [ Vector2( 0, -2.5 ), Vector2( 0, -1.5 ), Vector2( 0, -2.5 ) ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "walk"
+[sub_resource type="Animation" id=6]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -538,7 +533,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4, 1.5 ), Vector2( -4, 2.5 ), Vector2( -4, 1.5 ), Vector2( -4, 1.5 ), Vector2( -4, 0.5 ), Vector2( -4, 1.5 ) ]
+"values": [ Vector2( -4.5, 2 ), Vector2( -4.5, 3 ), Vector2( -4.5, 2 ), Vector2( -4.5, 2 ), Vector2( -4.5, 1 ), Vector2( -4.5, 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprites/RearHand:frame")
@@ -586,7 +581,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4.5, 1 ), Vector2( -4.5, 0 ), Vector2( -4.5, 1 ), Vector2( -4.5, 1 ), Vector2( -4.5, 2 ), Vector2( -4.5, 1 ) ]
+"values": [ Vector2( -4, -2 ), Vector2( -4, -3 ), Vector2( -4, -2 ), Vector2( -4, -2 ), Vector2( -4, -1 ), Vector2( -4, -2 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Sprites/FrontHand:frame")
@@ -610,16 +605,16 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 0.4, 0.5, 0.6, 1, 1.1, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -6.25 ), Vector2( 0, -6.25 ), Vector2( 0, -5.25 ), Vector2( 0, -6.25 ), Vector2( 0, -6.25 ), Vector2( 0, -5.25 ), Vector2( 0, -6.25 ) ]
+"values": [ Vector2( 0, -2.5 ), Vector2( 0, -2.5 ), Vector2( 0, -1.5 ), Vector2( 0, -2.5 ), Vector2( 0, -2.5 ), Vector2( 0, -1.5 ), Vector2( 0, -2.5 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 7.5, 3.75 )
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 7.5, 7.5 )
 
-[sub_resource type="CircleShape2D" id=15]
+[sub_resource type="CircleShape2D" id=8]
 radius = 7.5
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 2.5, 4 )
 
 [node name="BasicHammerEnemy" type="KinematicBody2D" groups=[
@@ -634,29 +629,30 @@ max_speed = 32
 min_speed = 24
 
 [node name="Sprites" type="Position2D" parent="."]
+material = SubResource( 1 )
 
 [node name="RearHand" type="Sprite" parent="Sprites"]
-position = Vector2( -4, 1.5 )
+use_parent_material = true
+position = Vector2( -4.5, 2 )
 texture = ExtResource( 6 )
-offset = Vector2( -0.5, 0.5 )
 vframes = 3
 region_enabled = true
 region_rect = Rect2( 0, 0.5, 12, 33 )
 
 [node name="Legs" type="Sprite" parent="Sprites"]
+use_parent_material = true
 position = Vector2( 0, 7.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 8 )
 vframes = 9
 frame = 4
 region_enabled = true
-region_rect = Rect2( 52, 0.5, 13, 54 )
+region_rect = Rect2( 0, 0.5, 13, 54 )
 
 [node name="Body" type="Sprite" parent="Sprites"]
+use_parent_material = true
 position = Vector2( 0, -2.5 )
 texture = ExtResource( 2 )
 vframes = 4
-region_enabled = true
-region_rect = Rect2( 1, 1, 15, 60 )
 
 [node name="CPUParticles" type="CPUParticles2D" parent="Sprites/Body"]
 position = Vector2( 0, 2.5 )
@@ -685,32 +681,32 @@ __meta__ = {
 }
 
 [node name="FrontHand" type="Sprite" parent="Sprites"]
-position = Vector2( -4.5, 1 )
+use_parent_material = true
+position = Vector2( -4, -2 )
 texture = ExtResource( 7 )
-offset = Vector2( 0.5, -3 )
 vframes = 6
 region_enabled = true
 region_rect = Rect2( 0, 0.5, 25, 114 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/attack = SubResource( 9 )
-anims/dead_hit = SubResource( 10 )
-anims/hit = SubResource( 11 )
-anims/idle = SubResource( 12 )
-anims/walk = SubResource( 13 )
+anims/attack = SubResource( 2 )
+anims/dead_hit = SubResource( 3 )
+anims/hit = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/walk = SubResource( 6 )
 script = ExtResource( 5 )
 
 [node name="HeadCollision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -6.25 )
-shape = SubResource( 14 )
+position = Vector2( 0, -2.5 )
+shape = SubResource( 7 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 15 )
+shape = SubResource( 8 )
 
 [node name="Hand" type="Area2D" parent="."]
 collision_layer = 2
@@ -718,8 +714,8 @@ collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Hand"]
-position = Vector2( -3, 3 )
-shape = SubResource( 16 )
+position = Vector2( -13, -1 )
+shape = SubResource( 9 )
 
 [node name="RayCast" type="Position2D" parent="."]
 script = ExtResource( 4 )
@@ -734,23 +730,23 @@ cast_to = Vector2( -15, 0 )
 collision_mask = 2
 
 [node name="Back" type="RayCast2D" parent="RayCast"]
-position = Vector2( 16, 0 )
-cast_to = Vector2( 0, -8 )
+position = Vector2( 16, 9 )
+cast_to = Vector2( 0, -17 )
 collision_mask = 5
 
 [node name="Front" type="RayCast2D" parent="RayCast"]
-position = Vector2( -9, 0 )
-cast_to = Vector2( 0, -8 )
+position = Vector2( -9, 9 )
+cast_to = Vector2( 0, -17 )
 collision_mask = 5
 
 [node name="Ground" type="RayCast2D" parent="RayCast"]
-position = Vector2( -9, 0 )
-cast_to = Vector2( 0, 11 )
+position = Vector2( -9, 9 )
+cast_to = Vector2( 0, 2 )
 collision_mask = 5
 
 [node name="GroundBehind" type="RayCast2D" parent="RayCast"]
-position = Vector2( 16, 0 )
-cast_to = Vector2( 0, 11 )
+position = Vector2( 16, 9 )
+cast_to = Vector2( 0, 2 )
 collision_mask = 5
 
 [node name="Patrol" type="RayCast2D" parent="RayCast"]

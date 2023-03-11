@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Actors/EnemySpawner/EnemySpawner.gd" type="Script" id=1]
+
+[node name="EnemySpawner" type="VisibilityNotifier2D"]
+rect = Rect2( -100, -100, 200, 200 )
+script = ExtResource( 1 )
+enemy_path = "res://Actors/Enemy/Basic/Key.tscn"
+[connection signal="screen_entered" from="." to="." method="_on_EnemySpawner_screen_entered"]
+[connection signal="screen_exited" from="." to="." method="_on_EnemySpawner_screen_exited"]

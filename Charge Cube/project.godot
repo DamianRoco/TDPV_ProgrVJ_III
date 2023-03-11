@@ -16,12 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Charge Cube"
-run/main_scene="res://scenes/menu.tscn"
-config/icon="res://art/textures/icon.png"
+run/main_scene="res://Levels/Menu.tscn"
+config/icon="res://Assets/Images/Icon.png"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://AutoLoad/Global.gd"
 
 [display]
 
@@ -94,6 +94,13 @@ dash={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Wall"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="MobileClaw"
+
 [rendering]
 
-environment/default_environment="res://editor/default_env.tres"
+environment/default_environment="res://Assets/Resources/default_env.tres"

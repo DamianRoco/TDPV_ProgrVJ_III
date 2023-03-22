@@ -45,10 +45,16 @@ func _process(_delta):
 			if not caught:
 				jump_ctrl()
 			movement_ctrl()
-			for i in get_slide_count():
-				var collider = get_slide_collision(i).collider
-				if collider is TileMap and collider.is_in_group("Electricity"):
-					damage_ctrl(100, true)
+
+
+func is_alive():
+	return health > 0
+
+
+func turn_off():
+	caught = true
+	health = -1
+	animation_tree.set_animation("Off")
 
 
 func get_move_direction():
@@ -59,8 +65,13 @@ func get_move_direction():
 
 
 func dash_ctrl():
+	if not dash.can_dash or not is_alive():
+		if not is_alive() and dash.dashing:
+			dash.end_dash()
+		return
+	
 	var is_moving = move_direction.x or move_direction.y
-	if Input.is_action_just_pressed("dash") and dash.can_dash and not dash.dashing and is_moving:
+	if Input.is_action_just_pressed("dash") and not dash.dashing and is_moving:
 		dash.start_dash(sprites, DASH_DURATION)
 		
 		dash_movement = move_direction
@@ -78,17 +89,21 @@ func dash_ctrl():
 
 
 func damage_ctrl(damage_received : int, electrical_damage : bool = false):
-	if not animation_tree.get_animation() == "Hit" and not dash.dashing or electrical_damage:
-		if health > 0:
+	if (not animation_tree.get_animation() == "Hit" and not dash.dashing or
+		electrical_damage):
+		if is_alive():
 			health -= damage_received
-			if health < 0:
+			if health <= 0:
 				health = 0
-			animation_tree.set_animation("Hit")
+				animation_tree.set_animation("DeathHit")
+			else:
+				animation_tree.set_animation("Hit")
 
 
 func jump_ctrl():
 	if is_on_floor():
-		if Input.is_action_just_pressed("jump") and rebound_timer.is_stopped():
+		if (Input.is_action_just_pressed("jump") and is_alive() and
+			rebound_timer.is_stopped()):
 			movement.y -= JUMP_HEIGHT
 			jumping = true
 		else:
@@ -105,7 +120,9 @@ func jump_ctrl():
 				coyote_time.start()
 				active_coyote = true
 			
-			if not coyote_time.is_stopped() and Input.is_action_just_pressed("jump") and rebound_timer.is_stopped():
+			if (not coyote_time.is_stopped() and
+				Input.is_action_just_pressed("jump") and
+				rebound_timer.is_stopped() and is_alive()):
 				movement.y -= JUMP_HEIGHT
 				jumping = true
 
@@ -120,12 +137,16 @@ func movement_ctrl():
 			
 			if not caught:
 				if rebound_timer.is_stopped():
-					movement.x = move_direction.x * SPEED
+					if is_alive():
+						movement.x = move_direction.x * SPEED
+					elif is_on_floor():
+						movement.x = 0
 					movement.y += GRAVITY
 					if movement.y > SPEED * 3:
 						movement.y = SPEED * 3
 				
-				if move_direction.x and is_on_floor() and not is_on_wall():
+				if (move_direction.x and is_on_floor() and is_alive() and
+					not is_on_wall()):
 					sparks.emitting = true
 					
 					if move_direction.x > 0:

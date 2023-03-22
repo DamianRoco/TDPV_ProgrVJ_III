@@ -2,7 +2,7 @@ extends AnimationTree
 
 onready var animation_tree = self
 onready var animation_node = animation_tree.get("parameters/playback")
-onready var parent = get_parent()
+onready var death_timer = get_parent().get_node("DeathTimer")
 
 
 func get_animation():
@@ -16,15 +16,18 @@ func set_walk_speed(speed):
 func change_animation(animation : String):
 	match animation:
 		"Idle":
-			if get_animation() == "Walk":
-				animation_node.travel("Idle")
+			match get_animation():
+				"Walk", "Caught":
+					animation_node.travel("Idle")
 		"Walk":
-			if get_animation() == "Idle":
-				animation_node.travel("Walk")
+			match get_animation():
+				"Idle", "Caught":
+					animation_node.travel("Walk")
 		"Caught":
-			if get_animation() == "Idle" or get_animation() == "Walk":
-				animation_node.travel("Caught")
+			match get_animation():
+				"Idle", "Walk":
+					animation_node.travel("Caught")
 		_:
 			animation_node.travel(animation)
-			if animation == "DeadHit":
-				parent.dying()
+			if animation == "DeathHit":
+				death_timer.start()

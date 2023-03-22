@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="InvertedExplosion" type="CPUParticles2D"]
+show_behind_parent = true
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+speed_scale = 3.23
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 128.0
+gravity = Vector2( 0, 0 )
+radial_accel = -100.0
+scale_amount = 2.0
+scale_amount_random = 0.8
+color = Color( 0, 1, 1, 1 )

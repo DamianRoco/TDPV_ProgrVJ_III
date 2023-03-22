@@ -1,7 +1,7 @@
 extends Area2D
 
 onready var animation_player = $AnimationPlayer
-onready var speed = get_parent().speed
+onready var speed = get_parent().get_parent().speed
 
 var current_point : int = 0
 var broken : bool = false
@@ -33,7 +33,6 @@ func break_claw():
 
 
 func free_body():
-	trapped_body.caught = false
 	trapped_body = null
 	animation_player.play("Open")
 	closed = false
@@ -75,4 +74,5 @@ func _on_MobileClaw_area_entered(area):
 		trapped_body.damage_ctrl(trapped_body.health)
 		free_body()
 	elif area.is_in_group("ReleaseArea"):
+		trapped_body.caught = false
 		free_body()

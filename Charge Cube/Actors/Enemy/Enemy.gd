@@ -15,36 +15,36 @@ onready var sprites = $Body
 
 var direction : int = -1
 var speed : int
-var caught : bool = false
+var caught : bool = false setget set_caught
 var injured : bool = false
 var movement = Vector2.ZERO
 
 
 func _process(_delta):
-	match animation_tree.get_animation():
-		"Idle", "Walk":
-			if is_alive():
+	if is_alive():
+		match animation_tree.get_animation():
+			"Idle", "Walk":
 				raycast.attack_ctrl()
-			if not caught and is_on_floor():
-				raycast.ground_ctrl()
+				if not caught and is_on_floor():
+					raycast.ground_ctrl()
 	
-	if caught and is_alive():
-		animation_tree.change_animation("Caught")
-	else:
+#	if caught and is_alive():
+#		animation_tree.change_animation("Caught")
+#	else:
+	if not caught:
 		movement_ctrl()
-	
-	for i in get_slide_count():
-		var collider = get_slide_collision(i).collider
-		if collider is TileMap and collider.is_in_group("Electricity"):
-			damage_ctrl(100)
 
-
-func dying():
-#	yield(get_tree().create_timer(0.8), 'timeout')
-	queue_free()
 
 func is_alive():
 	return health > 0
+
+
+func set_caught(new_value):
+	if new_value:
+		animation_tree.change_animation("Caught")
+	else:
+		animation_tree.change_animation("Idle")
+	caught = new_value
 
 
 func flip():
@@ -81,7 +81,7 @@ func damage_ctrl(damage_received : int, axis : Vector2 = Vector2.ZERO):
 			rebound_ctrl(axis)
 	else:
 		health = 0
-		animation_tree.change_animation("DeadHit")
+		animation_tree.change_animation("DeathHit")
 
 
 # Asegura que es dañado solo una vez por el dash del jugador.
@@ -96,6 +96,10 @@ func rebound_ctrl(axis : Vector2):
 	movement.y += max_speed * -axis.y
 	if axis.x == direction:
 		flip()
+
+
+func _on_DeathTimer_timeout():
+	queue_free()
 
 
 func _on_VisibilityNotifier2D_screen_exited():

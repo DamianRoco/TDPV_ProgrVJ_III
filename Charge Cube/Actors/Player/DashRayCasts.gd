@@ -47,6 +47,9 @@ func destroy_tiles(tiles, collided_direction):
 
 
 func detect_body():
+	if not dash.dashing:
+		return
+	
 	var enemy_collision : bool = false
 	var collided_direction : Vector2 = Vector2.ZERO
 	var tiles = []
@@ -81,15 +84,9 @@ func detect_body():
 			dash.end_dash(2)
 
 
-func _on_HorizontalDetector_body_entered(body):
-	if body.is_in_group("Electricity"):
-		parent.damage_ctrl(100, true)
-	if dash.dashing:
-		detect_body()
+func _on_HorizontalDetector_body_entered(_body):
+	detect_body()
 
 
-func _on_VerticalDetector_body_entered(body):
-	if body.is_in_group("Electricity"):
-		parent.damage_ctrl(100, true)
-	if dash.dashing:
-		detect_body()
+func _on_VerticalDetector_body_entered(_body):
+	detect_body()

@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="Explosion" type="CPUParticles2D"]
+emitting = false
+amount = 100
+lifetime = 3.0
+one_shot = true
+speed_scale = 7.0
+explosiveness = 1.0
+randomness = 0.2
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2( 0, 0 )
+linear_accel = 10.0
+radial_accel = 30.0
+scale_amount = 2.0
+scale_amount_random = 0.8
+color = Color( 0, 1, 1, 0 )

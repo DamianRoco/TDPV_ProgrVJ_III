@@ -12,6 +12,9 @@ script = ExtResource( 1 )
 ]]
 collision_layer = 2147483656
 collision_mask = 8
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="KillCollision" type="CollisionShape2D" parent="KillArea"]
 shape = SubResource( 1 )
@@ -21,6 +24,11 @@ shape = SubResource( 1 )
 ]]
 collision_layer = 2147483656
 collision_mask = 8
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ReleaseCollision" type="CollisionShape2D" parent="ReleaseArea"]
 shape = SubResource( 1 )
+
+[node name="Claws" type="Node2D" parent="."]

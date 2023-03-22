@@ -40,7 +40,7 @@ func ground_ctrl():
 		if $Ground.is_colliding():
 			grounded = true
 			check_tiles(true)
-			if $Ground.get_collider().is_in_group("electricity"):
+			if $Ground.get_collider().is_in_group("Electricity"):
 				parent.flip()
 		else:
 			if grounded:

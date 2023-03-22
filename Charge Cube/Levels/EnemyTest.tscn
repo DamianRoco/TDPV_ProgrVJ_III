@@ -2,10 +2,11 @@
 
 [ext_resource path="res://Actors/GUI/GUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Actors/TileMap/Terrain.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Actors/TileMap/Electricity.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/TileMap/Limit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Actors/Camera/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Actors/LevelLoader/Level.gd" type="Script" id=7]
+
 
 [node name="Level" type="Node2D"]
 

@@ -10,25 +10,25 @@
 [ext_resource path="res://Actors/Enemy/Parts/Basic/ExplosionParticles.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=9]
 
-[sub_resource type="ShaderMaterial" id=52]
+[sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 9 )
 shader_param/flash_modifier = 0.0
 shader_param/flash_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=41]
+[sub_resource type="RectangleShape2D" id=2]
 resource_local_to_scene = true
 extents = Vector2( 7.5, 7.5 )
 
-[sub_resource type="CircleShape2D" id=42]
+[sub_resource type="CircleShape2D" id=3]
 resource_local_to_scene = true
 radius = 7.5
 
-[sub_resource type="RectangleShape2D" id=43]
+[sub_resource type="RectangleShape2D" id=4]
 resource_local_to_scene = true
 extents = Vector2( 2, 3 )
 
-[sub_resource type="Animation" id=44]
+[sub_resource type="Animation" id=5]
 resource_name = "Attack"
 length = 0.7
 tracks/0/type = "value"
@@ -224,7 +224,7 @@ tracks/15/keys = {
 "values": [ Vector2( -2.5, 2 ), Vector2( -4.5, 1 ), Vector2( -6, 1 ), Vector2( -8.5, 0 ), Vector2( -10.5, -1 ), Vector2( -11.5, -2 ), Vector2( -13.5, -2 ) ]
 }
 
-[sub_resource type="Animation" id=45]
+[sub_resource type="Animation" id=6]
 resource_name = "Caught"
 loop = true
 tracks/0/type = "value"
@@ -300,8 +300,8 @@ tracks/5/keys = {
 "values": [ Vector2( 0, -2.5 ) ]
 }
 
-[sub_resource type="Animation" id=46]
-resource_name = "DeadHit"
+[sub_resource type="Animation" id=7]
+resource_name = "DeathHit"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:position")
@@ -412,7 +412,7 @@ tracks/8/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=47]
+[sub_resource type="Animation" id=8]
 resource_name = "Hit"
 length = 0.3
 loop = true
@@ -622,7 +622,7 @@ tracks/16/keys = {
 "values": [ Vector2( -2.5, 2 ) ]
 }
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id=9]
 resource_name = "Idle"
 loop = true
 tracks/0/type = "value"
@@ -722,7 +722,7 @@ tracks/7/keys = {
 "values": [ Vector2( 0, -2.5 ), Vector2( 0, -1.5 ), Vector2( 0, -2.5 ) ]
 }
 
-[sub_resource type="Animation" id=49]
+[sub_resource type="Animation" id=10]
 resource_name = "ReverseAttack"
 length = 0.6
 step = 0.05
@@ -907,7 +907,7 @@ tracks/14/keys = {
 "values": [ Vector2( -13.5, -2 ), Vector2( -11.5, -2 ), Vector2( -10.5, -1 ), Vector2( -8.5, 0 ), Vector2( -6, 1 ), Vector2( -4.5, 1 ), Vector2( -2.5, 2 ) ]
 }
 
-[sub_resource type="Animation" id=50]
+[sub_resource type="Animation" id=11]
 length = 1.1
 loop = true
 tracks/0/type = "value"
@@ -1024,7 +1024,7 @@ node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
 animation = "Caught"
 
 [sub_resource type="AnimationNodeAnimation" id=16]
-animation = "DeadHit"
+animation = "DeathHit"
 
 [sub_resource type="AnimationNodeAnimation" id=17]
 animation = "Hit"
@@ -1074,16 +1074,16 @@ auto_advance = true
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=34]
 switch_mode = 2
 auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
@@ -1098,8 +1098,8 @@ states/Attack/node = SubResource( 14 )
 states/Attack/position = Vector2( -273.036, -231.249 )
 states/Caught/node = SubResource( 15 )
 states/Caught/position = Vector2( -273.036, -48.249 )
-states/DeadHit/node = SubResource( 16 )
-states/DeadHit/position = Vector2( 123.964, 69.7513 )
+states/DeathHit/node = SubResource( 16 )
+states/DeathHit/position = Vector2( 123.964, 59.751 )
 states/Hit/node = SubResource( 17 )
 states/Hit/position = Vector2( -79.0363, -141.249 )
 states/Idle/node = SubResource( 18 )
@@ -1108,11 +1108,11 @@ states/ReverseAttack/node = SubResource( 21 )
 states/ReverseAttack/position = Vector2( 123.964, -231.249 )
 states/Walk/node = SubResource( 24 )
 states/Walk/position = Vector2( 123.964, -48.249 )
-transitions = [ "Idle", "Hit", SubResource( 25 ), "Idle", "Caught", SubResource( 26 ), "Caught", "Idle", SubResource( 27 ), "Hit", "Idle", SubResource( 28 ), "Idle", "DeadHit", SubResource( 29 ), "Idle", "Walk", SubResource( 30 ), "Walk", "Idle", SubResource( 31 ), "Attack", "ReverseAttack", SubResource( 32 ), "Idle", "Attack", SubResource( 33 ), "ReverseAttack", "Idle", SubResource( 34 ), "Attack", "Hit", SubResource( 35 ), "ReverseAttack", "Hit", SubResource( 36 ), "Caught", "Hit", SubResource( 37 ), "Walk", "Hit", SubResource( 38 ) ]
+transitions = [ "Idle", "Hit", SubResource( 25 ), "Idle", "Caught", SubResource( 26 ), "Caught", "Idle", SubResource( 27 ), "Hit", "Idle", SubResource( 28 ), "Idle", "Walk", SubResource( 29 ), "Walk", "Idle", SubResource( 30 ), "Attack", "ReverseAttack", SubResource( 31 ), "Idle", "Attack", SubResource( 32 ), "ReverseAttack", "Idle", SubResource( 33 ), "Attack", "Hit", SubResource( 34 ), "ReverseAttack", "Hit", SubResource( 35 ), "Caught", "Hit", SubResource( 36 ), "Walk", "Hit", SubResource( 37 ), "Idle", "DeathHit", SubResource( 38 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -530.036, -267.249 )
+graph_offset = Vector2( -549.036, -254.249 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=51]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=40]
 
 [node name="Basic" type="KinematicBody2D" groups=[
 "Enemy",
@@ -1122,8 +1122,8 @@ collision_mask = 7
 script = ExtResource( 4 )
 
 [node name="Body" type="Sprite" parent="."]
-material = SubResource( 52 )
-position = Vector2( 0, -2.5 )
+material = SubResource( 1 )
+position = Vector2( 0, -2.12424 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 3
@@ -1131,21 +1131,21 @@ hframes = 3
 [node name="RightArm" parent="Body" instance=ExtResource( 6 )]
 modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 show_behind_parent = true
-position = Vector2( -3.5, 3.37557 )
+position = Vector2( -3.5, 2.12424 )
 
 [node name="Feet" parent="Body" instance=ExtResource( 7 )]
-position = Vector2( 0, 2.5 )
+position = Vector2( 0, 2.12424 )
 
 [node name="LeftArm" parent="Body" instance=ExtResource( 6 )]
-position = Vector2( 1.5, 3.37557 )
+position = Vector2( 1.5, 2.12424 )
 
 [node name="HeadCollision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -2.5 )
-shape = SubResource( 41 )
+position = Vector2( 0, -2.12424 )
+shape = SubResource( 2 )
 
 [node name="FeetCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 42 )
+shape = SubResource( 3 )
 
 [node name="Hand" type="Area2D" parent="."]
 collision_layer = 4
@@ -1154,25 +1154,25 @@ script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand"]
 position = Vector2( -2.5, 2 )
-shape = SubResource( 43 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="RayCast" parent="." instance=ExtResource( 5 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack = SubResource( 44 )
-anims/Caught = SubResource( 45 )
-anims/DeadHit = SubResource( 46 )
-anims/Hit = SubResource( 47 )
-anims/Idle = SubResource( 48 )
-anims/ReverseAttack = SubResource( 49 )
-anims/Walk = SubResource( 50 )
+anims/Attack = SubResource( 5 )
+anims/Caught = SubResource( 6 )
+anims/DeathHit = SubResource( 7 )
+anims/Hit = SubResource( 8 )
+anims/Idle = SubResource( 9 )
+anims/ReverseAttack = SubResource( 10 )
+anims/Walk = SubResource( 11 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 39 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 51 )
+parameters/playback = SubResource( 40 )
 parameters/Attack/TimeScale/scale = 3.0
 parameters/ReverseAttack/TimeScale/scale = 3.0
 parameters/Walk/TimeScale/scale = 1.0
@@ -1183,5 +1183,10 @@ script = ExtResource( 2 )
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
 rect = Rect2( -100, -100, 200, 200 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
 [connection signal="body_entered" from="Hand" to="Hand" method="_on_Hand_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

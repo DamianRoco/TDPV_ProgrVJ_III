@@ -1,35 +1,84 @@
 extends Area2D
 
+export(float) var random_shake_strength : float = 3.0
+export(float) var shake_decay_rate: float = 10.0
+
+onready var rand = RandomNumberGenerator.new()
+
+var shake_strength : float = random_shake_strength
+
+onready var path = get_parent().get_parent()
 onready var animation_player = $AnimationPlayer
-onready var speed = get_parent().get_parent().speed
 
 var current_point : int = 0
 var broken : bool = false
 var closed : bool = false
+var in_kill_area : bool = false
+var in_release_area : bool = false
 var movement_points
 var trapped_body
 
 
-func _process(_delta):
+func _ready():
+	rand.randomize()
+
+
+func _process(delta):
 	movement_ctrl()
 	if is_instance_valid(trapped_body):
-		if trapped_body.is_in_group("Player") and trapped_body.dash.dashing:
-			break_claw()
-		elif trapped_body.is_in_group("Enemy") and trapped_body.health <= 0:
+		if in_kill_area:
+			trapped_body.damage_ctrl(trapped_body.health)
+			free_body()
+		elif in_release_area:
+			trapped_body.caught = false
 			free_body()
 		else:
-			trapped_body.global_position = global_position
+			if trapped_body.is_in_group("Player") and trapped_body.dash.dashing:
+				break_claw()
+			elif trapped_body.is_in_group("Enemy") and trapped_body.health <= 0:
+				free_body()
+			else:
+				set_body_position(delta)
 	elif closed and not broken:
 		free_body()
+
+
+func get_random_pos():
+	return Vector2(
+		rand.randf_range(-shake_strength, shake_strength),
+		rand.randf_range(-shake_strength, shake_strength)
+	)
+
+
+func set_body_position(delta):
+	if trapped_body.dragged:
+		if trapped_body.drag_divider > 0.6:
+			shake_strength = lerp(
+				random_shake_strength / trapped_body.drag_divider,
+				0, shake_decay_rate * delta
+			)
+			trapped_body.global_position = global_position + get_random_pos()
+		else:
+			break_claw()
+	else:
+		shake_strength = random_shake_strength
+		trapped_body.global_position = global_position
 
 
 func break_claw():
 	if not broken:
 		if trapped_body:
+			closed = false
 			trapped_body.caught = false
 			trapped_body = null
 		broken = true
 		animation_player.play("Broken")
+
+
+func repair_claw():
+	if broken:
+		broken = false
+		animation_player.play("Open")
 
 
 func free_body():
@@ -41,7 +90,7 @@ func free_body():
 func movement_ctrl():
 	global_position = global_position.move_toward(
 		movement_points[current_point],
-		speed
+		path.speed
 	)
 	if global_position.is_equal_approx(movement_points[current_point]):
 		if current_point == movement_points.size() - 1:
@@ -68,11 +117,16 @@ func _on_MobileClaw_body_entered(body):
 
 
 func _on_MobileClaw_area_entered(area):
-	if not is_instance_valid(trapped_body):
-		return
-	if area.is_in_group("KillArea"):
-		trapped_body.damage_ctrl(trapped_body.health)
-		free_body()
-	elif area.is_in_group("ReleaseArea"):
-		trapped_body.caught = false
-		free_body()
+	match area.name:
+		"KillArea": in_kill_area = true
+		"ReleaseArea": in_release_area = true
+		"RepairArea":
+			repair_claw()
+			if not closed:
+				path.instance_entity(global_position)
+
+
+func _on_MobileClaw_area_exited(area):
+	match area.name:
+		"KillArea": in_kill_area = false
+		"ReleaseArea": in_release_area = false

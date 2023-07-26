@@ -1,72 +1,86 @@
+tool
 extends Node2D
 
-const explosion_scene = preload("res://Actors/InvertedExplosion.tscn")
-const player_scene = preload("res://Actors/Player/Player.tscn")
-
-export var enemy_path : String = ""
+export var max_levels = 7
+export var max_stages = 7
 export var show_colliders = false
-
-onready var enemy_scene = load(enemy_path)
-onready var enemy_container = get_parent().get_node("Enemies")
-onready var others = get_parent().get_node("Others")
-onready var camera = others.get_node("Camera")
-onready var gui = others.get_node("GUI")
-
-var enemy_instance
-var explosion_instance
-var player_instance
+export var second_entry = Vector2.ZERO
 
 
 func _ready():
+	if Engine.editor_hint:
+		return
+	
+	SoundController.play_game_music()
+	Global.enemy_folder = get_parent().get_node("Enemies")
+	Global.projectile_folder = get_parent().get_node("Projectiles")
 	if show_colliders:
 		get_tree().set_debug_collisions_hint(true)
 	
-	if not Global.spawn_player:
-		Global.spawn_player = true
-		player_instance = others.get_node("Player")
-		camera.target = player_instance
-		gui.player = player_instance
-		camera.global_position = player_instance.global_position
-	else:
-		if Global.level_start:
-			Global.spawn_point = camera.global_position
-			Global.level_start = false
-		instance_enemy()
-		instance_explosion()
+	spawn_player()
 
 
 func _process(_delta):
-	if is_instance_valid(explosion_instance) and explosion_instance.emitting == false:
-		instance_player(enemy_instance.global_position)
-		gui.flash()
-		enemy_instance.queue_free()
-		explosion_instance.queue_free()
-#	if Input.is_action_just_pressed("ui_accept"):
-#		if Input.is_key_pressed(KEY_SPACE):
-#			var _error = get_tree().change_scene("res://Levels/Other.tscn")
+	if Engine.editor_hint:
+		update()
 
 
-func instance_explosion():
-	yield(get_tree().create_timer(1.5), 'timeout')
-	explosion_instance = explosion_scene.instance()
-	enemy_instance.add_child(explosion_instance)
-	explosion_instance.emitting = true
+func _draw():
+	if Engine.editor_hint:
+		var color = Color(1.0, 0.5, 0.5, 1.0)
+		var points = []
+		var center = second_entry * 16
+		center += Vector2(8, 8)
+		points.append(Vector2(center.x - 7.5, center.y - 7.5))
+		points.append(Vector2(center.x - 7.5, center.y + 7.5))
+		points.append(Vector2(center.x + 7.5, center.y + 7.5))
+		points.append(Vector2(center.x + 7.5, center.y - 7.5))
+		draw_colored_polygon(points, color)
 
 
-func instance_enemy():
-	enemy_instance = enemy_scene.instance()
-	enemy_container.add_child(enemy_instance)
+func spawn_player():
+	var others = get_parent().get_node("Others")
+	var gui = others.get_node("GUI")
+	gui.connect("screen_off", self, "_on_GUI_screen_off")
 	
-	enemy_instance.pause_mode = Node.PAUSE_MODE_PROCESS
-	enemy_instance.global_position = Global.spawn_point
-	camera.target = enemy_instance
-	camera.global_position = Global.spawn_point
-
-
-func instance_player(position):
-	player_instance = player_scene.instance()
-	others.add_child(player_instance)
+	var camera = others.get_node("Camera")
+	var checkpoints = get_parent().get_node("Checkpoints")
+	var player_instance = others.get_node("Player")
 	
-	player_instance.global_position = position
-	camera.target = player_instance
-	gui.player = player_instance
+	if not Global.spawn_player and Global.hidden_level == Global.HiddenLevel.NONE:
+		Global.spawn_player = true
+		
+		if Global.go_to == Global.Level.PREVIOUS:
+			var spawn_num = checkpoints.get_child_count() - 1
+			Global.active_checkpoint_name = checkpoints.get_child(spawn_num).name
+			player_instance.global_position = second_entry * Global.tile_size
+		else:
+			Global.active_checkpoint_name = "EnemySpawner"
+			if Global.level.is_equal_approx(Vector2(1, 1)):
+				player_instance.get_node("Body").rotation_degrees -= 90
+		
+		Global.player = player_instance
+		camera.global_position = player_instance.global_position
+		camera.target = player_instance
+	else:
+		if is_instance_valid(player_instance):
+			player_instance.queue_free()
+		
+		var spawn
+		if Global.hidden_level != Global.HiddenLevel.NONE:
+			if Global.hidden_level == Global.HiddenLevel.COME:
+				Global.hidden_level = Global.HiddenLevel.NONE
+			spawn = checkpoints.get_node("HiddenLevelSpawner")
+		else:
+			spawn = checkpoints.get_node(Global.active_checkpoint_name)
+		
+		camera.global_position = spawn.global_position
+		spawn.initialize(others)
+	
+
+
+func _on_GUI_screen_off(hidden_level_entrance):
+	var level_num = Global.get_level_name(hidden_level_entrance, max_levels)
+	var level_scene = "res://Levels/" + level_num + ".tscn"
+	# warning-ignore:return_value_discarded
+	get_tree().change_scene(level_scene)

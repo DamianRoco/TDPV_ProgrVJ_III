@@ -15,8 +15,7 @@ var sprite_rotation
 func start_dash(sprite, duration):
 	can_dash = false
 	dashing = true
-	duration_timer.wait_time = duration
-	duration_timer.start()
+	duration_timer.start(duration)
 	
 	sprite_rotation = sprite.rotation_degrees
 	
@@ -37,8 +36,7 @@ func end_dash(divider : float = 1):
 	duration_timer.stop()
 	ghost_timer.stop()
 	
-	delay_timer.wait_time = DASH_DELAY / divider
-	delay_timer.start()
+	delay_timer.start(DASH_DELAY / divider)
 
 
 func _on_DelayTimer_timeout():

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Sounds/Menu/ButtonTurningOn.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Sounds/Menu/ButtonPressed.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sounds/Menu/ButtonTurningOff.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Button.gd" type="Script" id=4]
+
+
+
+[node name="ToolButton" type="ToolButton"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 80.0
+margin_bottom = 32.0
+rect_scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+type = 0
+appear_time = 0.2
+hide_time = 0.5
+button_moving = true
+can_focus = true
+
+[node name="Normal" type="Sprite" parent="."]
+
+[node name="Selected" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="ButtonPressed" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+bus = "Sounds"
+
+[node name="ButtonTurningOn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+bus = "Sounds"
+
+[node name="ButtonTurningOff" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "Sounds"
+[connection signal="button_down" from="." to="." method="_on_ToolButton_button_down"]
+[connection signal="button_up" from="." to="." method="_on_ToolButton_button_up"]
+[connection signal="focus_entered" from="." to="." method="_on_ToolButton_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_ToolButton_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_ToolButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_ToolButton_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_ToolButton_pressed"]

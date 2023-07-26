@@ -1,31 +1,49 @@
 extends KinematicBody2D
 
-const CAST_LENGTH = 15
-const DASH_DURATION = 0.2
-const FLOOR = Vector2.UP
-const GRAVITY = 16
-const JUMP_HEIGHT = 384
-const REBOUND_FORCE = 200
-const SPEED = 128
-
 export(int) var damage = 1
 export(int) var health = 100
-export(float, 0.01, 10) var jump_divider = 3
+export(bool) var turn_on = true
 
 onready var animation_tree = $AnimationTree
-onready var coyote_time = $Timers/CoyoteTime
-onready var dash = $Dash
+onready var light = $Body/Visor/Light2D
 onready var raycasts = $RayCasts
-onready var rebound_timer = $Timers/Rebound
-onready var sparks = $Sparks
 onready var sprites = $Body
 
+# Dash
+const DASH_DURATION = 0.2
+const REBOUND_FORCE = 200
+onready var dash = $Dash
+onready var rebound_timer = $Timers/Rebound
+onready var slow_time = $SlowTime
+var aiming_timer : float = 0
+var dash_movement : Vector2
+
+# Drag
+var drag_divider : float
+var drag_direction : float
+var dragged : bool = false
+
+# Jump
+const GRAVITY = 16.0
+const JUMP_HEIGHT = 384
+export(float, 0.01, 10) var jump_divider = 3
+onready var coyote_time = $Timers/CoyoteTime
 var active_coyote : bool
 var jumping : bool
+
+# Movement
+const FLOOR = Vector2.UP
+const SPEED = 128
+onready var sparks = $Sparks
 var caught : bool = false
-var dash_movement : Vector2
+var stopped : bool = false setget set_stopped
 var movement : Vector2
 var move_direction : Vector2
+
+
+func _ready():
+	if Global.hidden_level == Global.HiddenLevel.GO:
+		light.color.a = 1
 
 
 func _physics_process(delta):
@@ -37,20 +55,32 @@ func _physics_process(delta):
 		sprites.rotation_degrees = round(rot * 90)
 
 
-func _process(_delta):
-	match animation_tree.get_animation() == "TurningOn":
+func _process(delta):
+	if slow_time.is_active:
+		aiming_timer += delta * 10
+#		aiming_timer = 0.5
+	
+	match animation_tree.get_animation() == "TurnOn":
 		false:
 			move_direction = get_move_direction()
 			dash_ctrl()
 			if not caught:
 				jump_ctrl()
-			movement_ctrl()
+	
+	movement_ctrl()
 
 
 func is_alive():
 	return health > 0
 
 
+func set_stopped(new_value):
+	stopped = new_value
+	if new_value and dash.dashing:
+		dash.end_dash()
+
+
+# Apaga al personaje cuando toca un enchufe (Socket)
 func turn_off():
 	caught = true
 	health = -1
@@ -58,20 +88,42 @@ func turn_off():
 
 
 func get_move_direction():
+	if stopped:
+		return Vector2.ZERO
 	return Vector2(
-		int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left")),
-		int(Input.is_action_pressed("ui_up")) - int(Input.is_action_pressed("ui_down"))
+		int(Input.is_action_pressed("ui_right")) -
+		int(Input.is_action_pressed("ui_left")),
+		int(Input.is_action_pressed("ui_up")) -
+		int(Input.is_action_pressed("ui_down"))
 	)
 
 
 func dash_ctrl():
-	if not dash.can_dash or not is_alive():
-		if not is_alive() and dash.dashing:
-			dash.end_dash()
+	if not dash.can_dash or not is_alive() or stopped:
+		aiming_timer = 0
+		if not is_alive():
+			if dash.dashing:
+				dash.end_dash()
+			if slow_time.is_active:
+				slow_time.end()
 		return
 	
+	if Input.is_action_pressed("dash"):
+		if aiming_timer < 1:
+			slow_time.start()
+		else:
+			slow_time.end()
+	else:
+		if slow_time.is_active:
+			slow_time.end()
+		else:
+			aiming_timer = 0
+		
+		raycasts.set_rays_visible(false)
+	
 	var is_moving = move_direction.x or move_direction.y
-	if Input.is_action_just_pressed("dash") and not dash.dashing and is_moving:
+	
+	if is_moving and aiming_timer != 0 and Input.is_action_just_released("dash"):
 		dash.start_dash(sprites, DASH_DURATION)
 		
 		dash_movement = move_direction
@@ -84,14 +136,40 @@ func dash_ctrl():
 		
 		raycasts.set_orientation(move_direction)
 		raycasts.set_rays_visible(true)
-	elif not dash.dashing:
-		raycasts.set_rays_visible(false)
 
+#########################################################
 
-func damage_ctrl(damage_received : int, electrical_damage : bool = false):
-	if (not animation_tree.get_animation() == "Hit" and not dash.dashing or
-		electrical_damage):
+#func dash_ctrl():
+#	if not dash.can_dash or not is_alive() or stopped:
+#		if not is_alive() and dash.dashing:
+#			dash.end_dash()
+#		return
+#
+#	var is_moving = move_direction.x or move_direction.y
+#	if Input.is_action_just_pressed("dash") and not dash.dashing and is_moving:
+#		dash.start_dash(sprites, DASH_DURATION)
+#
+#		dash_movement = move_direction
+#		dash_movement.y *= -1
+#
+#		if dash_movement.x:
+#			$HorizontalDetector.set_deferred("monitoring", true)
+#		if dash_movement.y:
+#			$VerticalDetector.set_deferred("monitoring", true)
+#
+#		raycasts.set_orientation(move_direction)
+#		raycasts.set_rays_visible(true)
+#	elif not dash.dashing:
+#		raycasts.set_rays_visible(false)
+
+#########################################################
+
+func damage_ctrl(damage_received: int, impact_direction: Vector2 = Vector2.ZERO,
+	electrical_damage: bool = false):
+	if not dash.dashing or electrical_damage:
 		if is_alive():
+			if not impact_direction.is_equal_approx(Vector2.ZERO):
+				rebound(impact_direction)
 			health -= damage_received
 			if health <= 0:
 				health = 0
@@ -100,10 +178,19 @@ func damage_ctrl(damage_received : int, electrical_damage : bool = false):
 				animation_tree.set_animation("Hit")
 
 
+func drag_ctrl() -> float:
+	if dragged:
+		drag_divider = 0.5 if drag_divider < 0.6 else drag_divider - 0.1
+		return drag_direction * SPEED / drag_divider
+	else:
+		drag_divider = float(SPEED) / 13
+		return 0.0
+
+
 func jump_ctrl():
 	if is_on_floor():
 		if (Input.is_action_just_pressed("jump") and is_alive() and
-			rebound_timer.is_stopped()):
+			rebound_timer.is_stopped() and not stopped):
 			movement.y -= JUMP_HEIGHT
 			jumping = true
 		else:
@@ -120,7 +207,7 @@ func jump_ctrl():
 				coyote_time.start()
 				active_coyote = true
 			
-			if (not coyote_time.is_stopped() and
+			if (not stopped and not coyote_time.is_stopped() and
 				Input.is_action_just_pressed("jump") and
 				rebound_timer.is_stopped() and is_alive()):
 				movement.y -= JUMP_HEIGHT
@@ -130,7 +217,9 @@ func jump_ctrl():
 func movement_ctrl():
 	match dash.dashing:
 		true:
+			animation_tree.hide_attack_line()
 			var speed = dash_movement * SPEED * 3
+			speed.x += drag_ctrl()
 			movement = move_and_slide(speed, FLOOR) / 2
 		false:
 			animation_tree.visor_direction(move_direction, sprites)
@@ -141,9 +230,11 @@ func movement_ctrl():
 						movement.x = move_direction.x * SPEED
 					elif is_on_floor():
 						movement.x = 0
-					movement.y += GRAVITY
+					movement.y += 1.7 if slow_time.is_active else GRAVITY
 					if movement.y > SPEED * 3:
 						movement.y = SPEED * 3
+				
+				movement.x += drag_ctrl()
 				
 				if (move_direction.x and is_on_floor() and is_alive() and
 					not is_on_wall()):
@@ -158,15 +249,25 @@ func movement_ctrl():
 				
 				movement = move_and_slide(movement, FLOOR)
 			else:
+				# warning-ignore:return_value_discarded
+				drag_ctrl()
 				sparks.emitting = false
 				movement = Vector2.ZERO
 
 
-func rebound(axis):
-	dash.end_dash()
+func rebound(axis, dash_impact = false):
+	if dash_impact:
+		dash.end_dash()
+		rebound_timer.wait_time = 0.15
+	else:
+		rebound_timer.wait_time = 0.05
 	rebound_timer.start()
 	
 	if axis.x:
 		movement.x += REBOUND_FORCE * axis.x
 	if axis.y:
 		movement.y += REBOUND_FORCE * axis.y
+
+
+func _on_ClawUnderboss_boss_prepared():
+	animation_tree.set_animation("VisorLightOff")

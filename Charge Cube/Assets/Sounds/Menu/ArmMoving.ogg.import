@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ArmMoving.ogg-17ea721f81eca78e2c1498ca9ed9e2f9.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Menu/ArmMoving.ogg"
+dest_files=[ "res://.import/ArmMoving.ogg-17ea721f81eca78e2c1498ca9ed9e2f9.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

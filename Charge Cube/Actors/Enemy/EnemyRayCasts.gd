@@ -1,61 +1,56 @@
 extends Position2D
 
-onready var animation_tree = get_parent().get_node("AnimationTree")
-onready var hand = get_parent().get_node("Hand")
+onready var head_behind = $HeadBehind
+onready var head_forward = $HeadForward
+onready var ground_behind = $GroundBehind
+onready var ground_forward = $GroundForward
+onready var look = $Look
+onready var patrol = $Patrol
 onready var parent = get_parent()
-
-var grounded : bool = true
-
-
-func attack_ctrl():
-	var animation = animation_tree.get_animation()
-	if animation != "Attack" and animation != "Hit" and $Attack.is_colliding():
-		var collider = $Attack.get_collider()
-		if collider.is_in_group("Player") and not collider.dash.dashing:
-			hand.damage_applied = false
-			animation_tree.change_animation("Attack")
+onready var sounds = [
+	parent.get_node("Sounds/Step1"),
+	parent.get_node("Sounds/Step2"),
+	parent.get_node("Sounds/Walk")
+]
 
 
-func check_tiles(front = false):
-	var raycast = $Back
-	if front:
-		raycast = $Front
+func change_sound_speed(speed):
+	for sound in sounds:
+		sound.pitch_scale = speed
+
+
+func check_tiles(forward = false):
+	var raycast = head_behind
+	if forward:
+		raycast = head_forward
 	
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
-		if front:
+		if forward:
 			check_tiles()
 		else:
-			animation_tree.change_animation("Idle")
+			parent.animation_tree.change_animation("Idle")
 	else:
-		animation_tree.change_animation("Walk")
-		if not front:
+		parent.animation_tree.change_animation("Walk")
+		if not forward:
 			parent.flip()
 
 
 func ground_ctrl():
-	if $GroundTimer.is_stopped():
-		$GroundTimer.start()
-		$Ground.force_raycast_update()
-		if $Ground.is_colliding():
-			grounded = true
-			check_tiles(true)
-			if $Ground.get_collider().is_in_group("Electricity"):
-				parent.flip()
+	if ground_forward.is_colliding():
+		check_tiles(true)
+		if look.is_colliding() and look.get_collider().is_in_group("Electricity"):
+			parent.flip()
+	else:
+		if ground_behind.is_colliding():
+			check_tiles()
 		else:
-			if grounded:
-				grounded = false
-			else:
-				$GroundBehind.force_raycast_update()
-				if $GroundBehind.is_colliding():
-					check_tiles()
-				else:
-					animation_tree.change_animation("Idle")
+			parent.animation_tree.change_animation("Idle")
 
 
 func patrol_ctrl():
-	if $Patrol.is_colliding():
-		if $Patrol.get_collider().is_in_group("Player"):
+	if patrol.is_colliding():
+		if patrol.get_collider().is_in_group("Player"):
 			parent.speed = parent.max_speed
 		else:
 			parent.speed = parent.min_speed
@@ -64,6 +59,10 @@ func patrol_ctrl():
 	
 	match parent.speed:
 		parent.max_speed:
-			animation_tree.set_walk_speed(2)
+			var speed = (2 * float(parent.max_speed)) / 64
+			parent.animation_tree.set_walk_speed(speed)
+			change_sound_speed(speed)
 		parent.min_speed:
-			animation_tree.set_walk_speed(1)
+			var speed = float(parent.min_speed) / 32
+			parent.animation_tree.set_walk_speed(speed)
+			change_sound_speed(speed)

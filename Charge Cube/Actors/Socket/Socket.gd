@@ -25,6 +25,8 @@ func _process(_delta):
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Player") and active:
+		Global.hidden_level = true
+		
 		active = false
 		body.turn_off()
 		player = body

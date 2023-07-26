@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 9.09185e-39, 0.5, 1 )
+colors = PoolColorArray( 0.521569, 0.6, 0.733333, 1, 0.521569, 0.6, 0.733333, 1, 0.521569, 0.6, 0.733333, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 2 )
+
+[node name="BlockBreakParticles" type="Particles2D"]
+emitting = false
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 3 )

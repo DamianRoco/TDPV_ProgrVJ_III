@@ -1,16 +1,13 @@
 extends AnimationTree
 
-onready var animation_tree = self
-onready var animation_node = animation_tree.get("parameters/playback")
+onready var attack_line = get_parent().get_node("Body/AttackLine")
+onready var animation_node = get("parameters/playback")
+onready var slow_time = get_parent().get_node("SlowTime")
 
 
 func _ready():
-	turn_on()
-
-
-func turn_on():
-	yield(get_tree().create_timer(0.5), "timeout")
-	animation_node.travel("BlendTree")
+	if get_parent().turn_on:
+		set_animation("TurnOn")
 
 
 func set_animation(name):
@@ -21,7 +18,18 @@ func get_animation():
 	return animation_node.get_current_node()
 
 
+func hide_attack_line():
+	attack_line.visible = false
+
+
 func change_axes(axes, sprite):
+	if slow_time.is_active and (axes.x or axes.y):
+		var ang = Vector2(axes.x, axes.y * -1).angle()
+		attack_line.rotation = ang - sprite.rotation
+		attack_line.visible = true
+	else:
+		attack_line.visible = false
+	
 	var degrees = sprite.rotation_degrees
 	while degrees < 0:
 		degrees += 360
@@ -46,4 +54,6 @@ func change_axes(axes, sprite):
 
 func visor_direction(axes, sprite):
 	axes = change_axes(axes, sprite)
-	animation_tree.set('parameters/BlendTree/Look/blend_position', axes)
+	set('parameters/BlendTree/Look/blend_position', axes)
+	var speed = 8 if slow_time.is_active else 2
+	set('parameters/BlendTree/TimeScale/scale', speed)

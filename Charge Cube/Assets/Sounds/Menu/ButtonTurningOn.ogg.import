@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ButtonTurningOn.ogg-dd24be95c365a8bee7a701c3fc87074a.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Menu/ButtonTurningOn.ogg"
+dest_files=[ "res://.import/ButtonTurningOn.ogg-dd24be95c365a8bee7a701c3fc87074a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

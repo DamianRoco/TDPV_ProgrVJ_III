@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ClawOpening.ogg-51b74ce29ce9d8e3e3bacfa13320dea0.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Menu/ClawOpening.ogg"
+dest_files=[ "res://.import/ClawOpening.ogg-51b74ce29ce9d8e3e3bacfa13320dea0.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

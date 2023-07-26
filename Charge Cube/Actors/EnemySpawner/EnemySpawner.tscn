@@ -6,5 +6,14 @@
 rect = Rect2( -100, -100, 200, 200 )
 script = ExtResource( 1 )
 enemy_path = "res://Actors/Enemy/Basic/Key.tscn"
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Ground" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, 16 )
+collide_with_areas = true
 [connection signal="screen_entered" from="." to="." method="_on_EnemySpawner_screen_entered"]
 [connection signal="screen_exited" from="." to="." method="_on_EnemySpawner_screen_exited"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_ExplosionTimer_timeout"]

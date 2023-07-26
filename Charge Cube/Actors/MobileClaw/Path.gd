@@ -1,17 +1,26 @@
 tool
 extends Node2D
 
+export(String) var entity_path = ""
 export(float) var speed = 1
 export(float) var start_distance = 0
 export(bool) var hide_lines = true
 export(bool) var update_claw_positions = false
 export(Array, Vector2) var movement_points
 
+var clawns_speed = 0
 var claw_current_points = []
+var entity_scene
+var enemies
 
 
 func _ready():
 	if not Engine.editor_hint:
+		enemies = get_tree().get_root().get_node("Level/Enemies")
+		clawns_speed = speed
+		if entity_path != "":
+			entity_scene = load(entity_path)
+		
 		for i in movement_points.size():
 			movement_points[i] *= Global.tile_size
 			movement_points[i] += global_position
@@ -32,6 +41,8 @@ func _process(_delta):
 		update()
 		if update_claw_positions and $Claws.get_child_count() > 0:
 			deal_claws()
+	else:
+		speed = clawns_speed * Engine.time_scale
 
 
 func _draw():
@@ -91,6 +102,14 @@ func distance_to_position(distance, total_distance):
 			var aux = last_point.move_toward(global_position, distance)
 			return Vector3(aux.x, aux.y, 0)
 		distance -= total_distance
+
+
+func instance_entity(pos):
+	if entity_path != "":
+		var entity_instance = entity_scene.instance()
+		enemies.call_deferred("add_child", entity_instance)
+		
+		entity_instance.global_position = pos
 
 
 func deal_claws():

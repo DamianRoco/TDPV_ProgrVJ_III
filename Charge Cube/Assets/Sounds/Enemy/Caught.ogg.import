@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Caught.ogg-398d8735c3ce1977e773e952d669e546.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Caught.ogg"
+dest_files=[ "res://.import/Caught.ogg-398d8735c3ce1977e773e952d669e546.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

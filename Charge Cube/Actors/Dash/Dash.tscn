@@ -6,6 +6,7 @@
 script = ExtResource( 1 )
 
 [node name="DelayTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="DurationTimer" type="Timer" parent="."]
 wait_time = 0.2

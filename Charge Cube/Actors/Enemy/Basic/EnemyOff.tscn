@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Images/Enemy/Basic/EnemyOff.png" type="Texture" id=1]
+[ext_resource path="res://Actors/Enemy/EnemyOff.gd" type="Script" id=2]
+[ext_resource path="res://Actors/Enemy/Parts/Basic/Arms/OffArm.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/Enemy/Parts/Basic/Feet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=5]
+[ext_resource path="res://Actors/Particles/BodyExplosion.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/flash_modifier = 0.0
+shader_param/flash_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.5, 7.5 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 7.5
+
+[node name="EnemyOff" type="KinematicBody2D" groups=[
+"Enemy",
+"EnemyOff",
+]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource( 2 )
+
+[node name="Body" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -2.5 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="RightArm" parent="Body" instance=ExtResource( 3 )]
+visible = false
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+show_behind_parent = true
+position = Vector2( -3.5, 2.5 )
+
+[node name="Feet" parent="Body" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 2.5 )
+
+[node name="LeftArm" parent="Body" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 1.5, 2.5 )
+
+[node name="HeadCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -2.5 )
+shape = SubResource( 2 )
+
+[node name="FeetCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 2.5 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="HitTimer" type="Timer" parent="Tween"]
+wait_time = 0.28
+one_shot = true
+
+[node name="BodyExplosion" parent="." instance=ExtResource( 6 )]
+
+[node name="RightArm" parent="BodyExplosion" index="1"]
+visible = false
+
+[node name="RightHand" parent="BodyExplosion" index="2"]
+visible = false
+
+[node name="RightFoot" parent="BodyExplosion" index="3"]
+visible = false
+
+[node name="LeftFoot" parent="BodyExplosion" index="4"]
+visible = false
+
+[node name="LeftArm" parent="BodyExplosion" index="6"]
+visible = false
+
+[node name="LeftHand" parent="BodyExplosion" index="7"]
+visible = false
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="timeout" from="Tween/HitTimer" to="." method="_on_HitTimer_timeout"]
+
+[editable path="BodyExplosion"]

@@ -1,6 +1,5 @@
 extends Node2D
 
-onready var dash = get_parent().get_node("Dash")
 onready var parent = get_parent()
 
 var orientation : Vector2 = Vector2.ZERO
@@ -35,19 +34,18 @@ func destroy_tiles(tiles, collided_direction):
 		normal.y = tiles[tiles.size() - 1].get("collision_normal").y
 		
 		var tile_pos = tiles[0].get("body").world_to_map(point - normal)
-		tiles[0].get("body").set_cellv(tile_pos, -1)
+		tiles[0].get("body").destroy_tile(tile_pos)
 	
 	for tile in tiles:
 		var point = tile.get("collision_point")
 		var normal = tile.get("collision_normal")
 		
 		var tile_pos = tile.get("body").world_to_map(point - normal)
-#		var tile_id = tile.get_cellv(tile_pos)
-		tile.get("body").set_cellv(tile_pos, -1)
+		tile.get("body").destroy_tile(tile_pos)
 
 
 func detect_body():
-	if not dash.dashing:
+	if not parent.dash.dashing:
 		return
 	
 	var enemy_collision : bool = false
@@ -78,10 +76,10 @@ func detect_body():
 	destroy_tiles(tiles, collided_direction)
 	
 	if collided_direction.x or collided_direction.y:
-		parent.rebound(collided_direction)
+		parent.rebound(collided_direction, true)
 		
 		if enemy_collision:
-			dash.end_dash(2)
+			parent.dash.end_dash(2)
 
 
 func _on_HorizontalDetector_body_entered(_body):

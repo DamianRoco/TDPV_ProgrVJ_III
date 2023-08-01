@@ -9,6 +9,7 @@ func _ready():
 	$Explosion2.emitting = true
 	$Explosion3.emitting = true
 	$Explosion4.emitting = true
+	$InvertedElectricExplosion.playing = true
 
 
 func _process(_delta):

@@ -1,13 +1,16 @@
+tool
 extends VisibilityNotifier2D
 
-export var enemy_path : String = ""
+enum Enemies { ENEMY_OFF, KEY, HAMMER, RIVETER, MAGNET }
+
+export(Enemies) var enemy_type setget set_enemy_type
 export var spawn_enemy : bool = true
 export var spawn_player : bool = false
 
-onready var camera = get_tree().get_root().get_node("Level/Others/Camera")
-onready var enemy_scene = load(enemy_path)
+onready var enemy_scene = load(enemy_paths[enemy_type])
 onready var ground = $Ground
 
+var camera
 var enemy_instance
 var explosion_instance
 var explosion_scene
@@ -16,9 +19,24 @@ var others
 var player_scene
 var summon_player = false
 
+var enemy_paths = [
+	"res://Actors/Enemy/Basic/EnemyOff.tscn",
+	"res://Actors/Enemy/Basic/Key.tscn",
+	"res://Actors/Enemy/Basic/Hammer.tscn",
+	"res://Actors/Enemy/Basic/Riveter.tscn",
+	"res://Actors/Enemy/Basic/Magnet.tscn"
+]
+
+
+func _ready():
+	if not Engine.editor_hint:
+		camera = get_tree().get_root().get_node("Level/Others/Camera")
+		if is_instance_valid(enemy_instance):
+			enemy_instance.queue_free()
+
 
 func initialize(others_node):
-	explosion_scene = preload("res://Actors/Particles/InvertedExplosion.tscn")
+	explosion_scene = preload("res://Actors/Particles/InvertedElectricExplosion.tscn")
 	player_scene = preload("res://Actors/Player/Player.tscn")
 	
 	summon_player = true
@@ -27,12 +45,23 @@ func initialize(others_node):
 
 
 func _process(_delta):
+	if Engine.editor_hint:
+		return
 	if is_instance_valid(explosion_instance) and not explosion_instance.emitting:
 		enemy_instance.damage_ctrl(enemy_instance.health)
 		enemy_instance.get_node("HeadCollision").disabled = true
 		enemy_instance.get_node("FeetCollision").disabled = true
 		instance_player(enemy_instance.global_position)
 		explosion_instance.queue_free()
+
+
+func set_enemy_type(type):
+	enemy_type = type
+	if Engine.editor_hint:
+		if is_instance_valid(enemy_instance):
+			enemy_instance.queue_free()
+		enemy_instance = load(enemy_paths[enemy_type]).instance()
+		add_child(enemy_instance)
 
 
 func instance_enemy():

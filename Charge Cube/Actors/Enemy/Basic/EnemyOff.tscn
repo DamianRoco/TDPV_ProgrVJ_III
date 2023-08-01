@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Images/Enemy/Basic/EnemyOff.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Enemy/EnemyOff.gd" type="Script" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Feet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=5]
 [ext_resource path="res://Actors/Particles/BodyExplosion.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Sounds/Player/GroundImpact.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Hit.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step1.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step2.ogg" type="AudioStream" id=11]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -57,6 +62,24 @@ visible = false
 position = Vector2( 0, 2.5 )
 shape = SubResource( 3 )
 disabled = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="GroundImpact" parent="Sounds" instance=ExtResource( 8 )]
+position = Vector2( 0, 5 )
+stream = ExtResource( 7 )
+volume_db = 5.0
+
+[node name="Hit" parent="Sounds" instance=ExtResource( 8 )]
+stream = ExtResource( 9 )
+
+[node name="Step1" parent="Sounds" instance=ExtResource( 8 )]
+position = Vector2( -3.5, 10 )
+stream = ExtResource( 10 )
+
+[node name="Step2" parent="Sounds" instance=ExtResource( 8 )]
+position = Vector2( -3.5, 10 )
+stream = ExtResource( 11 )
 
 [node name="Tween" type="Tween" parent="."]
 

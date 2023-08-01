@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Sounds/Menu/ClawOpening.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Assets/Sounds/Menu/ArmMoving.ogg" type="AudioStream" id=2]
-[ext_resource path="res://Underboss/Hand.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Enemy/Underboss/Hand.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sounds/Menu/ButtonTurningOn.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Sounds/Menu/WaverClaws.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Actors/Text/Letters.tscn" type="PackedScene" id=6]
@@ -12,6 +12,7 @@
 [ext_resource path="res://CornerLight.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=11]
 [ext_resource path="res://StartupScreen.gd" type="Script" id=12]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "MoveTiles"

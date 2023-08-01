@@ -1,25 +1,45 @@
 tool
 extends Node2D
 
-export(String) var entity_path = ""
+enum Enemies { EMPTY = -1, ENEMY_OFF, KEY, HAMMER, RIVETER, MAGNET, RANDOM }
+
+export(Enemies) var enemy_type = Enemies.EMPTY
 export(float) var speed = 1
 export(float) var start_distance = 0
 export(bool) var hide_lines = true
 export(bool) var update_claw_positions = false
 export(Array, Vector2) var movement_points
 
+onready var rand = RandomNumberGenerator.new()
+
 var clawns_speed = 0
 var claw_current_points = []
 var entity_scene
 var enemies
 
+var enemy_paths = [
+	"res://Actors/Enemy/Basic/EnemyOff.tscn",
+	"res://Actors/Enemy/Basic/Key.tscn",
+	"res://Actors/Enemy/Basic/Hammer.tscn",
+	"res://Actors/Enemy/Basic/Riveter.tscn",
+	"res://Actors/Enemy/Basic/Magnet.tscn"
+]
+
 
 func _ready():
 	if not Engine.editor_hint:
+		rand.randomize()
 		enemies = get_tree().get_root().get_node("Level/Enemies")
 		clawns_speed = speed
-		if entity_path != "":
-			entity_scene = load(entity_path)
+		match enemy_type:
+			Enemies.EMPTY:
+				pass
+			Enemies.RANDOM:
+				entity_scene = []
+				for path in enemy_paths:
+					entity_scene.append(load(path))
+			_:
+				entity_scene = load(enemy_paths[enemy_type])
 		
 		for i in movement_points.size():
 			movement_points[i] *= Global.tile_size
@@ -105,11 +125,18 @@ func distance_to_position(distance, total_distance):
 
 
 func instance_entity(pos):
-	if entity_path != "":
-		var entity_instance = entity_scene.instance()
-		enemies.call_deferred("add_child", entity_instance)
-		
-		entity_instance.global_position = pos
+	match enemy_type:
+		Enemies.EMPTY:
+			pass
+		Enemies.RANDOM:
+			var index = rand.randi_range(1, entity_scene.size() - 1)
+			var entity_instance = entity_scene[index].instance()
+			enemies.call_deferred("add_child", entity_instance)
+			entity_instance.global_position = pos
+		_:
+			var entity_instance = entity_scene.instance()
+			enemies.call_deferred("add_child", entity_instance)
+			entity_instance.global_position = pos
 
 
 func deal_claws():

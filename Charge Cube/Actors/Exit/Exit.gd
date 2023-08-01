@@ -6,6 +6,8 @@ onready var gui = get_parent().get_node("GUI")
 
 
 func _on_NextLevel_body_entered(body):
+	if GameTime.slow_time:
+		GameTime.normalize_time()
 	body.stopped = true
 	gui.level_fade_out()
 	Global.save_terrain = true

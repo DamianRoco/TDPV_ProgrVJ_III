@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Charge Cube"
-run/main_scene="res://Levels/Menu.tscn"
+run/main_scene="res://Actors/Menu/Menu.tscn"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://Assets/Images/Icon.png"
@@ -29,6 +29,8 @@ default_bus_layout="res://Assets/Resources/default_bus_layout.tres"
 
 Global="*res://AutoLoad/Global.gd"
 SoundController="*res://AutoLoad/SoundController.tscn"
+GameTime="*res://AutoLoad/GameTime.tscn"
+Statistics="*res://AutoLoad/Statistics.tscn"
 
 [display]
 

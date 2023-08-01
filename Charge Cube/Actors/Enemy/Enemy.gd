@@ -25,9 +25,22 @@ var drag_divider : float
 var drag_direction : float
 var dragged : bool = false
 
+# Sounds
+onready var step1_sound = $Sounds/Step1
+onready var step2_sound = $Sounds/Step2
+var ground_contact = false
+
 
 func _process(_delta):
 	if is_alive():
+		if is_on_floor():
+			if not ground_contact:
+				ground_contact = true
+				step1_sound.playing = true
+				step2_sound.playing = true
+		else:
+			ground_contact = false
+		
 		match animation_tree.get_animation():
 			"Idle", "Walk":
 				if not caught and is_on_floor():

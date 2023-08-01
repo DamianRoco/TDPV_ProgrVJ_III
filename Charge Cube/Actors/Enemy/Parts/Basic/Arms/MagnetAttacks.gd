@@ -151,7 +151,7 @@ func trap_body(body):
 		instance_projectile(dir, body)
 	else:
 		var player_pos = Global.player.global_position
-		var angle = direction.global_position.angle_to_point(player_pos) + 1
+		var angle = direction.global_position.angle_to_point(player_pos)
 		instance_projectile(direction.cast_to.rotated(angle), body)
 		shoot_projectile()
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/RepositionHead.ogg-0fecf16d513fe8e4f9ad052227e7af1f.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Underboss/RepositionHead.ogg"
+dest_files=[ "res://.import/RepositionHead.ogg-0fecf16d513fe8e4f9ad052227e7af1f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

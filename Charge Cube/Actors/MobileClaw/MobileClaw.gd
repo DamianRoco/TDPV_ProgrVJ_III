@@ -2,15 +2,17 @@ extends Area2D
 
 export(float) var random_shake_strength : float = 3.0
 export(float) var shake_decay_rate: float = 10.0
+export(bool) var mute_sounds : bool = false
 
+onready var animation_player = $AnimationPlayer
+onready var broken_sound = $Sounds/Broken
+onready var close_sound = $Sounds/Close
+onready var open_sound = $Sounds/Open
+onready var path = get_parent().get_parent()
 onready var rand = RandomNumberGenerator.new()
 
-var shake_strength : float = random_shake_strength
-
-onready var path = get_parent().get_parent()
-onready var animation_player = $AnimationPlayer
-
 var current_point : int = 0
+var shake_strength : float = random_shake_strength
 var broken : bool = false
 var closed : bool = false
 var in_kill_area : bool = false
@@ -27,7 +29,11 @@ func _process(delta):
 	movement_ctrl()
 	if is_instance_valid(trapped_body):
 		if in_kill_area:
-			trapped_body.damage_ctrl(trapped_body.health)
+			mute_sounds = true
+			if trapped_body.is_in_group("Player"):
+				trapped_body.damage_ctrl(trapped_body.health)
+			else:
+				trapped_body.queue_free()
 			free_body()
 		elif in_release_area:
 			trapped_body.caught = false
@@ -48,6 +54,14 @@ func get_random_pos():
 		rand.randf_range(-shake_strength, shake_strength),
 		rand.randf_range(-shake_strength, shake_strength)
 	)
+
+
+func hide_claw(is_visible):
+	visible = is_visible
+	if is_visible:
+		broken_sound.bus = "Sounds"
+	else:
+		broken_sound.bus = "Muted"
 
 
 func set_body_position(delta):
@@ -73,6 +87,7 @@ func break_claw():
 			trapped_body = null
 		broken = true
 		animation_player.play("Broken")
+		Statistics.broken_claws += 1
 
 
 func repair_claw():
@@ -99,6 +114,19 @@ func movement_ctrl():
 			current_point += 1
 
 
+func _on_AnimationPlayer_animation_started(anim_name):
+	if not visible:
+		return
+	if mute_sounds:
+		mute_sounds = false
+		return
+	match anim_name:
+		"Close":
+			close_sound.playing = true
+		"Open":
+			open_sound.playing = true
+
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"Close":
@@ -118,9 +146,12 @@ func _on_MobileClaw_body_entered(body):
 
 func _on_MobileClaw_area_entered(area):
 	match area.name:
-		"KillArea": in_kill_area = true
-		"ReleaseArea": in_release_area = true
+		"KillArea":
+			in_kill_area = true
+		"ReleaseArea":
+			in_release_area = true
 		"RepairArea":
+			mute_sounds = true
 			repair_claw()
 			if not closed:
 				path.instance_entity(global_position)
@@ -128,5 +159,7 @@ func _on_MobileClaw_area_entered(area):
 
 func _on_MobileClaw_area_exited(area):
 	match area.name:
-		"KillArea": in_kill_area = false
-		"ReleaseArea": in_release_area = false
+		"KillArea":
+			in_kill_area = false
+		"ReleaseArea":
+			in_release_area = false

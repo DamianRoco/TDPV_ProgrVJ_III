@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/RivetImpact.ogg-6bbc8d295bced8f3db8e084bad762f41.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/RivetImpact.ogg"
+dest_files=[ "res://.import/RivetImpact.ogg-6bbc8d295bced8f3db8e084bad762f41.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

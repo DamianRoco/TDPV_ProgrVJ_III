@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Repel.ogg-a9e7014ae3864d437a04250db8caf001.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Basic/Magnet/Repel.ogg"
+dest_files=[ "res://.import/Repel.ogg-a9e7014ae3864d437a04250db8caf001.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

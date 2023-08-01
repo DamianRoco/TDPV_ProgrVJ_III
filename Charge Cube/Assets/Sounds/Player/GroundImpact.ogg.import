@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GroundImpact.ogg-16423f2faf1a56e8ff60eda5d35dbe80.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Player/GroundImpact.ogg"
+dest_files=[ "res://.import/GroundImpact.ogg-16423f2faf1a56e8ff60eda5d35dbe80.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

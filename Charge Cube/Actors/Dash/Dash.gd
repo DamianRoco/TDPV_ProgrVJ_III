@@ -2,6 +2,7 @@ extends Node2D
 
 const DASH_DELAY = 1
 
+onready var dash_sound = $Dash
 onready var delay_timer = $DelayTimer
 onready var duration_timer = $DurationTimer
 onready var ghost_timer = $GhostTimer
@@ -15,6 +16,7 @@ var sprite_rotation
 func start_dash(sprite, duration):
 	can_dash = false
 	dashing = true
+	dash_sound.playing = true
 	duration_timer.start(duration)
 	
 	sprite_rotation = sprite.rotation_degrees
@@ -33,6 +35,7 @@ func instance_ghost():
 
 func end_dash(divider : float = 1):
 	dashing = false
+	dash_sound.playing = false
 	duration_timer.stop()
 	ghost_timer.stop()
 	

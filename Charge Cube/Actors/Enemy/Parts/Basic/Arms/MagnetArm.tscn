@@ -1,10 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Arms/Arm.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemy/DamageZone.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Images/Enemy/Basic/Hand.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/Enemy/Basic/Magnet.png" type="Texture" id=4]
 [ext_resource path="res://Actors/Enemy/Parts/Lead.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Magnet/Repel.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Magnet/Attract.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 80, 10 )
@@ -422,6 +425,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 3, 2, 1 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Arm5/Attract:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.5
@@ -547,6 +562,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 3, 2, 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Arm5/Attract:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -674,6 +701,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2, 3 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Arm5/Repel:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=12]
 length = 0.5
@@ -799,6 +838,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Arm5/Repel:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -995,6 +1046,14 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/Arm5/Hand"]
 position = Vector2( 2, 0 )
 shape = SubResource( 2 )
+
+[node name="Attract" parent="Sprites/Arm5" instance=ExtResource( 8 )]
+position = Vector2( -5, 0 )
+stream = ExtResource( 7 )
+
+[node name="Repel" parent="Sprites/Arm5" instance=ExtResource( 8 )]
+position = Vector2( -5, 0 )
+stream = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 3.0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Caterpillar.ogg-9fed9351048307663a1330d6a51ff993.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Underboss/Caterpillar.ogg"
+dest_files=[ "res://.import/Caterpillar.ogg-9fed9351048307663a1330d6a51ff993.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

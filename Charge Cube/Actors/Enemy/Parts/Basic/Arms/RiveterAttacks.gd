@@ -1,7 +1,7 @@
 extends "res://Actors/Enemy/Parts/Basic/Arms/AttackModel.gd"
 
 onready var leads = [arms[LEFT].get_node("Lead"), arms[RIGHT].get_node("Lead")]
-onready var river_scene = preload("res://Actors/Enemy/Parts/Basic/Rivet.tscn")
+onready var river_scene = preload("res://Actors/Enemy/Parts/Rivet.tscn")
 
 
 func set_attack_num(attacking):

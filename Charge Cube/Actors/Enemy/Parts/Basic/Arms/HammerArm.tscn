@@ -4,9 +4,10 @@
 [ext_resource path="res://Actors/Enemy/DamageZone.gd" type="Script" id=2]
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Arms/Arm.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Images/Enemy/Basic/Hammer.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Sounds/Enemy/HammerAttack1.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Assets/Sounds/Enemy/HammerAttack2.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Hammer/HammerAttack1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Hammer/HammerAttack2.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=7]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 4 )

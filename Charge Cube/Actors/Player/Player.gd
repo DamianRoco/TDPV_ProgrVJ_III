@@ -14,7 +14,6 @@ const DASH_DURATION = 0.2
 const REBOUND_FORCE = 200
 onready var dash = $Dash
 onready var rebound_timer = $Timers/Rebound
-onready var slow_time = $SlowTime
 var aiming_timer : float = 0
 var dash_movement : Vector2
 
@@ -40,6 +39,12 @@ var stopped : bool = false setget set_stopped
 var movement : Vector2
 var move_direction : Vector2
 
+# Sounds
+onready var ground_sound = $Sounds/GroundImpact
+onready var jump_sound = $Sounds/Jump
+onready var sparks_sound = $Sounds/Sparks
+var ground_contact = false
+
 
 func _ready():
 	if Global.hidden_level == Global.HiddenLevel.GO:
@@ -56,9 +61,15 @@ func _physics_process(delta):
 
 
 func _process(delta):
-	if slow_time.is_active:
+	if GameTime.slow_time:
 		aiming_timer += delta * 10
-#		aiming_timer = 0.5
+	
+	if is_on_floor():
+		if not ground_contact:
+			ground_contact = true
+			ground_sound.playing = true
+	else:
+		ground_contact = false
 	
 	match animation_tree.get_animation() == "TurnOn":
 		false:
@@ -104,18 +115,18 @@ func dash_ctrl():
 		if not is_alive():
 			if dash.dashing:
 				dash.end_dash()
-			if slow_time.is_active:
-				slow_time.end()
+			if GameTime.slow_time:
+				GameTime.normalize_time()
 		return
 	
 	if Input.is_action_pressed("dash"):
 		if aiming_timer < 1:
-			slow_time.start()
+			GameTime.encourage_time()
 		else:
-			slow_time.end()
+			GameTime.normalize_time()
 	else:
-		if slow_time.is_active:
-			slow_time.end()
+		if GameTime.slow_time:
+			GameTime.normalize_time()
 		else:
 			aiming_timer = 0
 		
@@ -137,32 +148,6 @@ func dash_ctrl():
 		raycasts.set_orientation(move_direction)
 		raycasts.set_rays_visible(true)
 
-#########################################################
-
-#func dash_ctrl():
-#	if not dash.can_dash or not is_alive() or stopped:
-#		if not is_alive() and dash.dashing:
-#			dash.end_dash()
-#		return
-#
-#	var is_moving = move_direction.x or move_direction.y
-#	if Input.is_action_just_pressed("dash") and not dash.dashing and is_moving:
-#		dash.start_dash(sprites, DASH_DURATION)
-#
-#		dash_movement = move_direction
-#		dash_movement.y *= -1
-#
-#		if dash_movement.x:
-#			$HorizontalDetector.set_deferred("monitoring", true)
-#		if dash_movement.y:
-#			$VerticalDetector.set_deferred("monitoring", true)
-#
-#		raycasts.set_orientation(move_direction)
-#		raycasts.set_rays_visible(true)
-#	elif not dash.dashing:
-#		raycasts.set_rays_visible(false)
-
-#########################################################
 
 func damage_ctrl(damage_received: int, impact_direction: Vector2 = Vector2.ZERO,
 	electrical_damage: bool = false):
@@ -174,6 +159,7 @@ func damage_ctrl(damage_received: int, impact_direction: Vector2 = Vector2.ZERO,
 			if health <= 0:
 				health = 0
 				animation_tree.set_animation("DeathHit")
+				Statistics.player_deaths += 1
 			else:
 				animation_tree.set_animation("Hit")
 
@@ -193,10 +179,12 @@ func jump_ctrl():
 			rebound_timer.is_stopped() and not stopped):
 			movement.y -= JUMP_HEIGHT
 			jumping = true
+			jump_sound.playing = true
 		else:
 			jumping = false
 			active_coyote = false
 	else:
+		sparks_sound.playing = false
 		sparks.emitting = false
 		
 		if jumping:
@@ -212,6 +200,7 @@ func jump_ctrl():
 				rebound_timer.is_stopped() and is_alive()):
 				movement.y -= JUMP_HEIGHT
 				jumping = true
+				jump_sound.playing = true
 
 
 func movement_ctrl():
@@ -230,7 +219,7 @@ func movement_ctrl():
 						movement.x = move_direction.x * SPEED
 					elif is_on_floor():
 						movement.x = 0
-					movement.y += 1.7 if slow_time.is_active else GRAVITY
+					movement.y += 1.7 if GameTime.slow_time else GRAVITY
 					if movement.y > SPEED * 3:
 						movement.y = SPEED * 3
 				
@@ -238,6 +227,7 @@ func movement_ctrl():
 				
 				if (move_direction.x and is_on_floor() and is_alive() and
 					not is_on_wall()):
+					sparks_sound.playing = true
 					sparks.emitting = true
 					
 					if move_direction.x > 0:
@@ -245,12 +235,14 @@ func movement_ctrl():
 					else:
 						sparks.position.x = -6
 				else:
+					sparks_sound.playing = false
 					sparks.emitting = false
 				
 				movement = move_and_slide(movement, FLOOR)
 			else:
 				# warning-ignore:return_value_discarded
 				drag_ctrl()
+				sparks_sound.playing = false
 				sparks.emitting = false
 				movement = Vector2.ZERO
 

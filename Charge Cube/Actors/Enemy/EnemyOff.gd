@@ -1,12 +1,14 @@
+tool
 extends KinematicBody2D
 
-enum { HEAD, LEGS, ARMS}
+enum Status { HEAD, LEGS, ARMS, BOTH }
 
 const GRAVITY = 16
 const FLOOR = Vector2.UP
 
 export(int) var health = 3
 export(int) var rebound_speed = 64
+export(Status) var status setget set_status
 
 onready var body = $Body
 onready var body_explosion = $BodyExplosion
@@ -32,20 +34,40 @@ onready var feet = [
 var caught : bool = false
 var flashing : bool = false
 var movement = Vector2.ZERO
-var status = HEAD setget set_status
 
 # Drag
 var drag_divider : float
 var drag_direction : float
 var dragged : bool = false
 
+# Sounds
+onready var ground_sound = $Sounds/GroundImpact
+onready var hit_sound = $Sounds/Hit
+onready var step1_sound = $Sounds/Step1
+onready var step2_sound = $Sounds/Step2
+var ground_contact = false
+
 
 func _ready():
-	$Body.visible = true
-	$HeadCollision.disabled = false
+	if not Engine.editor_hint:
+		$Body.visible = true
+		$HeadCollision.disabled = false
 
 
 func _process(_delta):
+	if Engine.editor_hint:
+		return
+	if is_on_floor():
+		if not ground_contact:
+			ground_contact = true
+			if feet[0].visible:
+				step1_sound.playing = true
+				step2_sound.playing = true
+			else:
+				ground_sound.playing = true
+	else:
+		ground_contact = false
+	
 	if not caught:
 		movement_ctrl()
 	else:
@@ -86,6 +108,7 @@ func damage_ctrl(damage_received : int, axis : Vector2 = Vector2.ZERO):
 		rebound_ctrl(axis)
 	if health - damage_received > 0:
 		flashing = true
+		hit_sound.playing = true
 		health -= damage_received
 		tween_flash()
 		hit_timer.start()
@@ -111,19 +134,69 @@ func drag_ctrl() -> float:
 
 
 func set_status(new_status):
-	if new_status <= status:
-		return
-	match new_status:
-		ARMS:
-			health += 1
+	if Engine.editor_hint:
+		var arms_status
+		var feet_status
+		match new_status:
+			Status.HEAD:
+				health = 3
+				arms_status = false
+				feet_status = false
+			Status.ARMS:
+				health = 4
+				arms_status = true
+				feet_status = false
+			Status.LEGS:
+				health = 4
+				arms_status = false
+				feet_status = true
+			Status.BOTH:
+				health = 5
+				arms_status = true
+				feet_status = true
+		
+		$Body/LeftArm.visible = arms_status
+		$Body/RightArm.visible = arms_status
+		$BodyExplosion/LeftArm.visible = arms_status
+		$BodyExplosion/LeftHand.visible = arms_status
+		$BodyExplosion/RightArm.visible = arms_status
+		$BodyExplosion/RightHand.visible = arms_status
+		
+		$Body/Feet.visible = feet_status
+		$BodyExplosion/LeftFoot.visible = feet_status
+		$BodyExplosion/RightFoot.visible = feet_status
+		$FeetCollision.disabled = not feet_status
+	else:
+		if not arms or not feet:
+			return
+		var arms_status = false
+		var feet_status = false
+		match new_status:
+			Status.HEAD:
+				health = 3
+			Status.ARMS:
+				if not arms[0].visible:
+					health += 1
+					arms_status = true
+			Status.LEGS:
+				if not feet[0].visible:
+					health += 1
+					feet_status = true
+			Status.BOTH:
+				if not arms[0].visible:
+					health += 1
+					arms_status = true
+				if not feet[0].visible:
+					health += 1
+					feet_status = true
+		
+		if arms_status:
 			for arm in arms:
-				arm.visible = true
-		LEGS:
-			health += 1
+				arm.visible = arms_status
+		if feet_status:
 			for foot in feet:
-				foot.visible = true
-			feet_collision.set_deferred("disabled", false)
-	
+				foot.visible = feet_status
+			feet_collision.set_deferred("disabled", not feet_status)
 	status = new_status
 
 

@@ -5,17 +5,18 @@
 [ext_resource path="res://Actors/Particles/BodyExplosion.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Actors/Enemy/Enemy.gd" type="Script" id=4]
 [ext_resource path="res://Actors/Enemy/Parts/Basic/RayCast.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Sounds/Enemy/Step1.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step1.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Feet.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Sounds/Enemy/Walk.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Walk.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=9]
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Arms/KeyAttacks.gd" type="Script" id=10]
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Arms/KeyArm.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/Sounds/Enemy/Step2.ogg" type="AudioStream" id=13]
-[ext_resource path="res://Assets/Sounds/Enemy/Caught.ogg" type="AudioStream" id=14]
-[ext_resource path="res://Assets/Sounds/Enemy/Hit.ogg" type="AudioStream" id=15]
-[ext_resource path="res://Assets/Sounds/Enemy/Idle.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step2.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Caught.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Hit.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Idle.ogg" type="AudioStream" id=16]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -680,33 +681,34 @@ damage = 3
 
 [node name="Body" type="Sprite" parent="."]
 material = SubResource( 1 )
-position = Vector2( 0, -2.5 )
+position = Vector2( 0, -2.11864 )
 texture = ExtResource( 1 )
 vframes = 3
 hframes = 3
+frame = 1
 script = ExtResource( 10 )
 
 [node name="RightArm" type="Position2D" parent="Body"]
 modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 show_behind_parent = true
 use_parent_material = true
-position = Vector2( -1, 0.15438 )
+position = Vector2( -1, 0.237278 )
 
 [node name="Arm" parent="Body/RightArm" instance=ExtResource( 11 )]
 arm = "Back"
 
 [node name="Feet" parent="Body" instance=ExtResource( 7 )]
-position = Vector2( 0, 2.5 )
+position = Vector2( 0, 2.11864 )
 
 [node name="LeftArm" type="Position2D" parent="Body"]
 use_parent_material = true
-position = Vector2( 4, 0.15438 )
+position = Vector2( 4, 0.237278 )
 
 [node name="Arm" parent="Body/LeftArm" instance=ExtResource( 11 )]
 
 [node name="HeadCollision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -4 )
+position = Vector2( 0, -3.61864 )
 shape = SubResource( 2 )
 
 [node name="FeetCollision" type="CollisionShape2D" parent="."]

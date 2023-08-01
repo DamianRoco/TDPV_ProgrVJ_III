@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Images/GUI/Sliders/SoundGrabber.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/GUI/Sliders/AreaFill.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/GUI/Sliders/AreaEmpty.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/GUI/Sliders/SoundGrabberHighlight.png" type="Texture" id=5]
+[ext_resource path="res://Actors/Menu/Slider.gd" type="Script" id=6]
+[ext_resource path="res://Actors/Text/Numbers.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="HSlider" type="HSlider"]
+margin_right = 80.0
+margin_bottom = 16.0
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 1 )
+custom_styles/slider = SubResource( 1 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="AreaEmpty" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 40, 8 )
+texture = ExtResource( 3 )
+
+[node name="AreaFill" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 0, 3.5 )
+texture = ExtResource( 2 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 80, 9 )
+
+[node name="Numbers" parent="." instance=ExtResource( 7 )]
+position = Vector2( 19.2, -11.6 )
+scale = Vector2( 0.8, 0.8 )
+[connection signal="mouse_exited" from="." to="." method="_on_HSlider_mouse_exited"]
+[connection signal="value_changed" from="." to="." method="_on_HSlider_value_changed"]

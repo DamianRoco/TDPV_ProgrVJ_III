@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SolarStorm.ogg-c1e2937eebfc1d493dfdbbfa56bc62f5.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Intro/SolarStorm.ogg"
+dest_files=[ "res://.import/SolarStorm.ogg-c1e2937eebfc1d493dfdbbfa56bc62f5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

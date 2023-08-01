@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pipeline.png-a77a2ce9fb64cfb9418a168b2eee044a.stex"
+path="res://.import/pipeline.png-5e8958d0ee496aa5bbcb70157e44ae42.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Tiles/Pipeline.png"
-dest_files=[ "res://.import/Pipeline.png-a77a2ce9fb64cfb9418a168b2eee044a.stex" ]
+source_file="res://Assets/Images/Tiles/pipeline.png"
+dest_files=[ "res://.import/pipeline.png-5e8958d0ee496aa5bbcb70157e44ae42.stex" ]
 
 [params]
 

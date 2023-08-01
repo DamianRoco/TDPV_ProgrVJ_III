@@ -20,7 +20,20 @@ var player
 var terrain_loader
 
 
+func _ready():
+	OS.window_fullscreen = true
+
+
+func reset():
+	go_to = Level.NEXT
+	hidden_level = HiddenLevel.NONE
+	level = Vector2(1, 1)
+	save_terrain = true
+	spawn_player = false
+
+
 func get_level_name(hidden_level_entrance, max_levels) -> String:
+	Statistics.save_stats()
 	match hidden_level_entrance:
 		HiddenLevel.COME:
 			hidden_level = HiddenLevel.COME

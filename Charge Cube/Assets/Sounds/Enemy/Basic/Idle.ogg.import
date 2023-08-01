@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Idle.ogg-54d4708e8516218ea9c95b1837fb9d36.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Basic/Idle.ogg"
+dest_files=[ "res://.import/Idle.ogg-54d4708e8516218ea9c95b1837fb9d36.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

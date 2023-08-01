@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/VisorUpdate.ogg-ee50fac2f58750eefc0cc2517d7e6daf.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Player/VisorUpdate.ogg"
+dest_files=[ "res://.import/VisorUpdate.ogg-ee50fac2f58750eefc0cc2517d7e6daf.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

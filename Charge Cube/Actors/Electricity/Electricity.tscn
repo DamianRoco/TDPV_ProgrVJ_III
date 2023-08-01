@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Images/Electricity.png" type="Texture" id=1]
-[ext_resource path="res://Actors/Electricity/AnimationPlayer.gd" type="Script" id=2]
+[ext_resource path="res://Actors/Electricity/Electricity.gd" type="Script" id=2]
+[ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Sounds/Electricity/Electrocution.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 5 )
@@ -38,6 +40,7 @@ tracks/1/keys = {
 [node name="Electricity" type="Area2D" groups=[
 "Electricity",
 ]]
+script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 8, 8 )
@@ -53,5 +56,8 @@ region_rect = Rect2( 0, 0, 16, 128 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 5.0
 anims/Swing = SubResource( 2 )
-script = ExtResource( 2 )
-[connection signal="body_entered" from="." to="AnimationPlayer" method="_on_Area2D_body_entered"]
+
+[node name="Electrocution" parent="." instance=ExtResource( 3 )]
+position = Vector2( 8, 8 )
+stream = ExtResource( 4 )
+[connection signal="body_entered" from="." to="." method="_on_Electricity_body_entered"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ProjectileMovement.ogg-4c0da6e473ad485821bfa4701c7d8454.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Projectile/ProjectileMovement.ogg"
+dest_files=[ "res://.import/ProjectileMovement.ogg-4c0da6e473ad485821bfa4701c7d8454.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

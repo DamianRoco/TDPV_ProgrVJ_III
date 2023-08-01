@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Step2.ogg-197c8c09773692d0b06c49d5296f93ca.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Basic/Step2.ogg"
+dest_files=[ "res://.import/Step2.ogg-197c8c09773692d0b06c49d5296f93ca.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

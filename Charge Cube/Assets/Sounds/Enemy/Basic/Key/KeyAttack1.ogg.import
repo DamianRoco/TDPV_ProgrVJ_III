@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/KeyAttack1.ogg-a43a9e67ee11d5634c4451b93f3952e5.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Basic/Key/KeyAttack1.ogg"
+dest_files=[ "res://.import/KeyAttack1.ogg-a43a9e67ee11d5634c4451b93f3952e5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

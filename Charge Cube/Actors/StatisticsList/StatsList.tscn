@@ -1,0 +1,2939 @@
+[gd_scene load_steps=49 format=2]
+
+[ext_resource path="res://Assets/Images/GUI/Buttons/RestartSelected.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/Intro/Space/Background.png" type="Texture" id=2]
+[ext_resource path="res://Actors/TileMap/BlocksShade.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Images/Tiles/Blocks.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sounds/Menu/WaverClaws.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Images/Intro/Space/Stars.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Intro/Space/Dust.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sounds/Menu/ArmMoving.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sounds/Menu/ClawOpening.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Images/Intro/Space/Nebulae.png" type="Texture" id=10]
+[ext_resource path="res://Actors/Intro/AnimationPlay.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Images/Enemy/Underboss/Hand.png" type="Texture" id=12]
+[ext_resource path="res://Actors/Enemy/Underboss/Parts/ArmPart.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Actors/StatisticsList/StatisticsSetter.gd" type="Script" id=14]
+[ext_resource path="res://Assets/Images/GUI/Buttons/MenuNormal.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=16]
+[ext_resource path="res://Assets/Images/GUI/Buttons/RestartNormal.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Images/GUI/Buttons/MenuSelected.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Images/Player/Player.png" type="Texture" id=19]
+[ext_resource path="res://Actors/StatisticsList/StatsList.gd" type="Script" id=20]
+[ext_resource path="res://Actors/Text/Numbers.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Actors/Menu/Button.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Actors/Text/Letters.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Assets/Sounds/Player/VisorUpdate.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Assets/Sounds/Player/Dash.ogg" type="AudioStream" id=26]
+[ext_resource path="res://Assets/Images/MobileClaw.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Sounds/MobileClaw/Broken.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Actors/Text/InstructionsBackground.tscn" type="PackedScene" id=30]
+[ext_resource path="res://Assets/Images/Enemy/Basic/EnemyOff.png" type="Texture" id=33]
+[ext_resource path="res://Assets/Sounds/Player/Hit.ogg" type="AudioStream" id=43]
+[ext_resource path="res://Assets/Images/Player/Visor.png" type="Texture" id=46]
+
+
+
+
+[sub_resource type="TileSet" id=1]
+0/name = "Blocks.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="Animation" id=2]
+length = 3.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.3, 1.8, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -80, 0 ), Vector2( -80, 0 ), Vector2( 210, 0 ), Vector2( 210, 0 ), Vector2( -80, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3, 1.8, 2.2, 2.5, 2.8, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3, 1.8, 2.2, 2.5, 2.8, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 260, 0 ), Vector2( 260, 0 ), Vector2( 260, -6 ), Vector2( 260, 0 ), Vector2( 260, 6 ), Vector2( 260, 0 ), Vector2( 260, 0 ), Vector2( 260, 6 ), Vector2( 260, 0 ), Vector2( 260, -6 ), Vector2( 260, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.4, 1.5, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 2, 1, 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ClawOpening:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../../Player:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 298, -8 ), Vector2( 298, -8 ), Vector2( 225.5, -11 ), Vector2( 153, -8 ), Vector2( 80.5, -5 ), Vector2( 8, -8 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../Player:material:shader_param/flash_modifier")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.3, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../../Player/Visor:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1.3, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 15, 16, 15, 16, 15, 16, 15, 16, 0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../../Player/Sounds/Hit:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 1.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 16 )
+shader_param/flash_modifier = 1.0
+shader_param/flash_color = Color( 0, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 16 )
+shader_param/flash_modifier = 0.0
+shader_param/flash_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Broken"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CPUParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Broken:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "MoveToCenter"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 290, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:rect_position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, -7.99999 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "ReleaseButton"
+length = 1.21
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 290, 0 ), Vector2( 290, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.01 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -72.5, -3 ), Vector2( -145, 0 ), Vector2( -217.5, 3 ), Vector2( -290, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:rect_position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, -7.99999 ), Vector2( 4, -7.99999 ), Vector2( 4, 142 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ClawOpening:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "RemoveButton"
+length = 1.21
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 290, 0 ), Vector2( 290, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 2.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/WaverClaws:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 290, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -72, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:rect_position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, -7.99999 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 1.21
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 290, 0 ), Vector2( 290, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.01 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -72, 0 ), Vector2( -72, 0 ), Vector2( -144.5, -3 ), Vector2( -217, 0 ), Vector2( -289.5, 3 ), Vector2( -362, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:rect_position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, -7.99999 ), Vector2( 4, -7.99999 ), Vector2( 4, 142 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ClawOpening:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 1.21
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 290, 0 ), Vector2( 290, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.01, 0.31, 0.61, 0.91, 1.21 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ArmMoving:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button:button_moving")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 2.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 180, 0 ), Vector2( 180, -6 ), Vector2( 180, 0 ), Vector2( 180, 6 ), Vector2( 180, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/WaverClaws:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "GoToStats"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 200 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MenuPlayer:playback_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.5 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "HideMenu"
+length = 3.0
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 2, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BlocksBackground/ParallaxLayer/Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, -8 ), Vector2( 8, -8 ), Vector2( 8, 72 ), Vector2( 8, 400 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BlocksBackground/ParallaxLayer/Player/Visor:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 5, 6, 7, 8, 9, 1 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BlocksBackground/ParallaxLayer/Player/Visor:flip_v")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BlocksBackground/ParallaxLayer/Player/Sounds/VisorUpdate:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BlocksBackground/ParallaxLayer/CPUParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BlocksBackground/ParallaxLayer/Player/Sounds/Dash:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.79, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.8, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost2:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.82, 0.83 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.83, 1.08 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost3:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.85, 0.86 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost3:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.86, 1.11 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost4:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 0.88, 0.89 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost4:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 0.89, 1.14 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost5:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.91, 0.92 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("BlocksBackground/ParallaxLayer/DashGhosts/DashGhost5:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.92, 1.17 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Camera:position")
+tracks/17/interp = 2
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 200 ), Vector2( 0, 200 ), Vector2( 0, 220 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("MenuPlayer:playback_speed")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.5, 2.0 ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.4, 2.2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 59.5 ), Vector2( 0, 200 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MenuPlayer:playback_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.5 ]
+}
+
+[node name="StatsList" type="Node2D"]
+script = ExtResource( 20 )
+button_paths = [ NodePath("Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button"), NodePath("Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button") ]
+button_player_paths = [ NodePath("Text/Restart/AnimationPlayer"), NodePath("Text/Menu/AnimationPlayer") ]
+
+[node name="SpaceBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="SpaceBackground"]
+z_index = -1
+motion_scale = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="SpaceBackground/ParallaxLayer"]
+position = Vector2( 0, 0.594604 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="SpaceBackground"]
+z_index = -1
+motion_scale = Vector2( 0.3, 0.3 )
+
+[node name="Sprite" type="Sprite" parent="SpaceBackground/ParallaxLayer2"]
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="SpaceBackground"]
+z_index = -1
+motion_scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite" type="Sprite" parent="SpaceBackground/ParallaxLayer3"]
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="SpaceBackground"]
+z_index = -1
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="SpaceBackground/ParallaxLayer4"]
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BlocksBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="BlocksBackground"]
+z_index = -1
+motion_scale = Vector2( 0.3, 0.3 )
+
+[node name="BlocksShade" parent="BlocksBackground/ParallaxLayer" instance=ExtResource( 3 )]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+z_index = 0
+tile_set = SubResource( 1 )
+tile_data = PoolIntArray( -655380, 0, 0, -655379, 0, 0, -655378, 0, 0, -655377, 0, 0, -655376, 0, 0, -655375, 0, 0, -655374, 0, 0, -655373, 0, 0, -655372, 0, 0, -655371, 0, 0, -655370, 0, 0, -655369, 0, 0, -655368, 0, 0, -655367, 0, 0, -655366, 0, 0, -655365, 0, 0, -655364, 0, 0, -655363, 0, 0, -655362, 0, 0, -655361, 0, 0, -720896, 0, 0, -720895, 0, 0, -720894, 0, 0, -720893, 0, 0, -720892, 0, 0, -720891, 0, 0, -720890, 0, 0, -720889, 0, 0, -720888, 0, 0, -720887, 0, 0, -720886, 0, 0, -720885, 0, 0, -720884, 0, 0, -720883, 0, 0, -720882, 0, 0, -720881, 0, 0, -720880, 0, 0, -720879, 0, 0, -720878, 0, 0, -720877, 0, 0, -589844, 0, 0, -589843, 0, 0, -589842, 0, 0, -589841, 0, 0, -589840, 0, 0, -589839, 0, 0, -589838, 0, 0, -589837, 0, 0, -589836, 0, 0, -589835, 0, 0, -589834, 0, 0, -589833, 0, 0, -589832, 0, 0, -589831, 0, 0, -589830, 0, 0, -589829, 0, 0, -589828, 0, 0, -589827, 0, 0, -589826, 0, 0, -589825, 0, 0, -655360, 0, 0, -655359, 0, 0, -655358, 0, 0, -655357, 0, 0, -655356, 0, 0, -655355, 0, 0, -655354, 0, 0, -655353, 0, 0, -655352, 0, 0, -655351, 0, 0, -655350, 0, 0, -655349, 0, 0, -655348, 0, 0, -655347, 0, 0, -655346, 0, 0, -655345, 0, 0, -655344, 0, 0, -655343, 0, 0, -655342, 0, 0, -655341, 0, 0, -524308, 0, 0, -524307, 0, 0, -524306, 0, 0, -524305, 0, 0, -524304, 0, 0, -524303, 0, 0, -524302, 0, 0, -524301, 0, 0, -524300, 0, 0, -524299, 0, 0, -524298, 0, 0, -524297, 0, 0, -524296, 0, 0, -524295, 0, 0, -524294, 0, 0, -524293, 0, 0, -524292, 0, 0, -524291, 0, 0, -524290, 0, 0, -524289, 0, 0, -589824, 0, 0, -589823, 0, 0, -589822, 0, 0, -589821, 0, 0, -589820, 0, 0, -589819, 0, 0, -589818, 0, 0, -589817, 0, 0, -589816, 0, 0, -589815, 0, 0, -589814, 0, 0, -589813, 0, 0, -589812, 0, 0, -589811, 0, 0, -589810, 0, 0, -589809, 0, 0, -589808, 0, 0, -589807, 0, 0, -589806, 0, 0, -589805, 0, 0, -458772, 0, 0, -458771, 0, 0, -458770, 0, 0, -458769, 0, 0, -458768, 0, 0, -458767, 0, 0, -458766, 0, 0, -458765, 0, 0, -458764, 0, 0, -458763, 0, 0, -458762, 0, 0, -458761, 0, 0, -458760, 0, 0, -458759, 0, 0, -458758, 0, 0, -458757, 0, 0, -458756, 0, 0, -458755, 0, 0, -458754, 0, 0, -458753, 0, 0, -524288, 0, 0, -524287, 0, 0, -524286, 0, 0, -524285, 0, 0, -524284, 0, 0, -524283, 0, 0, -524282, 0, 0, -524281, 0, 0, -524280, 0, 0, -524279, 0, 0, -524278, 0, 0, -524277, 0, 0, -524276, 0, 0, -524275, 0, 0, -524274, 0, 0, -524273, 0, 0, -524272, 0, 0, -524271, 0, 0, -524270, 0, 0, -524269, 0, 0, -393236, 0, 0, -393235, 0, 0, -393234, 0, 0, -393233, 0, 0, -393232, 0, 0, -393231, 0, 0, -393230, 0, 0, -393229, 0, 0, -393228, 0, 0, -393227, 0, 0, -393226, 0, 0, -393225, 0, 0, -393224, 0, 0, -393223, 0, 0, -393222, 0, 0, -393221, 0, 0, -393220, 0, 0, -393219, 0, 0, -393218, 0, 0, -393217, 0, 0, -458752, 0, 0, -458751, 0, 0, -458750, 0, 0, -458749, 0, 0, -458748, 0, 0, -458747, 0, 0, -458746, 0, 0, -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -458737, 0, 0, -458736, 0, 0, -458735, 0, 0, -458734, 0, 0, -458733, 0, 0, -327700, 0, 0, -327699, 0, 0, -327698, 0, 0, -327697, 0, 0, -327696, 0, 0, -327695, 0, 0, -327694, 0, 0, -327693, 0, 0, -327692, 0, 0, -327691, 0, 0, -327690, 0, 0, -327689, 0, 0, -327688, 0, 0, -327687, 0, 0, -327686, 0, 0, -327685, 0, 0, -327684, 0, 0, -327683, 0, 0, -327682, 0, 0, -327681, 0, 0, -393216, 0, 0, -393215, 0, 0, -393214, 0, 0, -393213, 0, 0, -393212, 0, 0, -393211, 0, 0, -393210, 0, 0, -393209, 0, 0, -393208, 0, 0, -393207, 0, 0, -393206, 0, 0, -393205, 0, 0, -393204, 0, 0, -393203, 0, 0, -393202, 0, 0, -393201, 0, 0, -393200, 0, 0, -393199, 0, 0, -393198, 0, 0, -393197, 0, 0, -262164, 0, 0, -262163, 0, 0, -262162, 0, 0, -262161, 0, 0, -262160, 0, 0, -262159, 0, 0, -262158, 0, 0, -262157, 0, 0, -262156, 0, 0, -262155, 0, 0, -262154, 0, 0, -262153, 0, 0, -262152, 0, 0, -262151, 0, 0, -262150, 0, 0, -262149, 0, 0, -262148, 0, 0, -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -327664, 0, 0, -327663, 0, 0, -327662, 0, 0, -327661, 0, 0, -196628, 0, 0, -196627, 0, 0, -196626, 0, 0, -196625, 0, 0, -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -196618, 0, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -262130, 0, 0, -262129, 0, 0, -262128, 0, 0, -262127, 0, 0, -262126, 0, 0, -262125, 0, 0, -131092, 0, 0, -131091, 0, 0, -131090, 0, 0, -131089, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -131082, 0, 0, -131081, 0, 0, -131080, 0, 0, -131079, 0, 0, -131078, 0, 0, -131077, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -196589, 0, 0, -65556, 0, 0, -65555, 0, 0, -65554, 0, 0, -65553, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0, -65546, 0, 0, -65545, 0, 0, -65544, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -131061, 0, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, -131053, 0, 0, -20, 0, 0, -19, 0, 0, -18, 0, 0, -17, 0, 0, -16, 0, 0, -15, 0, 0, -14, 0, 0, -13, 0, 0, -12, 0, 0, -11, 0, 0, -10, 0, 0, -9, 0, 0, -8, 0, 0, -7, 0, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, 65516, 0, 0, 65517, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 131052, 0, 0, 131053, 0, 0, 131054, 0, 0, 131055, 0, 0, 131056, 0, 0, 131057, 0, 0, 131058, 0, 0, 131059, 0, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 65552, 0, 0, 65553, 0, 0, 65554, 0, 0, 65555, 0, 0, 196588, 0, 0, 196589, 0, 0, 196590, 0, 0, 196591, 0, 0, 196592, 0, 0, 196593, 0, 0, 196594, 0, 0, 196595, 0, 0, 196596, 0, 0, 196597, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 262124, 0, 0, 262125, 0, 0, 262126, 0, 0, 262127, 0, 0, 262128, 0, 0, 262129, 0, 0, 262130, 0, 0, 262131, 0, 0, 262132, 0, 0, 262133, 0, 0, 262134, 0, 0, 262135, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 327660, 0, 0, 327661, 0, 0, 327662, 0, 0, 327663, 0, 0, 327664, 0, 0, 327665, 0, 0, 327666, 0, 0, 327667, 0, 0, 327668, 0, 0, 327669, 0, 0, 327670, 0, 0, 327671, 0, 0, 327672, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 393196, 0, 0, 393197, 0, 0, 393198, 0, 0, 393199, 0, 0, 393200, 0, 0, 393201, 0, 0, 393202, 0, 0, 393203, 0, 0, 393204, 0, 0, 393205, 0, 0, 393206, 0, 0, 393207, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 458732, 0, 0, 458733, 0, 0, 458734, 0, 0, 458735, 0, 0, 458736, 0, 0, 458737, 0, 0, 458738, 0, 0, 458739, 0, 0, 458740, 0, 0, 458741, 0, 0, 458742, 0, 0, 458743, 0, 0, 458744, 0, 0, 458745, 0, 0, 458746, 0, 0, 458747, 0, 0, 458748, 0, 0, 458749, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 524268, 0, 0, 524269, 0, 0, 524270, 0, 0, 524271, 0, 0, 524272, 0, 0, 524273, 0, 0, 524274, 0, 0, 524275, 0, 0, 524276, 0, 0, 524277, 0, 0, 524278, 0, 0, 524279, 0, 0, 524280, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 589804, 0, 0, 589805, 0, 0, 589806, 0, 0, 589807, 0, 0, 589808, 0, 0, 589809, 0, 0, 589810, 0, 0, 589811, 0, 0, 589812, 0, 0, 589813, 0, 0, 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 655340, 0, 0, 655341, 0, 0, 655342, 0, 0, 655343, 0, 0, 655344, 0, 0, 655345, 0, 0, 655346, 0, 0, 655347, 0, 0, 655348, 0, 0, 655349, 0, 0, 655350, 0, 0, 655351, 0, 0, 655352, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 720876, 0, 0, 720877, 0, 0, 720878, 0, 0, 720879, 0, 0, 720880, 0, 0, 720881, 0, 0, 720882, 0, 0, 720883, 0, 0, 720884, 0, 0, 720885, 0, 0, 720886, 0, 0, 720887, 0, 0, 720888, 0, 0, 720889, 0, 0, 720890, 0, 0, 720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 786412, 0, 0, 786413, 0, 0, 786414, 0, 0, 786415, 0, 0, 786416, 0, 0, 786417, 0, 0, 786418, 0, 0, 786419, 0, 0, 786420, 0, 0, 786421, 0, 0, 786422, 0, 0, 786423, 0, 0, 786424, 0, 0, 786425, 0, 0, 786426, 0, 0, 786427, 0, 0, 786428, 0, 0, 786429, 0, 0, 786430, 0, 0, 786431, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0, 851948, 0, 0, 851949, 0, 0, 851950, 0, 0, 851951, 0, 0, 851952, 0, 0, 851953, 0, 0, 851954, 0, 0, 851955, 0, 0, 851956, 0, 0, 851957, 0, 0, 851958, 0, 0, 851959, 0, 0, 851960, 0, 0, 851961, 0, 0, 851962, 0, 0, 851963, 0, 0, 851964, 0, 0, 851965, 0, 0, 851966, 0, 0, 851967, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 786438, 0, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786449, 0, 0, 786450, 0, 0, 786451, 0, 0, 917484, 0, 0, 917485, 0, 0, 917486, 0, 0, 917487, 0, 0, 917488, 0, 0, 917489, 0, 0, 917490, 0, 0, 917491, 0, 0, 917492, 0, 0, 917493, 0, 0, 917494, 0, 0, 917495, 0, 0, 917496, 0, 0, 917497, 0, 0, 917498, 0, 0, 917499, 0, 0, 917500, 0, 0, 917501, 0, 0, 917502, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 983020, 0, 0, 983021, 0, 0, 983022, 0, 0, 983023, 0, 0, 983024, 0, 0, 983025, 0, 0, 983026, 0, 0, 983027, 0, 0, 983028, 0, 0, 983029, 0, 0, 983030, 0, 0, 983031, 0, 0, 983032, 0, 0, 983033, 0, 0, 983034, 0, 0, 983035, 0, 0, 983036, 0, 0, 983037, 0, 0, 983038, 0, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 1048556, 0, 0, 1048557, 0, 0, 1048558, 0, 0, 1048559, 0, 0, 1048560, 0, 0, 1048561, 0, 0, 1048562, 0, 0, 1048563, 0, 0, 1048564, 0, 0, 1048565, 0, 0, 1048566, 0, 0, 1048567, 0, 0, 1048568, 0, 0, 1048569, 0, 0, 1048570, 0, 0, 1048571, 0, 0, 1048572, 0, 0, 1048573, 0, 0, 1048574, 0, 0, 1048575, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 1114092, 0, 0, 1114093, 0, 0, 1114094, 0, 0, 1114095, 0, 0, 1114096, 0, 0, 1114097, 0, 0, 1114098, 0, 0, 1114099, 0, 0, 1114100, 0, 0, 1114101, 0, 0, 1114102, 0, 0, 1114103, 0, 0, 1114104, 0, 0, 1114105, 0, 0, 1114106, 0, 0, 1114107, 0, 0, 1114108, 0, 0, 1114109, 0, 0, 1114110, 0, 0, 1114111, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1179628, 0, 0, 1179629, 0, 0, 1179630, 0, 0, 1179631, 0, 0, 1179632, 0, 0, 1179633, 0, 0, 1179634, 0, 0, 1179635, 0, 0, 1179636, 0, 0, 1179637, 0, 0, 1179638, 0, 0, 1179639, 0, 0, 1179640, 0, 0, 1179641, 0, 0, 1179642, 0, 0, 1179643, 0, 0, 1179644, 0, 0, 1179645, 0, 0, 1179646, 0, 0, 1179647, 0, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1114118, 0, 0, 1114119, 0, 0, 1114120, 0, 0, 1114121, 0, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0, 1114128, 0, 0, 1114129, 0, 0, 1114130, 0, 0, 1114131, 0, 0, 1245164, 0, 0, 1245165, 0, 0, 1245166, 0, 0, 1245167, 0, 0, 1245168, 0, 0, 1245169, 0, 0, 1245170, 0, 0, 1245171, 0, 0, 1245172, 0, 0, 1245173, 0, 0, 1245174, 0, 0, 1245175, 0, 0, 1245176, 0, 0, 1245177, 0, 0, 1245178, 0, 0, 1245179, 0, 0, 1245180, 0, 0, 1245181, 0, 0, 1245182, 0, 0, 1245183, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1179654, 0, 0, 1179655, 0, 0, 1179656, 0, 0, 1179657, 0, 0, 1179658, 0, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179665, 0, 0, 1179666, 0, 0, 1179667, 0, 0, 1310700, 0, 0, 1310701, 0, 0, 1310702, 0, 0, 1310703, 0, 0, 1310704, 0, 0, 1310705, 0, 0, 1310706, 0, 0, 1310707, 0, 0, 1310708, 0, 0, 1310709, 0, 0, 1310710, 0, 0, 1310711, 0, 0, 1310712, 0, 0, 1310713, 0, 0, 1310714, 0, 0, 1310715, 0, 0, 1310716, 0, 0, 1310717, 0, 0, 1310718, 0, 0, 1310719, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0, 1245190, 0, 0, 1245191, 0, 0, 1245192, 0, 0, 1245193, 0, 0, 1245194, 0, 0, 1245195, 0, 0, 1245196, 0, 0, 1245197, 0, 0, 1245198, 0, 0, 1245199, 0, 0, 1245200, 0, 0, 1245201, 0, 0, 1245202, 0, 0, 1245203, 0, 0, 1376236, 0, 0, 1376237, 0, 0, 1376238, 0, 0, 1376239, 0, 0, 1376240, 0, 0, 1376241, 0, 0, 1376242, 0, 0, 1376243, 0, 0, 1376244, 0, 0, 1376245, 0, 0, 1376246, 0, 0, 1376247, 0, 0, 1376248, 0, 0, 1376249, 0, 0, 1376250, 0, 0, 1376251, 0, 0, 1376252, 0, 0, 1376253, 0, 0, 1376254, 0, 0, 1376255, 0, 0, 1310720, 0, 0, 1310721, 0, 0, 1310722, 0, 0, 1310723, 0, 0, 1310724, 0, 0, 1310725, 0, 0, 1310726, 0, 0, 1310727, 0, 0, 1310728, 0, 0, 1310729, 0, 0, 1310730, 0, 0, 1310731, 0, 0, 1310732, 0, 0, 1310733, 0, 0, 1310734, 0, 0, 1310735, 0, 0, 1310736, 0, 0, 1310737, 0, 0, 1310738, 0, 0, 1310739, 0, 0, 1441772, 0, 0, 1441773, 0, 0, 1441774, 0, 0, 1441775, 0, 0, 1441776, 0, 0, 1441777, 0, 0, 1441778, 0, 0, 1441779, 0, 0, 1441780, 0, 0, 1441781, 0, 0, 1441782, 0, 0, 1441783, 0, 0, 1441784, 0, 0, 1441785, 0, 0, 1441786, 0, 0, 1441787, 0, 0, 1441788, 0, 0, 1441789, 0, 0, 1441790, 0, 0, 1441791, 0, 0, 1376256, 0, 0, 1376257, 0, 0, 1376258, 0, 0, 1376259, 0, 0, 1376260, 0, 0, 1376261, 0, 0, 1376262, 0, 0, 1376263, 0, 0, 1376264, 0, 0, 1376265, 0, 0, 1376266, 0, 0, 1376267, 0, 0, 1376268, 0, 0, 1376269, 0, 0, 1376270, 0, 0, 1376271, 0, 0, 1376272, 0, 0, 1376273, 0, 0, 1376274, 0, 0, 1376275, 0, 0, 1507308, 0, 0, 1507309, 0, 0, 1507310, 0, 0, 1507311, 0, 0, 1507312, 0, 0, 1507313, 0, 0, 1507314, 0, 0, 1507315, 0, 0, 1507316, 0, 0, 1507317, 0, 0, 1507318, 0, 0, 1507319, 0, 0, 1507320, 0, 0, 1507321, 0, 0, 1507322, 0, 0, 1507323, 0, 0, 1507324, 0, 0, 1507325, 0, 0, 1507326, 0, 0, 1507327, 0, 0, 1441792, 0, 0, 1441793, 0, 0, 1441794, 0, 0, 1441795, 0, 0, 1441796, 0, 0, 1441797, 0, 0, 1441798, 0, 0, 1441799, 0, 0, 1441800, 0, 0, 1441801, 0, 0, 1441802, 0, 0, 1441803, 0, 0, 1441804, 0, 0, 1441805, 0, 0, 1441806, 0, 0, 1441807, 0, 0, 1441808, 0, 0, 1441809, 0, 0, 1441810, 0, 0, 1441811, 0, 0, 1572844, 0, 0, 1572845, 0, 0, 1572846, 0, 0, 1572847, 0, 0, 1572848, 0, 0, 1572849, 0, 0, 1572850, 0, 0, 1572851, 0, 0, 1572852, 0, 0, 1572853, 0, 0, 1572854, 0, 0, 1572855, 0, 0, 1572856, 0, 0, 1572857, 0, 0, 1572858, 0, 0, 1572859, 0, 0, 1572860, 0, 0, 1572861, 0, 0, 1572862, 0, 0, 1572863, 0, 0, 1507328, 0, 0, 1507329, 0, 0, 1507330, 0, 0, 1507331, 0, 0, 1507332, 0, 0, 1507333, 0, 0, 1507334, 0, 0, 1507335, 0, 0, 1507336, 0, 0, 1507337, 0, 0, 1507338, 0, 0, 1507339, 0, 0, 1507340, 0, 0, 1507341, 0, 0, 1507342, 0, 0, 1507343, 0, 0, 1507344, 0, 0, 1507345, 0, 0, 1507346, 0, 0, 1507347, 0, 0, 1638380, 0, 0, 1638381, 0, 0, 1638382, 0, 0, 1638383, 0, 0, 1638384, 0, 0, 1638385, 0, 0, 1638386, 0, 0, 1638387, 0, 0, 1638388, 0, 0, 1638389, 0, 0, 1638390, 0, 0, 1638391, 0, 0, 1638392, 0, 0, 1638393, 0, 0, 1638394, 0, 0, 1638395, 0, 0, 1638396, 0, 0, 1638397, 0, 0, 1638398, 0, 0, 1638399, 0, 0, 1572864, 0, 0, 1572865, 0, 0, 1572866, 0, 0, 1572867, 0, 0, 1572868, 0, 0, 1572869, 0, 0, 1572870, 0, 0, 1572871, 0, 0, 1572872, 0, 0, 1572873, 0, 0, 1572874, 0, 0, 1572875, 0, 0, 1572876, 0, 0, 1572877, 0, 0, 1572878, 0, 0, 1572879, 0, 0, 1572880, 0, 0, 1572881, 0, 0, 1572882, 0, 0, 1572883, 0, 0, 1703916, 0, 0, 1703917, 0, 0, 1703918, 0, 0, 1703919, 0, 0, 1703920, 0, 0, 1703921, 0, 0, 1703922, 0, 0, 1703923, 0, 0, 1703924, 0, 0, 1703925, 0, 0, 1703926, 0, 0, 1703927, 0, 0, 1703928, 0, 0, 1703929, 0, 0, 1703930, 0, 0, 1703931, 0, 0, 1703932, 0, 0, 1703933, 0, 0, 1703934, 0, 0, 1703935, 0, 0, 1638400, 0, 0, 1638401, 0, 0, 1638402, 0, 0, 1638403, 0, 0, 1638404, 0, 0, 1638405, 0, 0, 1638406, 0, 0, 1638407, 0, 0, 1638408, 0, 0, 1638409, 0, 0, 1638410, 0, 0, 1638411, 0, 0, 1638412, 0, 0, 1638413, 0, 0, 1638414, 0, 0, 1638415, 0, 0, 1638416, 0, 0, 1638417, 0, 0, 1638418, 0, 0, 1638419, 0, 0, 1769452, 0, 0, 1769453, 0, 0, 1769454, 0, 0, 1769455, 0, 0, 1769456, 0, 0, 1769457, 0, 0, 1769458, 0, 0, 1769459, 0, 0, 1769460, 0, 0, 1769461, 0, 0, 1769462, 0, 0, 1769463, 0, 0, 1769464, 0, 0, 1769465, 0, 0, 1769466, 0, 0, 1769467, 0, 0, 1769468, 0, 0, 1769469, 0, 0, 1769470, 0, 0, 1769471, 0, 0, 1703936, 0, 0, 1703937, 0, 0, 1703938, 0, 0, 1703939, 0, 0, 1703940, 0, 0, 1703941, 0, 0, 1703942, 0, 0, 1703943, 0, 0, 1703944, 0, 0, 1703945, 0, 0, 1703946, 0, 0, 1703947, 0, 0, 1703948, 0, 0, 1703949, 0, 0, 1703950, 0, 0, 1703951, 0, 0, 1703952, 0, 0, 1703953, 0, 0, 1703954, 0, 0, 1703955, 0, 0, 1834988, 0, 0, 1834989, 0, 0, 1834990, 0, 0, 1834991, 0, 0, 1834992, 0, 0, 1834993, 0, 0, 1834994, 0, 0, 1834995, 0, 0, 1834996, 0, 0, 1834997, 0, 0, 1834998, 0, 0, 1834999, 0, 0, 1835000, 0, 0, 1835001, 0, 0, 1835002, 0, 0, 1835003, 0, 0, 1835004, 0, 0, 1835005, 0, 0, 1835006, 0, 0, 1835007, 0, 0, 1769472, 0, 0, 1769473, 0, 0, 1769474, 0, 0, 1769475, 0, 0, 1769476, 0, 0, 1769477, 0, 0, 1769478, 0, 0, 1769479, 0, 0, 1769480, 0, 0, 1769481, 0, 0, 1769482, 0, 0, 1769483, 0, 0, 1769484, 0, 0, 1769485, 0, 0, 1769486, 0, 0, 1769487, 0, 0, 1769488, 0, 0, 1769489, 0, 0, 1769490, 0, 0, 1769491, 0, 0, 1900524, 0, 0, 1900525, 0, 0, 1900526, 0, 0, 1900527, 0, 0, 1900528, 0, 0, 1900529, 0, 0, 1900530, 0, 0, 1900531, 0, 0, 1900532, 0, 0, 1900533, 0, 0, 1900534, 0, 0, 1900535, 0, 0, 1900536, 0, 0, 1900537, 0, 0, 1900538, 0, 0, 1900539, 0, 0, 1900540, 0, 0, 1900541, 0, 0, 1900542, 0, 0, 1900543, 0, 0, 1835008, 0, 0, 1835009, 0, 0, 1835010, 0, 0, 1835011, 0, 0, 1835012, 0, 0, 1835013, 0, 0, 1835014, 0, 0, 1835015, 0, 0, 1835016, 0, 0, 1835017, 0, 0, 1835018, 0, 0, 1835019, 0, 0, 1835020, 0, 0, 1835021, 0, 0, 1835022, 0, 0, 1835023, 0, 0, 1835024, 0, 0, 1835025, 0, 0, 1835026, 0, 0, 1835027, 0, 0, 1966060, 0, 0, 1966061, 0, 0, 1966062, 0, 0, 1966063, 0, 0, 1966064, 0, 0, 1966065, 0, 0, 1966066, 0, 0, 1966067, 0, 0, 1966068, 0, 0, 1966069, 0, 0, 1966070, 0, 0, 1966071, 0, 0, 1966072, 0, 0, 1966073, 0, 0, 1966074, 0, 0, 1966075, 0, 0, 1966076, 0, 0, 1966077, 0, 0, 1966078, 0, 0, 1966079, 0, 0, 1900544, 0, 0, 1900545, 0, 0, 1900546, 0, 0, 1900547, 0, 0, 1900548, 0, 0, 1900549, 0, 0, 1900550, 0, 0, 1900551, 0, 0, 1900552, 0, 0, 1900553, 0, 0, 1900554, 0, 0, 1900555, 0, 0, 1900556, 0, 0, 1900557, 0, 0, 1900558, 0, 0, 1900559, 0, 0, 1900560, 0, 0, 1900561, 0, 0, 1900562, 0, 0, 1900563, 0, 0, 2031596, 0, 0, 2031597, 0, 0, 2031598, 0, 0, 2031599, 0, 0, 2031600, 0, 0, 2031601, 0, 0, 2031602, 0, 0, 2031603, 0, 0, 2031604, 0, 0, 2031605, 0, 0, 2031606, 0, 0, 2031607, 0, 0, 2031608, 0, 0, 2031609, 0, 0, 2031610, 0, 0, 2031611, 0, 0, 2031612, 0, 0, 2031613, 0, 0, 2031614, 0, 0, 2031615, 0, 0, 1966080, 0, 0, 1966081, 0, 0, 1966082, 0, 0, 1966083, 0, 0, 1966084, 0, 0, 1966085, 0, 0, 1966086, 0, 0, 1966087, 0, 0, 1966088, 0, 0, 1966089, 0, 0, 1966090, 0, 0, 1966091, 0, 0, 1966092, 0, 0, 1966093, 0, 0, 1966094, 0, 0, 1966095, 0, 0, 1966096, 0, 0, 1966097, 0, 0, 1966098, 0, 0, 1966099, 0, 0, 2097132, 0, 0, 2097133, 0, 0, 2097134, 0, 0, 2097135, 0, 0, 2097136, 0, 0, 2097137, 0, 0, 2097138, 0, 0, 2097139, 0, 0, 2097140, 0, 0, 2097141, 0, 0, 2097142, 0, 0, 2097143, 0, 0, 2097144, 0, 0, 2097145, 0, 0, 2097146, 0, 0, 2097147, 0, 0, 2097148, 0, 0, 2097149, 0, 0, 2097150, 0, 0, 2097151, 0, 0, 2031616, 0, 0, 2031617, 0, 0, 2031618, 0, 0, 2031619, 0, 0, 2031620, 0, 0, 2031621, 0, 0, 2031622, 0, 0, 2031623, 0, 0, 2031624, 0, 0, 2031625, 0, 0, 2031626, 0, 0, 2031627, 0, 0, 2031628, 0, 0, 2031629, 0, 0, 2031630, 0, 0, 2031631, 0, 0, 2031632, 0, 0, 2031633, 0, 0, 2031634, 0, 0, 2031635, 0, 0, 2162668, 0, 0, 2162669, 0, 0, 2162670, 0, 0, 2162671, 0, 0, 2162672, 0, 0, 2162673, 0, 0, 2162674, 0, 0, 2162675, 0, 0, 2162676, 0, 0, 2162677, 0, 0, 2162678, 0, 0, 2162679, 0, 0, 2162680, 0, 0, 2162681, 0, 0, 2162682, 0, 0, 2162683, 0, 0, 2162684, 0, 0, 2162685, 0, 0, 2162686, 0, 0, 2162687, 0, 0, 2097152, 0, 0, 2097153, 0, 0, 2097154, 0, 0, 2097155, 0, 0, 2097156, 0, 0, 2097157, 0, 0, 2097158, 0, 0, 2097159, 0, 0, 2097160, 0, 0, 2097161, 0, 0, 2097162, 0, 0, 2097163, 0, 0, 2097164, 0, 0, 2097165, 0, 0, 2097166, 0, 0, 2097167, 0, 0, 2097168, 0, 0, 2097169, 0, 0, 2097170, 0, 0, 2097171, 0, 0, 2228204, 0, 0, 2228205, 0, 0, 2228206, 0, 0, 2228207, 0, 0, 2228208, 0, 0, 2228209, 0, 0, 2228210, 0, 0, 2228211, 0, 0, 2228212, 0, 0, 2228213, 0, 0, 2228214, 0, 0, 2228215, 0, 0, 2228216, 0, 0, 2228217, 0, 0, 2228218, 0, 0, 2228219, 0, 0, 2228220, 0, 0, 2228221, 0, 0, 2228222, 0, 0, 2228223, 0, 0, 2162688, 0, 0, 2162689, 0, 0, 2162690, 0, 0, 2162691, 0, 0, 2162692, 0, 0, 2162693, 0, 0, 2162694, 0, 0, 2162695, 0, 0, 2162696, 0, 0, 2162697, 0, 0, 2162698, 0, 0, 2162699, 0, 0, 2162700, 0, 0, 2162701, 0, 0, 2162702, 0, 0, 2162703, 0, 0, 2162704, 0, 0, 2162705, 0, 0, 2162706, 0, 0, 2162707, 0, 0, 2293740, 0, 0, 2293741, 0, 0, 2293742, 0, 0, 2293743, 0, 0, 2293744, 0, 0, 2293745, 0, 0, 2293746, 0, 0, 2293747, 0, 0, 2293748, 0, 0, 2293749, 0, 0, 2293750, 0, 0, 2293751, 0, 0, 2293752, 0, 0, 2293753, 0, 0, 2293754, 0, 0, 2293755, 0, 0, 2293756, 0, 0, 2293757, 0, 0, 2293758, 0, 0, 2293759, 0, 0, 2228224, 0, 0, 2228225, 0, 0, 2228226, 0, 0, 2228227, 0, 0, 2228228, 0, 0, 2228229, 0, 0, 2228230, 0, 0, 2228231, 0, 0, 2228232, 0, 0, 2228233, 0, 0, 2228234, 0, 0, 2228235, 0, 0, 2228236, 0, 0, 2228237, 0, 0, 2228238, 0, 0, 2228239, 0, 0, 2228240, 0, 0, 2228241, 0, 0, 2228242, 0, 0, 2228243, 0, 0, 2359276, 0, 0, 2359277, 0, 0, 2359278, 0, 0, 2359279, 0, 0, 2359280, 0, 0, 2359281, 0, 0, 2359282, 0, 0, 2359283, 0, 0, 2359284, 0, 0, 2359285, 0, 0, 2359286, 0, 0, 2359287, 0, 0, 2359288, 0, 0, 2359289, 0, 0, 2359290, 0, 0, 2359291, 0, 0, 2359292, 0, 0, 2359293, 0, 0, 2359294, 0, 0, 2359295, 0, 0, 2293760, 0, 0, 2293761, 0, 0, 2293762, 0, 0, 2293763, 0, 0, 2293764, 0, 0, 2293765, 0, 0, 2293766, 0, 0, 2293767, 0, 0, 2293768, 0, 0, 2293769, 0, 0, 2293770, 0, 0, 2293771, 0, 0, 2293772, 0, 0, 2293773, 0, 0, 2293774, 0, 0, 2293775, 0, 0, 2293776, 0, 0, 2293777, 0, 0, 2293778, 0, 0, 2293779, 0, 0, 2424812, 0, 0, 2424813, 0, 0, 2424814, 0, 0, 2424815, 0, 0, 2424816, 0, 0, 2424817, 0, 0, 2424818, 0, 0, 2424819, 0, 0, 2424820, 0, 0, 2424821, 0, 0, 2424822, 0, 0, 2424823, 0, 0, 2424824, 0, 0, 2424825, 0, 0, 2424826, 0, 0, 2424827, 0, 0, 2424828, 0, 0, 2424829, 0, 0, 2424830, 0, 0, 2424831, 0, 0, 2359296, 0, 0, 2359297, 0, 0, 2359298, 0, 0, 2359299, 0, 0, 2359300, 0, 0, 2359301, 0, 0, 2359302, 0, 0, 2359303, 0, 0, 2359304, 0, 0, 2359305, 0, 0, 2359306, 0, 0, 2359307, 0, 0, 2359308, 0, 0, 2359309, 0, 0, 2359310, 0, 0, 2359311, 0, 0, 2359312, 0, 0, 2359313, 0, 0, 2359314, 0, 0, 2359315, 0, 0, 2490348, 0, 0, 2490349, 0, 0, 2490350, 0, 0, 2490351, 0, 0, 2490352, 0, 0, 2490353, 0, 0, 2490354, 0, 0, 2490355, 0, 0, 2490356, 0, 0, 2490357, 0, 0, 2490358, 0, 0, 2490359, 0, 0, 2490360, 0, 0, 2490361, 0, 0, 2490362, 0, 0, 2490363, 0, 0, 2490364, 0, 0, 2490365, 0, 0, 2490366, 0, 0, 2490367, 0, 0, 2424832, 0, 0, 2424833, 0, 0, 2424834, 0, 0, 2424835, 0, 0, 2424836, 0, 0, 2424837, 0, 0, 2424838, 0, 0, 2424839, 0, 0, 2424840, 0, 0, 2424841, 0, 0, 2424842, 0, 0, 2424843, 0, 0, 2424844, 0, 0, 2424845, 0, 0, 2424846, 0, 0, 2424847, 0, 0, 2424848, 0, 0, 2424849, 0, 0, 2424850, 0, 0, 2424851, 0, 0, 2555884, 0, 0, 2555885, 0, 0, 2555886, 0, 0, 2555887, 0, 0, 2555888, 0, 0, 2555889, 0, 0, 2555890, 0, 0, 2555891, 0, 0, 2555892, 0, 0, 2555893, 0, 0, 2555894, 0, 0, 2555895, 0, 0, 2555896, 0, 0, 2555897, 0, 0, 2555898, 0, 0, 2555899, 0, 0, 2555900, 0, 0, 2555901, 0, 0, 2555902, 0, 0, 2555903, 0, 0, 2490368, 0, 0, 2490369, 0, 0, 2490370, 0, 0, 2490371, 0, 0, 2490372, 0, 0, 2490373, 0, 0, 2490374, 0, 0, 2490375, 0, 0, 2490376, 0, 0, 2490377, 0, 0, 2490378, 0, 0, 2490379, 0, 0, 2490380, 0, 0, 2490381, 0, 0, 2490382, 0, 0, 2490383, 0, 0, 2490384, 0, 0, 2490385, 0, 0, 2490386, 0, 0, 2490387, 0, 0, 2621420, 0, 0, 2621421, 0, 0, 2621422, 0, 0, 2621423, 0, 0, 2621424, 0, 0, 2621425, 0, 0, 2621426, 0, 0, 2621427, 0, 0, 2621428, 0, 0, 2621429, 0, 0, 2621430, 0, 0, 2621431, 0, 0, 2621432, 0, 0, 2621433, 0, 0, 2621434, 0, 0, 2621435, 0, 0, 2621436, 0, 0, 2621437, 0, 0, 2621438, 0, 0, 2621439, 0, 0, 2555904, 0, 0, 2555905, 0, 0, 2555906, 0, 0, 2555907, 0, 0, 2555908, 0, 0, 2555909, 0, 0, 2555910, 0, 0, 2555911, 0, 0, 2555912, 0, 0, 2555913, 0, 0, 2555914, 0, 0, 2555915, 0, 0, 2555916, 0, 0, 2555917, 0, 0, 2555918, 0, 0, 2555919, 0, 0, 2555920, 0, 0, 2555921, 0, 0, 2555922, 0, 0, 2555923, 0, 0 )
+
+[node name="ArmAnchor" type="Position2D" parent="BlocksBackground/ParallaxLayer"]
+position = Vector2( 490, -8 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BlocksBackground/ParallaxLayer/ArmAnchor"]
+root_node = NodePath(".")
+playback_speed = 0.8
+anims/MoveToCenter = SubResource( 2 )
+script = ExtResource( 11 )
+
+[node name="HorizontalAnchor" type="Node2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor"]
+position = Vector2( -80, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VerticalAnchor" type="Node2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor"]
+
+[node name="ArmPart" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart2" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart3" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart4" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart5" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( -1.00208, 2.86102e-06 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart6" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 1.99792, -4.76837e-06 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart7" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 4.99792, -1.23978e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart8" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 7.99792, -2.00272e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart9" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 10.9979, -2.76566e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart10" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 13.9979, -3.52859e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart11" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 16.9979, -4.29153e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart12" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 19.9979, -5.05447e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart13" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 22.9979, -5.81741e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart14" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 25.9979, -6.58035e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart15" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 28.9979, -7.34329e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart16" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 31.9979, -8.10623e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart17" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 34.9979, -8.86917e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart18" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 37.9979, -9.63211e-05 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart19" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 40.9979, -0.000103474 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart20" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 43.9979, -0.000111103 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart21" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 46.9979, -0.000118732 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart22" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 49.9979, -0.000126362 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart23" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 52.9979, -0.000133991 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart24" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 55.9979, -0.000141621 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart25" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 58.998, -0.00014925 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart26" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 61.998, -0.000156879 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart27" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 64.998, -0.000164509 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart28" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 67.998, -0.000172138 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart29" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 70.9981, -0.000179768 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart30" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 73.9981, -0.000187397 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart31" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 76.9981, -0.000195026 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart32" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 79.9982, -0.000202656 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart33" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 82.9982, -0.000210285 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart34" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 85.9982, -0.000217915 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart35" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 88.9983, -0.000225544 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart36" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 91.9983, -0.000233173 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart37" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 94.9983, -0.000240803 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart38" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 97.9984, -0.000248432 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart39" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 100.998, -0.000255585 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart40" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 103.998, -0.000263214 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart41" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 106.998, -0.000270844 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart42" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 109.998, -0.000278473 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart43" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 112.999, -0.000286102 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart44" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 115.999, -0.000293732 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart45" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 118.999, -0.000301361 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart46" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 121.999, -0.00030899 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart47" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 124.999, -0.00031662 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart48" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 127.999, -0.000324249 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart49" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 130.999, -0.000331879 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart50" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 133.999, -0.000339508 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart51" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 136.999, -0.000347137 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart52" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 139.999, -0.000354767 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart53" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 142.999, -0.000362396 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart54" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 145.999, -0.000370026 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart55" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 148.999, -0.000377655 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart56" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 151.999, -0.000385284 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart57" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 154.999, -0.000392914 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart58" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 157.999, -0.000400543 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart59" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 160.999, -0.000407696 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart60" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 163.999, -0.000415325 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart61" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 166.999, -0.000422955 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart62" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 169.999, -0.000430584 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart63" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 172.999, -0.000438213 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart64" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 175.999, -0.000445843 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart65" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 178.999, -0.000453472 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart66" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 181.999, -0.000461102 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart67" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 184.999, -0.000468731 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart68" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 187.999, -0.00047636 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart69" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 190.999, -0.00048399 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart70" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 193.999, -0.000491619 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart71" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 196.999, -0.000499249 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart72" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 199.999, -0.000506878 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart73" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 202.999, -0.000514507 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart74" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 205.999, -0.000522137 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart75" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 208.999, -0.000529766 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart76" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 212, -0.000537395 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart77" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 215, -0.000545025 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart78" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 218, -0.000552654 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart79" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 221, -0.000559807 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart80" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 224, -0.000567436 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart81" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 227, -0.000575066 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart82" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 230, -0.000582695 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart83" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 233, -0.000590324 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart84" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 236, -0.000597954 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart85" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 239, -0.000605583 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart86" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 242, -0.000613213 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart87" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 245, -0.000620842 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart88" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 248, -0.000628471 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart89" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 251, -0.000636101 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart90" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 254, -0.00064373 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart91" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 257, -0.00065136 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="Hand" type="Position2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor"]
+position = Vector2( 260, 0 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( -10.75, -4.76837e-06 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 12 )
+hframes = 6
+frame = 2
+
+[node name="ArmMoving" type="AudioStreamPlayer2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+stream = ExtResource( 8 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ClawOpening" type="AudioStreamPlayer2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( 160, 8.00041 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+stream = ExtResource( 9 )
+bus = "Sounds"
+
+[node name="WaverClaws" type="AudioStreamPlayer2D" parent="BlocksBackground/ParallaxLayer/ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="CPUParticles" type="CPUParticles2D" parent="BlocksBackground/ParallaxLayer"]
+position = Vector2( 8, -8 )
+emitting = false
+amount = 10
+lifetime = 0.25
+one_shot = true
+speed_scale = 1.6
+randomness = 0.2
+local_coords = false
+emission_shape = 3
+emission_points = PoolVector2Array( -8, 0, 8, 0 )
+emission_colors = PoolColorArray(  )
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 45.0
+initial_velocity_random = 0.2
+angular_velocity = 4.0
+linear_accel = 40.0
+scale_amount = 2.0
+scale_amount_random = 0.8
+color = Color( 0, 1, 1, 0.588235 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="DashGhosts" type="Node2D" parent="BlocksBackground/ParallaxLayer"]
+
+[node name="DashGhost" type="Sprite" parent="BlocksBackground/ParallaxLayer/DashGhosts"]
+visible = false
+material = SubResource( 3 )
+position = Vector2( 8, -8 )
+texture = ExtResource( 19 )
+
+[node name="DashGhost2" type="Sprite" parent="BlocksBackground/ParallaxLayer/DashGhosts"]
+visible = false
+material = SubResource( 3 )
+position = Vector2( 8, 0 )
+texture = ExtResource( 19 )
+
+[node name="DashGhost3" type="Sprite" parent="BlocksBackground/ParallaxLayer/DashGhosts"]
+visible = false
+material = SubResource( 3 )
+position = Vector2( 8, 8 )
+texture = ExtResource( 19 )
+
+[node name="DashGhost4" type="Sprite" parent="BlocksBackground/ParallaxLayer/DashGhosts"]
+visible = false
+material = SubResource( 3 )
+position = Vector2( 8, 16 )
+texture = ExtResource( 19 )
+
+[node name="DashGhost5" type="Sprite" parent="BlocksBackground/ParallaxLayer/DashGhosts"]
+visible = false
+material = SubResource( 3 )
+position = Vector2( 8, 24 )
+texture = ExtResource( 19 )
+
+[node name="Player" type="Sprite" parent="BlocksBackground/ParallaxLayer"]
+material = SubResource( 4 )
+position = Vector2( 298, -8 )
+texture = ExtResource( 19 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Visor" type="Sprite" parent="BlocksBackground/ParallaxLayer/Player"]
+pause_mode = 2
+use_parent_material = true
+position = Vector2( 0, -3 )
+texture = ExtResource( 46 )
+vframes = 3
+hframes = 6
+
+[node name="Sounds" type="Node2D" parent="BlocksBackground/ParallaxLayer/Player"]
+
+[node name="Dash" parent="BlocksBackground/ParallaxLayer/Player/Sounds" instance=ExtResource( 24 )]
+stream = ExtResource( 26 )
+volume_db = 10.0
+max_distance = 530.0
+
+[node name="Hit" parent="BlocksBackground/ParallaxLayer/Player/Sounds" instance=ExtResource( 24 )]
+stream = ExtResource( 43 )
+max_distance = 530.0
+
+[node name="VisorUpdate" parent="BlocksBackground/ParallaxLayer/Player/Sounds" instance=ExtResource( 24 )]
+stream = ExtResource( 25 )
+volume_db = 15.0
+max_distance = 560.0
+
+[node name="Text" type="Node2D" parent="."]
+position = Vector2( 0, 140 )
+
+[node name="InstructionsBackground" parent="Text" instance=ExtResource( 30 )]
+position = Vector2( -8, -8 )
+
+[node name="Background" parent="Text/InstructionsBackground" index="0"]
+tile_data = PoolIntArray( -7, 0, 0, -6, 0, 0, -5, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65535, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 262135, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 327671, 0, 0, 327672, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 393207, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 458743, 0, 0, 458744, 0, 0, 458745, 0, 0, 458746, 0, 0, 458747, 0, 0, 458748, 0, 0, 458749, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 524279, 0, 0, 524280, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0 )
+
+[node name="Reflex" parent="Text/InstructionsBackground" index="1"]
+tile_data = PoolIntArray( -7, 1, 0, -6, 4, 0, -5, 1, 0, -3, 1, 0, -2, 4, 0, -1, 1, 0, -65535, 1, 0, 131063, 0, 0, 131064, 1, 0, 131065, 2, 0, 131066, 3, 0, 131067, 4, 0, 131068, 5, 0, 131069, 0, 0, 131070, 1, 0, 131071, 2, 0, 65536, 3, 0, 65537, 4, 0, 65538, 5, 0, 65539, 0, 0, 65540, 1, 0, 65541, 2, 0, 65542, 3, 0, 65543, 4, 0, 65544, 5, 0, 65545, 0, 0, 65546, 1, 0, 196599, 1, 0, 196600, 2, 0, 196601, 3, 0, 196602, 4, 0, 196603, 5, 0, 196604, 0, 0, 196605, 1, 0, 196606, 2, 0, 196607, 3, 0, 131072, 4, 0, 131073, 5, 0, 131074, 0, 0, 131075, 1, 0, 131076, 2, 0, 131077, 3, 0, 131078, 4, 0, 131079, 5, 0, 131080, 0, 0, 131081, 1, 0, 131082, 2, 0, 262135, 2, 0, 262136, 3, 0, 262137, 4, 0, 262138, 5, 0, 262139, 0, 0, 262140, 1, 0, 262141, 2, 0, 262142, 3, 0, 262143, 4, 0, 196608, 5, 0, 196609, 0, 0, 196610, 1, 0, 196611, 2, 0, 196612, 3, 0, 196613, 4, 0, 196614, 5, 0, 196615, 0, 0, 196616, 1, 0, 196617, 2, 0, 196618, 3, 0, 327671, 3, 0, 327672, 4, 0, 327673, 5, 0, 327674, 0, 0, 327675, 1, 0, 327676, 2, 0, 327677, 3, 0, 327678, 4, 0, 327679, 5, 0, 262144, 0, 0, 262145, 1, 0, 262146, 2, 0, 262147, 3, 0, 262148, 4, 0, 262149, 5, 0, 262150, 0, 0, 262151, 1, 0, 262152, 2, 0, 262153, 3, 0, 262154, 4, 0, 393207, 4, 0, 393208, 5, 0, 393209, 0, 0, 393210, 1, 0, 393211, 2, 0, 393212, 3, 0, 393213, 4, 0, 393214, 5, 0, 393215, 0, 0, 327680, 1, 0, 327681, 2, 0, 327682, 3, 0, 327683, 4, 0, 327684, 5, 0, 327685, 0, 0, 327686, 1, 0, 327687, 2, 0, 327688, 3, 0, 327689, 4, 0, 327690, 5, 0, 458743, 5, 0, 458744, 0, 0, 458745, 1, 0, 458746, 2, 0, 458747, 3, 0, 458748, 4, 0, 458749, 5, 0, 458750, 0, 0, 458751, 1, 0, 393216, 2, 0, 393217, 3, 0, 393218, 4, 0, 393219, 5, 0, 393220, 0, 0, 393221, 1, 0, 393222, 2, 0, 393223, 3, 0, 393224, 4, 0, 393225, 5, 0, 393226, 0, 0, 524279, 0, 0, 524280, 1, 0, 524281, 2, 0, 524282, 3, 0, 524283, 4, 0, 524284, 5, 0, 524285, 0, 0, 524286, 1, 0, 524287, 2, 0, 458752, 3, 0, 458753, 4, 0, 458754, 5, 0, 458755, 0, 0, 458756, 1, 0, 458757, 2, 0, 458758, 3, 0, 458759, 4, 0, 458760, 5, 0, 458761, 0, 0, 458762, 1, 0, 589815, 1, 0, 589816, 2, 0, 589817, 3, 0, 589818, 4, 0, 589819, 5, 0, 589820, 0, 0, 589821, 1, 0, 589822, 2, 0, 589823, 3, 0, 524288, 4, 0, 524289, 5, 0, 524290, 0, 0, 524291, 1, 0, 524292, 2, 0, 524293, 3, 0, 524294, 4, 0, 524295, 5, 0, 524296, 0, 0, 524297, 1, 0, 524298, 2, 0 )
+
+[node name="Edge" parent="Text/InstructionsBackground" index="2"]
+tile_data = PoolIntArray( -7, 8, 0, -6, 9, 0, -5, 10, 0, -3, 8, 0, -2, 9, 0, -1, 10, 0, -65535, 11, 0, 131063, 0, 0, 131064, 1, 0, 131065, 1, 0, 131066, 1, 0, 131067, 1, 0, 131068, 1, 0, 131069, 1, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 65544, 1, 0, 65545, 1, 0, 65546, 2, 0, 196599, 3, 0, 131082, 4, 0, 262135, 3, 0, 196618, 4, 0, 327671, 3, 0, 262154, 4, 0, 393207, 3, 0, 327690, 4, 0, 458743, 3, 0, 393226, 4, 0, 524279, 3, 0, 458762, 4, 0, 589815, 5, 0, 589816, 6, 0, 589817, 6, 0, 589818, 6, 0, 589819, 6, 0, 589820, 6, 0, 589821, 6, 0, 589822, 6, 0, 589823, 6, 0, 524288, 6, 0, 524289, 6, 0, 524290, 6, 0, 524291, 6, 0, 524292, 6, 0, 524293, 6, 0, 524294, 6, 0, 524295, 6, 0, 524296, 6, 0, 524297, 6, 0, 524298, 7, 0 )
+
+[node name="TheEnd" parent="Text" instance=ExtResource( 23 )]
+tile_data = PoolIntArray( -65544, 19, 0, -65543, 7, 0, -65542, 4, 0, -65540, 4, 0, -65539, 13, 0, -65538, 3, 0 )
+
+[node name="Sign" parent="Text" instance=ExtResource( 23 )]
+position = Vector2( -8, 26 )
+scale = Vector2( 2, 2 )
+tile_data = PoolIntArray( -131072, 27, 0 )
+
+[node name="Player" type="Sprite" parent="Text"]
+position = Vector2( -104, 12 )
+texture = ExtResource( 19 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Visor" type="Sprite" parent="Text/Player"]
+pause_mode = 2
+use_parent_material = true
+position = Vector2( 0, -3 )
+texture = ExtResource( 46 )
+vframes = 3
+hframes = 6
+frame = 17
+
+[node name="PlayerDeaths" parent="Text" instance=ExtResource( 21 )]
+position = Vector2( 0, 4 )
+tile_data = PoolIntArray( 65531, 11, 0 )
+script = ExtResource( 14 )
+total_characters = 12
+unit_pos = Vector2( 9, 0 )
+stat = 3
+
+[node name="EnemyOff" type="Sprite" parent="Text"]
+position = Vector2( -104, 37 )
+texture = ExtResource( 33 )
+hframes = 2
+frame = 1
+
+[node name="EnemyDeaths" parent="Text" instance=ExtResource( 21 )]
+position = Vector2( 0, 29 )
+tile_data = PoolIntArray( 65531, 11, 0 )
+script = ExtResource( 14 )
+total_characters = 12
+unit_pos = Vector2( 9, 0 )
+stat = 2
+
+[node name="MobileClaw" type="Sprite" parent="Text"]
+position = Vector2( -104, 63 )
+texture = ExtResource( 27 )
+vframes = 5
+frame = 4
+region_enabled = true
+region_rect = Rect2( 28, 0, 28, 80 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Text/MobileClaw"]
+root_node = NodePath(".")
+anims/Broken = SubResource( 5 )
+script = ExtResource( 11 )
+
+[node name="CPUParticles" type="CPUParticles2D" parent="Text/MobileClaw"]
+emitting = false
+amount = 10
+lifetime = 0.25
+one_shot = true
+speed_scale = 1.6
+randomness = 0.2
+local_coords = false
+emission_shape = 3
+emission_points = PoolVector2Array( -8, 0, 8, 0 )
+emission_colors = PoolColorArray(  )
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 45.0
+initial_velocity_random = 0.2
+angular_velocity = 4.0
+linear_accel = 40.0
+scale_amount = 2.0
+scale_amount_random = 0.8
+color = Color( 0, 1, 1, 0.588235 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Broken" parent="Text/MobileClaw" instance=ExtResource( 24 )]
+stream = ExtResource( 28 )
+volume_db = 10.0
+
+[node name="BrokenClaws" parent="Text" instance=ExtResource( 21 )]
+position = Vector2( 0, 55 )
+tile_data = PoolIntArray( 65531, 11, 0 )
+script = ExtResource( 14 )
+total_characters = 12
+unit_pos = Vector2( 9, 0 )
+stat = 1
+
+[node name="Block" type="Sprite" parent="Text"]
+position = Vector2( -104, 90 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 3
+frame = 2
+
+[node name="BrokenBlocks" parent="Text" instance=ExtResource( 21 )]
+position = Vector2( 0, 82 )
+tile_data = PoolIntArray( 65531, 11, 0 )
+script = ExtResource( 14 )
+total_characters = 12
+unit_pos = Vector2( 9, 0 )
+
+[node name="TimeText" parent="Text" instance=ExtResource( 23 )]
+position = Vector2( 0, 12 )
+tile_data = PoolIntArray( 458742, 19, 0, 458743, 8, 0, 458744, 12, 0, 458745, 4, 0, 393217, 7, 0, 393221, 12, 0, 393225, 18, 0 )
+
+[node name="TimeCount" parent="Text" instance=ExtResource( 21 )]
+position = Vector2( 0, 108 )
+tile_data = PoolIntArray( 65531, 11, 0 )
+script = ExtResource( 14 )
+total_characters = 7
+unit_pos = Vector2( 8, 0 )
+stat = 4
+
+[node name="Restart" type="Position2D" parent="Text"]
+position = Vector2( -616, 152 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Text/Restart"]
+root_node = NodePath(".")
+anims/MoveToCenter = SubResource( 6 )
+anims/ReleaseButton = SubResource( 7 )
+anims/RemoveButton = SubResource( 8 )
+anims/WaverClaws = SubResource( 9 )
+
+[node name="HorizontalAnchor" type="Node2D" parent="Text/Restart"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VerticalAnchor" type="Node2D" parent="Text/Restart/HorizontalAnchor"]
+
+[node name="ArmPart" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 9, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart2" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 12, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart3" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 15, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart4" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 18, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart5" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 21, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart6" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 24, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart7" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 27, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart8" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 30, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart9" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 33, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart10" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 36, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart11" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 39, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart12" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 42, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart13" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 45, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart14" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 48, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart15" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 51, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart16" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 54, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart17" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 57, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart18" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 60, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart19" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 63, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart20" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 66, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart21" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 69, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart22" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 72, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart23" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 75, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart24" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 78, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart25" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 81, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart26" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 84, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart27" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 87, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart28" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 90, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart29" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 93, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart30" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 96, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart31" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 99, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart32" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 102, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart33" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 105, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart34" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 108, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart35" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 111, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart36" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 114, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart37" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 117, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart38" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 120, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart39" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 123, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart40" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 126, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart41" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 129, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart42" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 132, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart43" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 135, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart44" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 138, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart45" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 141, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart46" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 144, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart47" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 147, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart48" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 150, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart49" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 153, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart50" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 156, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart51" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 159, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart52" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 162, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart53" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 165, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart54" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 168, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart55" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 171, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart56" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 174, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart57" parent="Text/Restart/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 177, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="Hand" type="Position2D" parent="Text/Restart/HorizontalAnchor/VerticalAnchor"]
+position = Vector2( 180, 0 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( -8.75, 0 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 12 )
+hframes = 6
+frame = 1
+
+[node name="ArmMoving" type="AudioStreamPlayer2D" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand"]
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+stream = ExtResource( 8 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ClawOpening" type="AudioStreamPlayer2D" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 9 )
+bus = "Sounds"
+
+[node name="WaverClaws" type="AudioStreamPlayer2D" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ButtonAnchor" type="Node2D" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand"]
+scale = Vector2( -1, 1 )
+
+[node name="Button" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor" instance=ExtResource( 22 )]
+margin_left = 4.0
+margin_top = -7.99999
+margin_right = 228.0
+margin_bottom = 24.0
+can_focus = false
+
+[node name="Normal" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+offset = Vector2( 56, 8 )
+
+[node name="Selected" parent="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" index="1"]
+texture = ExtResource( 1 )
+
+[node name="Menu" type="Position2D" parent="Text"]
+position = Vector2( 576, 152 )
+scale = Vector2( -1, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Text/Menu"]
+root_node = NodePath(".")
+anims/MoveToCenter = SubResource( 10 )
+anims/ReleaseButton = SubResource( 11 )
+anims/RemoveButton = SubResource( 12 )
+anims/WaverClaws = SubResource( 13 )
+
+[node name="HorizontalAnchor" type="Node2D" parent="Text/Menu"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VerticalAnchor" type="Node2D" parent="Text/Menu/HorizontalAnchor"]
+
+[node name="ArmPart" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 9, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart2" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 12, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart3" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 15, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart4" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 18, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart5" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 21, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart6" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 24, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart7" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 27, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart8" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 30, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart9" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 33, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart10" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 36, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart11" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 39, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart12" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 42, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart13" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 45, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart14" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 48, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart15" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 51, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart16" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 54, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart17" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 57, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart18" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 60, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart19" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 63, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart20" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 66, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart21" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 69, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart22" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 72, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart23" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 75, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart24" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 78, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart25" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 81, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart26" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 84, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart27" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 87, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart28" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 90, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart29" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 93, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart30" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 96, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart31" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 99, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart32" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 102, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart33" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 105, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart34" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 108, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart35" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 111, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart36" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 114, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart37" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 117, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart38" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 120, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart39" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 123, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart40" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 126, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart41" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 129, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart42" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 132, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart43" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 135, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart44" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 138, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart45" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 141, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart46" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 144, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart47" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 147, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart48" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 150, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart49" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 153, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart50" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 156, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart51" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 159, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart52" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 162, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart53" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 165, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart54" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 168, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart55" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 171, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart56" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 174, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="ArmPart57" parent="Text/Menu/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 13 )]
+position = Vector2( 177, 0 )
+part_dist = 3.0
+update_next_node = false
+node_path = NodePath("")
+
+[node name="Hand" type="Position2D" parent="Text/Menu/HorizontalAnchor/VerticalAnchor"]
+position = Vector2( 180, 0 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( -8.75, 0 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 12 )
+hframes = 6
+frame = 1
+
+[node name="ArmMoving" type="AudioStreamPlayer2D" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand"]
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+stream = ExtResource( 8 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ClawOpening" type="AudioStreamPlayer2D" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 9 )
+bus = "Sounds"
+
+[node name="WaverClaws" type="AudioStreamPlayer2D" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ButtonAnchor" type="Node2D" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( -72, 0 )
+
+[node name="Button" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor" instance=ExtResource( 22 )]
+margin_left = 4.0
+margin_top = -7.99999
+margin_right = 132.0
+margin_bottom = 24.0
+type = 1
+
+[node name="Normal" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+offset = Vector2( 32, 8 )
+
+[node name="Selected" parent="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" index="1"]
+texture = ExtResource( 18 )
+
+[node name="Camera" type="Camera2D" parent="." groups=[
+"Camera",
+]]
+pause_mode = 2
+current = true
+zoom = Vector2( 0.3, 0.3 )
+smoothing_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.1
+drag_margin_top = 0.5
+drag_margin_right = 0.1
+drag_margin_bottom = 0.6
+editor_draw_drag_margin = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -320.0
+margin_top = -176.0
+margin_right = 320.0
+margin_bottom = 1512.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
+anims/GoToStats = SubResource( 16 )
+anims/HideMenu = SubResource( 14 )
+anims/MoveCamera = SubResource( 15 )
+[connection signal="animation_finished" from="BlocksBackground/ParallaxLayer/ArmAnchor/AnimationPlayer" to="BlocksBackground/ParallaxLayer/ArmAnchor/AnimationPlayer" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="Text/Restart/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="button_pressed" from="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" to="." method="_on_Button_button_pressed"]
+[connection signal="animation_finished" from="Text/Menu/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="button_pressed" from="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button" to="." method="_on_Button_button_pressed"]
+[connection signal="animation_finished" from="MenuPlayer" to="." method="_on_MenuPlayer_animation_finished"]
+[connection signal="animation_started" from="MenuPlayer" to="." method="_on_MenuPlayer_animation_started"]
+
+[editable path="Text/InstructionsBackground"]
+
+[editable path="Text/Restart/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button"]
+
+[editable path="Text/Menu/HorizontalAnchor/VerticalAnchor/Hand/ButtonAnchor/Button"]

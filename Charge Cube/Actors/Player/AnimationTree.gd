@@ -2,7 +2,6 @@ extends AnimationTree
 
 onready var attack_line = get_parent().get_node("Body/AttackLine")
 onready var animation_node = get("parameters/playback")
-onready var slow_time = get_parent().get_node("SlowTime")
 
 
 func _ready():
@@ -23,7 +22,7 @@ func hide_attack_line():
 
 
 func change_axes(axes, sprite):
-	if slow_time.is_active and (axes.x or axes.y):
+	if GameTime.slow_time and (axes.x or axes.y):
 		var ang = Vector2(axes.x, axes.y * -1).angle()
 		attack_line.rotation = ang - sprite.rotation
 		attack_line.visible = true
@@ -55,5 +54,5 @@ func change_axes(axes, sprite):
 func visor_direction(axes, sprite):
 	axes = change_axes(axes, sprite)
 	set('parameters/BlendTree/Look/blend_position', axes)
-	var speed = 8 if slow_time.is_active else 2
+	var speed = 8 if GameTime.slow_time else 2
 	set('parameters/BlendTree/TimeScale/scale', speed)

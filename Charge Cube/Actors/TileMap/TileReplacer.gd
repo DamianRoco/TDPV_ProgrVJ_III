@@ -82,10 +82,12 @@ func destroy_tile(tile_pos, instant_break = false):
 			i = 1
 			particle_instance = particles[particle_count[i] + NORMAL]
 			set_cellv(tile_pos, -1)
+			Statistics.broken_blocks += 1
 		5:
 			i = 2
 			particle_instance = particles[particle_count[i] + ELECTRICITY]
 			set_cellv(tile_pos, -1)
+			Statistics.broken_blocks += 1
 		_:
 			i = 0
 			particle_instance = particles[particle_count[i]]
@@ -99,4 +101,4 @@ func destroy_tile(tile_pos, instant_break = false):
 	var pos = map_to_world(tile_pos) + Vector2(8, 8)
 	particle_instance.global_position = pos
 	particle_instance.emitting = true
-	
+	particle_instance.get_child(0).playing = true

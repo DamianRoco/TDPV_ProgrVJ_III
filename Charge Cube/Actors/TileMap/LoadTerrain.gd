@@ -11,18 +11,6 @@ func _ready():
 		save_map()
 
 
-func save_map():
-	var save_file := File.new()
-	# warning-ignore:return_value_discarded
-	save_file.open("user://save_map.save", File.WRITE)
-	
-	for tile_pos in parent.get_used_cells():
-		save_file.store_float(tile_pos.x)
-		save_file.store_float(tile_pos.y)
-		save_file.store_float(parent.get_cellv(tile_pos))
-	save_file.close()
-
-
 func load_map():
 	var save_file := File.new()
 	if not save_file.file_exists("user://save_map.save"):
@@ -47,3 +35,15 @@ func load_map():
 			i += 1
 	save_file.close()
 	return true
+
+
+func save_map():
+	var save_file := File.new()
+	# warning-ignore:return_value_discarded
+	save_file.open("user://save_map.save", File.WRITE)
+	
+	for tile_pos in parent.get_used_cells():
+		save_file.store_float(tile_pos.x)
+		save_file.store_float(tile_pos.y)
+		save_file.store_float(parent.get_cellv(tile_pos))
+	save_file.close()

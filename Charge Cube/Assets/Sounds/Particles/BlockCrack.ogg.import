@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BlockCrack.ogg-27c1493610340b7c2ac17be357bf48af.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Particles/BlockCrack.ogg"
+dest_files=[ "res://.import/BlockCrack.ogg-27c1493610340b7c2ac17be357bf48af.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

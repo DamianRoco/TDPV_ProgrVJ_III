@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/HammerAttack1.ogg-4a0cdf5c9e01f24d96ce0669d6f1790e.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Enemy/Basic/Hammer/HammerAttack1.ogg"
+dest_files=[ "res://.import/HammerAttack1.ogg-4a0cdf5c9e01f24d96ce0669d6f1790e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

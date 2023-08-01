@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var horizontal_rays = $RayCasts/Horizontals
+onready var movement_sound = $Movement
 onready var vertical_rays = $RayCasts/Verticals
 
 var enemy_damage : int = 3
@@ -55,6 +56,8 @@ func initialize(direction, projectile_element, shooter = null, speed_multiplier 
 func _process(_delta):
 	if is_instance_valid(projectile):
 		if launched:
+			if not movement_sound.playing:
+				movement_sound.playing = true
 			movement = move_and_slide(move_direction.normalized() * speed)
 			projectile.global_position = global_position
 			if in_target_pos() or carry_player and projectile.dash.dashing:

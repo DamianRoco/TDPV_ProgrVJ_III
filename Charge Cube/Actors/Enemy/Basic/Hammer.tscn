@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Assets/Images/Enemy/Basic/Body.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Enemy/AnimationTree.gd" type="Script" id=2]
@@ -9,13 +9,14 @@
 [ext_resource path="res://Actors/Enemy/Parts/Basic/Feet.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Actors/Particles/BodyExplosion.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=9]
-[ext_resource path="res://Assets/Sounds/Enemy/Step1.ogg" type="AudioStream" id=10]
-[ext_resource path="res://Assets/Sounds/Enemy/Walk.ogg" type="AudioStream" id=11]
-[ext_resource path="res://Assets/Sounds/Enemy/Step2.ogg" type="AudioStream" id=12]
-[ext_resource path="res://Assets/Sounds/Enemy/Caught.ogg" type="AudioStream" id=13]
-[ext_resource path="res://Assets/Sounds/Enemy/Hit.ogg" type="AudioStream" id=14]
-[ext_resource path="res://Assets/Sounds/Enemy/Idle.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step1.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Walk.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Step2.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Caught.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Hit.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/Enemy/Basic/Idle.ogg" type="AudioStream" id=15]
 [ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/Images/Enemy/Basic/Hammer.png" type="Texture" id=17]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -29,8 +30,13 @@ extents = Vector2( 7.5, 6 )
 [sub_resource type="CircleShape2D" id=3]
 radius = 7.5
 
-[sub_resource type="Animation" id=4]
-resource_name = "Caught"
+[sub_resource type="CanvasItemMaterial" id=4]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Animation" id=5]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:position")
@@ -117,8 +123,7 @@ tracks/6/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "DeathHit"
+[sub_resource type="Animation" id=6]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:visible")
@@ -157,8 +162,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Hit"
+[sub_resource type="Animation" id=7]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
@@ -258,8 +262,7 @@ tracks/7/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "Idle"
+[sub_resource type="Animation" id=8]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:position")
@@ -370,8 +373,7 @@ tracks/8/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Stop"
+[sub_resource type="Animation" id=9]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:position")
@@ -458,7 +460,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, -4 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 1.1
 loop = true
 tracks/0/type = "value"
@@ -594,46 +596,44 @@ tracks/10/keys = {
 "values": [ true, true ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Caught"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "DeathHit"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "Hit"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "Stop"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Walk"
 
-[sub_resource type="AnimationNodeTimeScale" id=16]
+[sub_resource type="AnimationNodeTimeScale" id=17]
 
-[sub_resource type="AnimationNodeBlendTree" id=17]
+[sub_resource type="AnimationNodeBlendTree" id=18]
 graph_offset = Vector2( -261, 23.25 )
-nodes/Animation/node = SubResource( 15 )
+nodes/Animation/node = SubResource( 16 )
 nodes/Animation/position = Vector2( -40, 140 )
-nodes/TimeScale/node = SubResource( 16 )
+nodes/TimeScale/node = SubResource( 17 )
 nodes/TimeScale/position = Vector2( 160, 140 )
 nodes/output/position = Vector2( 360, 140 )
 node_connections = [ "output", 0, "TimeScale", "TimeScale", 0, "Animation" ]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
@@ -651,24 +651,26 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
-[sub_resource type="AnimationNodeStateMachine" id=31]
-states/Caught/node = SubResource( 10 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachine" id=32]
+states/Caught/node = SubResource( 11 )
 states/Caught/position = Vector2( -273.036, -48.249 )
-states/DeathHit/node = SubResource( 11 )
+states/DeathHit/node = SubResource( 12 )
 states/DeathHit/position = Vector2( 123.964, 59.751 )
-states/Hit/node = SubResource( 12 )
+states/Hit/node = SubResource( 13 )
 states/Hit/position = Vector2( -79.0363, 127.751 )
-states/Idle/node = SubResource( 13 )
+states/Idle/node = SubResource( 14 )
 states/Idle/position = Vector2( -79.0363, -48.249 )
-states/Stop/node = SubResource( 14 )
+states/Stop/node = SubResource( 15 )
 states/Stop/position = Vector2( -273.036, 59.751 )
-states/Walk/node = SubResource( 17 )
+states/Walk/node = SubResource( 18 )
 states/Walk/position = Vector2( 123.964, -48.249 )
-transitions = [ "Idle", "Hit", SubResource( 18 ), "Idle", "Caught", SubResource( 19 ), "Caught", "Idle", SubResource( 20 ), "Hit", "Idle", SubResource( 21 ), "Idle", "Walk", SubResource( 22 ), "Walk", "Idle", SubResource( 23 ), "Caught", "Hit", SubResource( 24 ), "Walk", "Hit", SubResource( 25 ), "Idle", "DeathHit", SubResource( 26 ), "Idle", "Stop", SubResource( 27 ), "Stop", "Idle", SubResource( 28 ), "Stop", "Hit", SubResource( 29 ), "Stop", "DeathHit", SubResource( 30 ) ]
+transitions = [ "Idle", "Hit", SubResource( 19 ), "Idle", "Caught", SubResource( 20 ), "Caught", "Idle", SubResource( 21 ), "Hit", "Idle", SubResource( 22 ), "Idle", "Walk", SubResource( 23 ), "Walk", "Idle", SubResource( 24 ), "Caught", "Hit", SubResource( 25 ), "Walk", "Hit", SubResource( 26 ), "Idle", "DeathHit", SubResource( 27 ), "Idle", "Stop", SubResource( 28 ), "Stop", "Idle", SubResource( 29 ), "Stop", "Hit", SubResource( 30 ), "Stop", "DeathHit", SubResource( 31 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -530.036, -95.249 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=32]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
 
 [node name="Hammer" type="KinematicBody2D" groups=[
 "Enemy",
@@ -683,33 +685,34 @@ min_speed = 16
 
 [node name="Body" type="Sprite" parent="."]
 material = SubResource( 1 )
-position = Vector2( 0, -1.69692 )
+position = Vector2( 0, -1.61186 )
 texture = ExtResource( 1 )
 vframes = 3
 hframes = 3
+frame = 1
 script = ExtResource( 6 )
 
 [node name="RightArm" type="Position2D" parent="Body"]
 modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 show_behind_parent = true
 use_parent_material = true
-position = Vector2( -1, -0.803079 )
+position = Vector2( -1, -0.776277 )
 
 [node name="Arm" parent="Body/RightArm" instance=ExtResource( 3 )]
 arm = "Back"
 
 [node name="Feet" parent="Body" instance=ExtResource( 7 )]
-position = Vector2( 0, 1.69692 )
+position = Vector2( 0, 1.61186 )
 
 [node name="LeftArm" type="Position2D" parent="Body"]
 use_parent_material = true
-position = Vector2( 4, -0.803079 )
+position = Vector2( 4, -0.776277 )
 
 [node name="Arm" parent="Body/LeftArm" instance=ExtResource( 3 )]
 
 [node name="HeadCollision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -3.19692 )
+position = Vector2( 0, -3.11186 )
 shape = SubResource( 2 )
 
 [node name="FeetCollision" type="CollisionShape2D" parent="."]
@@ -718,6 +721,14 @@ position = Vector2( 0, 2.5 )
 shape = SubResource( 3 )
 
 [node name="BodyExplosion" parent="." instance=ExtResource( 8 )]
+
+[node name="RightHand" parent="BodyExplosion" index="2"]
+material = SubResource( 4 )
+texture = ExtResource( 17 )
+
+[node name="LeftHand" parent="BodyExplosion" index="7"]
+material = SubResource( 4 )
+texture = ExtResource( 17 )
 
 [node name="RayCast" parent="." instance=ExtResource( 5 )]
 visible = false
@@ -746,18 +757,18 @@ stream = ExtResource( 11 )
 pitch_scale = 0.54
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Caught = SubResource( 4 )
-anims/DeathHit = SubResource( 5 )
-anims/Hit = SubResource( 6 )
-anims/Idle = SubResource( 7 )
-anims/Stop = SubResource( 8 )
-anims/Walk = SubResource( 9 )
+anims/Caught = SubResource( 5 )
+anims/DeathHit = SubResource( 6 )
+anims/Hit = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/Stop = SubResource( 9 )
+anims/Walk = SubResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 31 )
+tree_root = SubResource( 32 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 32 )
+parameters/playback = SubResource( 33 )
 parameters/Walk/TimeScale/scale = 1.0
 script = ExtResource( 2 )
 
@@ -769,3 +780,5 @@ visible = false
 rect = Rect2( -200, -200, 400, 400 )
 [connection signal="timeout" from="AnimationTree/DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+
+[editable path="BodyExplosion"]

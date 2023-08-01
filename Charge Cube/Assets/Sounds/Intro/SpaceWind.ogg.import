@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SpaceWind.ogg-f86882a0e496a0d014770150514fb07d.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Intro/SpaceWind.ogg"
+dest_files=[ "res://.import/SpaceWind.ogg-f86882a0e496a0d014770150514fb07d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

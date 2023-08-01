@@ -8,6 +8,11 @@ var canceled = false
 var timer = 0
 
 
+func _ready():
+	SoundController.change_master_volume(false)
+	$AmbientSound.playing = true
+
+
 func _process(delta):
 	if Input.is_action_pressed("ui_cancel") and not canceled:
 		canceled = true
@@ -26,7 +31,7 @@ func _on_AnimationPlayer_intro_completed():
 		return
 	if first_intro:
 		# warning-ignore:return_value_discarded
-		get_tree().change_scene("res://Levels/IntroPart2.tscn")
+		get_tree().change_scene("res://Actors/Intro/IntroPart2.tscn")
 	else:
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Levels/1-1.tscn")

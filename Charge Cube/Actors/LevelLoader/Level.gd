@@ -11,6 +11,7 @@ func _ready():
 	if Engine.editor_hint:
 		return
 	
+	GameTime.in_game = true
 	SoundController.play_game_music()
 	Global.enemy_folder = get_parent().get_node("Enemies")
 	Global.projectile_folder = get_parent().get_node("Projectiles")
@@ -40,8 +41,6 @@ func _draw():
 
 func spawn_player():
 	var others = get_parent().get_node("Others")
-	var gui = others.get_node("GUI")
-	gui.connect("screen_off", self, "_on_GUI_screen_off")
 	
 	var camera = others.get_node("Camera")
 	var checkpoints = get_parent().get_node("Checkpoints")
@@ -76,7 +75,6 @@ func spawn_player():
 		
 		camera.global_position = spawn.global_position
 		spawn.initialize(others)
-	
 
 
 func _on_GUI_screen_off(hidden_level_entrance):

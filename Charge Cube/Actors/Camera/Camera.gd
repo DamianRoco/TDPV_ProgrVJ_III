@@ -9,13 +9,13 @@ var look_direction : int = 0
 var target = null
 
 #####################################
-func _process(_delta):
-	global_position = global_position + Vector2(
-		float(Input.is_key_pressed(KEY_L)) -
-		float(Input.is_key_pressed(KEY_J)),
-		float(Input.is_key_pressed(KEY_K)) -
-		float(Input.is_key_pressed(KEY_I))
-	)
+#func _process(_delta):
+#	global_position = global_position + Vector2(
+#		float(Input.is_key_pressed(KEY_L)) -
+#		float(Input.is_key_pressed(KEY_J)),
+#		float(Input.is_key_pressed(KEY_K)) -
+#		float(Input.is_key_pressed(KEY_I))
+#	)
 #####################################
 
 

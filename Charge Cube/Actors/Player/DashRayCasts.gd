@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var impact_sound = get_parent().get_node("Sounds/DashImpact")
 onready var parent = get_parent()
 
 var orientation : Vector2 = Vector2.ZERO
@@ -76,6 +77,7 @@ func detect_body():
 	destroy_tiles(tiles, collided_direction)
 	
 	if collided_direction.x or collided_direction.y:
+		impact_sound.playing = true
 		parent.rebound(collided_direction, true)
 		
 		if enemy_collision:

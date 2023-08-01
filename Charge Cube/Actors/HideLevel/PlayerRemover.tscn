@@ -1,0 +1,297 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Sounds/Menu/WaverClaws.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Sounds/Menu/ArmMoving.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sounds/Menu/ClawClosing.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Images/Enemy/Underboss/Hand.png" type="Texture" id=4]
+[ext_resource path="res://Actors/Enemy/Underboss/Parts/ArmPart.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Actors/HideLevel/PlayerRemover.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Images/GUI/Sliders/SoundGrabberHighlight.png" type="Texture" id=7]
+
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 192 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "WaverClaws"
+length = 2.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../HorizontalAnchor/VerticalAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 3 ), Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 182, 0 ), Vector2( 182, -6 ), Vector2( 182, 0 ), Vector2( 182, 6 ), Vector2( 182, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HorizontalAnchor/VerticalAnchor/Hand/WaverClaws:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="PlayerRemover" type="Area2D"]
+monitorable = false
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="ArmAnchor" type="Position2D" parent="."]
+position = Vector2( 0, -392 )
+rotation = 1.5708
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ArmAnchor"]
+root_node = NodePath(".")
+anims/WaverClaws = SubResource( 2 )
+
+[node name="HorizontalAnchor" type="Node2D" parent="ArmAnchor"]
+
+[node name="VerticalAnchor" type="Node2D" parent="ArmAnchor/HorizontalAnchor"]
+
+[node name="ArmPart" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 11, -3.98201e-05 )
+
+[node name="ArmPart2" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 14, -5.06799e-05 )
+
+[node name="ArmPart3" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 17, -6.154e-05 )
+
+[node name="ArmPart4" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 20, -7.23999e-05 )
+
+[node name="ArmPart5" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 23, -8.32598e-05 )
+
+[node name="ArmPart6" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 26, -9.41199e-05 )
+
+[node name="ArmPart7" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 29, -0.00010498 )
+
+[node name="ArmPart8" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 32, -0.00011584 )
+
+[node name="ArmPart9" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 35, -0.0001267 )
+
+[node name="ArmPart10" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 38, -0.00013756 )
+
+[node name="ArmPart11" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 41, -0.00014842 )
+
+[node name="ArmPart12" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 44, -0.00015928 )
+
+[node name="ArmPart13" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 47, -0.00017014 )
+
+[node name="ArmPart14" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 50, -0.000181 )
+
+[node name="ArmPart15" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 53, -0.00019186 )
+
+[node name="ArmPart16" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 56, -0.000202719 )
+
+[node name="ArmPart17" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 59, -0.00021358 )
+
+[node name="ArmPart18" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 62, -0.000224439 )
+
+[node name="ArmPart19" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 65, -0.0002353 )
+
+[node name="ArmPart20" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 68, -0.000246159 )
+
+[node name="ArmPart21" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 71, -0.000257019 )
+
+[node name="ArmPart22" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 74, -0.000267879 )
+
+[node name="ArmPart23" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 77, -0.000278739 )
+
+[node name="ArmPart24" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 80, -0.000289599 )
+
+[node name="ArmPart25" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 83, -0.000300459 )
+
+[node name="ArmPart26" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 86, -0.000311319 )
+
+[node name="ArmPart27" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 89, -0.000322179 )
+
+[node name="ArmPart28" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 92, -0.000333039 )
+
+[node name="ArmPart29" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 95, -0.000343899 )
+
+[node name="ArmPart30" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 98, -0.000354759 )
+
+[node name="ArmPart31" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 101, -0.000365619 )
+
+[node name="ArmPart32" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 104, -0.000376479 )
+
+[node name="ArmPart33" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 107, -0.000387339 )
+
+[node name="ArmPart34" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 110, -0.000398199 )
+
+[node name="ArmPart35" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 113, -0.000409059 )
+
+[node name="ArmPart36" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 116, -0.000419919 )
+
+[node name="ArmPart37" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 119, -0.000430779 )
+
+[node name="ArmPart38" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 122, -0.000441639 )
+
+[node name="ArmPart39" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 125, -0.000452499 )
+
+[node name="ArmPart40" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 128, -0.000463359 )
+
+[node name="ArmPart41" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 131, -0.000474219 )
+
+[node name="ArmPart42" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 134, -0.000485079 )
+
+[node name="ArmPart43" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 137, -0.000495939 )
+
+[node name="ArmPart44" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 140, -0.000506799 )
+
+[node name="ArmPart45" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 143, -0.000517659 )
+
+[node name="ArmPart46" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 146, -0.000528519 )
+
+[node name="ArmPart47" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 149, -0.000539379 )
+
+[node name="ArmPart48" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 152, -0.000550239 )
+
+[node name="ArmPart49" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 155, -0.000561099 )
+
+[node name="ArmPart50" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 158, -0.000571959 )
+
+[node name="ArmPart51" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 161, -0.000582819 )
+
+[node name="ArmPart52" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 164, -0.000593679 )
+
+[node name="ArmPart53" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 167, -0.000604538 )
+
+[node name="ArmPart54" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 170, -0.000615398 )
+
+[node name="ArmPart55" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 173, -0.000626258 )
+
+[node name="ArmPart56" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 176, -0.000637118 )
+
+[node name="ArmPart57" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor" instance=ExtResource( 5 )]
+position = Vector2( 179, -0.000647978 )
+
+[node name="Hand" type="Position2D" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor"]
+position = Vector2( 182, 0 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Sprite" type="Sprite" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+position = Vector2( -8.75, 0 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+flip_v = true
+hframes = 6
+
+[node name="SpriteAnchor" type="Position2D" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+rotation = -1.5708
+scale = Vector2( 1, -1 )
+
+[node name="PlayerSprite" type="Sprite" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand/SpriteAnchor"]
+visible = false
+position = Vector2( -3.24249e-05, 10 )
+texture = ExtResource( 7 )
+
+[node name="ArmMoving" type="AudioStreamPlayer2D" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+stream = ExtResource( 2 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="ClawClosing" type="AudioStreamPlayer2D" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 3 )
+volume_db = 10.0
+bus = "Sounds"
+
+[node name="WaverClaws" type="AudioStreamPlayer2D" parent="ArmAnchor/HorizontalAnchor/VerticalAnchor/Hand"]
+stream = ExtResource( 1 )
+volume_db = -10.0
+bus = "Sounds"
+
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+[connection signal="body_entered" from="." to="." method="_on_PlayerRemover_body_entered"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
+[connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Assets/Images/Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/Player/Visor.png" type="Texture" id=2]
@@ -10,9 +10,16 @@
 [ext_resource path="res://Assets/Resources/Shaders/Flash.shader" type="Shader" id=8]
 [ext_resource path="res://Actors/Player/Explosion.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Actors/VisorLight.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Actors/Player/SlowTime.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Images/Player/AttackLine.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Images/Player/AttackEndLine.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sounds/Player/Sparks.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Actors/AudioPlayer/AudioPlayer.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Sounds/Player/TurningOn.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/Player/VisorUpdate.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Assets/Sounds/Player/Hit.ogg" type="AudioStream" id=18]
+[ext_resource path="res://Assets/Sounds/Particles/ElectricExplosion.ogg" type="AudioStream" id=19]
+[ext_resource path="res://Assets/Sounds/Player/GroundImpact.ogg" type="AudioStream" id=20]
+[ext_resource path="res://Assets/Sounds/Player/Jump.ogg" type="AudioStream" id=21]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -23,7 +30,7 @@ shader_param/flash_color = Color( 1, 0, 0, 1 )
 [sub_resource type="Animation" id=2]
 resource_name = "DeathHit"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Explosion:emitting")
+tracks/0/path = NodePath("Body/Visor:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -32,10 +39,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ 17 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/Visor:frame")
+tracks/1/path = NodePath("ElectricExplosion:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -44,7 +51,19 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 17 ]
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sounds/ElectricExplosion:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -85,6 +104,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.6
@@ -123,6 +154,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -163,6 +206,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=6]
 length = 0.6
@@ -189,6 +244,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 15, 16, 15, 16, 15, 16 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sounds/Hit:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -241,6 +308,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 2.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.6
@@ -279,6 +358,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -335,6 +426,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=11]
 tracks/0/type = "value"
@@ -360,6 +463,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 2.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sounds/TurningOn:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -400,6 +515,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.6
@@ -439,6 +566,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=14]
 length = 0.6
@@ -477,6 +616,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sounds/VisorUpdate:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -705,7 +856,7 @@ script = ExtResource( 6 )
 visible = false
 shape = SubResource( 46 )
 
-[node name="Explosion" parent="." instance=ExtResource( 9 )]
+[node name="ElectricExplosion" parent="." instance=ExtResource( 9 )]
 
 [node name="Sparks" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 7.5 )
@@ -778,6 +929,35 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VerticalDetector"]
 shape = SubResource( 49 )
 
-[node name="SlowTime" parent="." instance=ExtResource( 11 )]
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="DashImpact" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 20 )
+volume_db = 10.0
+
+[node name="ElectricExplosion" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 19 )
+volume_db = 10.0
+
+[node name="GroundImpact" parent="Sounds" instance=ExtResource( 15 )]
+position = Vector2( 0, 7.5 )
+stream = ExtResource( 20 )
+volume_db = 5.0
+
+[node name="Hit" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 18 )
+
+[node name="Jump" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 21 )
+volume_db = 5.0
+
+[node name="Sparks" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 14 )
+
+[node name="TurningOn" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 16 )
+
+[node name="VisorUpdate" parent="Sounds" instance=ExtResource( 15 )]
+stream = ExtResource( 17 )
 [connection signal="body_entered" from="HorizontalDetector" to="RayCasts" method="_on_HorizontalDetector_body_entered"]
 [connection signal="body_entered" from="VerticalDetector" to="RayCasts" method="_on_VerticalDetector_body_entered"]

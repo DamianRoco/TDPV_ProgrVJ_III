@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Refused.ogg-20857351d048cac137f95baa084a5ee2.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Scanner/Refused.ogg"
+dest_files=[ "res://.import/Refused.ogg-20857351d048cac137f95baa084a5ee2.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
